@@ -8,92 +8,102 @@
 
   <script type="text/javascript">
     var deters=[
-    {
-        "fr": "le ",
-        "fr_f": "la ",
-        "fr_before_vowel": "l'",
-        "quant": "deter",
-        "num": "sing",
-    },
-    {
-        "fr": "les ",
-        "quant": "deter",
-        "num": "plur",
-    },    
-    {
-        "fr": "des ",
-        "quant": "indet",
-        "num": "plur",
-    },    
-    {
-        // "fr": "du (1 part. indén. de) ",
-        "fr": "du ",
-        "fr_f": "de la ",
-        "fr_before_vowel": "de l'",
-        "quant": "indet",
-        "num": "sing",
-    },    
-    {
-        "fr": "trois ",
-        "eus": "hiru",
-        "quant": "ordin", 
-        "num": "plur",
-    },
-    {
-        "fr": "un ",
-        "fr_f": "une ",
-        "eus": "bat",
-        "quant": "ordin",
-        "num": "sing",
-    }
+        {
+            "fr": "le ",
+            "fr_f": "la ",
+            "fr_before_vowel": "l'",
+            "quant": "deter",
+            "num": "sing",
+        },
+        {
+            "fr": "les ",
+            "quant": "deter",
+            "num": "plur",
+        },    
+        {
+            "fr": "quelques ",
+            "quant": "indet",
+            "num": "plur",
+            "eus": "zenbait",
+        },    
+        {
+            // "fr": "du (1 part. indén. de) ",
+            "fr": "un peu de ",
+            "quant": "indet",
+            "num": "sing",
+            "eus": "gutxi",
+        },      
+        // {
+        //     // "fr": "du (1 part. indén. de) ",
+        //     "fr": "du ",
+        //     "fr_f": "de la ",
+        //     "fr_before_vowel": "de l'",
+        //     "quant": "indet",
+        //     "num": "sing",
+        // },    
+        {
+            "fr": "trois ",
+            "eus": "hiru",
+            "quant": "ordin", 
+            "num": "plur",
+        },
+        {
+            "fr": "un ",
+            "fr_f": "une ",
+            "eus": "bat",
+            "quant": "ordin",
+            "num": "sing",
+        }
 
     ];
 
     var pronoms=[{
-        "fr": "je",
-        "eus": "ni",
-        "fr_pers":0,
-    },
-    {
-        "fr": "tu",
-        "eus": "zu",
-        "fr_pers":1,
-    },
-    {
-        "fr": "elles",
-        "plur": true,
-        "fr_f": true,
-        "eus": "beraiek",
-        "fr_pers":5,
-    },
-    {
-        "fr": "elle",
-        "fr_f": true,
-        "eus": "bera",
-        "fr_pers":2,
-    },
-    ];
+            "fr": "je",
+            "eus": "ni",
+            "fr_pers":0,
+        },
+        {
+            "fr": "tu",
+            "eus": "zu",
+            "fr_pers":1,
+        },
+        {
+            "fr": "elles",
+            "plur": true,
+            "fr_f": true,
+            "eus": "beraiek",
+            "fr_pers":5,
+        },
+        {
+            "fr": "elle",
+            "fr_f": true,
+            "eus": "bera",
+            "fr_pers":2,
+        },
+        ];
 
     var verbs=[
-    {
-        "fr": "être",
-        "eus": "izan",
-        "fr_c":["suis","es","est","sommes","êtes","sont"],
-        "eus_c":[["naiz","zara","da","gara","zarete","dira"]],
-        "trans":false
-    },
-    {
-        "fr": "avoir",
-        "eus": "ukan",
-        "fr_c":["ai","as","a","avons","avez","ont"],
-        "eus_c":
-            [
-                ["dut","duzu","du","dugu","duzue","dute"],
-                ["ditut","dituzu","ditu","ditugu","dituzue","dituzte"]
-            ],
-        "trans":true
-    },
+        {
+            "fr": "être",
+            "eus": "izan",
+            "fr_c":["suis","es","est","sommes","êtes","sont"],
+            "eus_c":[["naiz","zara","da","gara","zarete","dira"]],
+            "trans":false
+        },
+        {
+            "fr": "avoir",
+            "eus": "ukan",
+            "fr_c":["ai","as","a","avons","avez","ont"],
+            "eus_c":
+                [
+                    ["dut","duzu","du","dugu","duzue","dute"],
+                    ["ditut","dituzu","ditu","ditugu","dituzue","dituzte"]
+                ],
+            "trans":true
+        },
+
     ];
+
   </script>
   <script type="text/javascript">
     var adjs=[
@@ -136,9 +146,9 @@
         "eus": "aste",
     },
     {
-        "fr": "fille",
+        "fr": "vérité",
         "fr_f": true,
-        "eus": "neska",
+        "eus": "egia",
     }
 
     ];
@@ -173,7 +183,7 @@
       $scope.target = "";
       $scope.target_chunks = {"name1":"", "ordin1":"", "adj1":"", "verb":"", "name2":"", "adj2":"", "ordin2":""};
 
-      $scope.message = " Écrire la traduction. Ici, de, du, de la (et des) = indéterminé(s)";
+      $scope.message = " Écrire la traduction. NB: l'ordre des mots n'est pas vérifié ici.";
 
       $scope.check = function() {
 
@@ -232,7 +242,7 @@
         $scope.shownHints=[];
         $scope.shown_verb_tab = false;
 
-        $scope.message = " Écrire la traduction. Ici, de, du, de la (et des) = indéterminé(s)";
+        $scope.message = " Écrire la traduction. NB: l'ordre des mots n'est pas vérifié ici.";
 
         $scope.target = "";
         $scope.target_chunks = {"name1":"", "suf_name1":"", "ordin1":"", "adj1":"", "verb":"", "name2":"", "suf_name2":"", "adj2":"", "ordin2":""};
@@ -276,15 +286,19 @@
               };
             } else {
               if (deters[iRandom_deter1].quant == "deter") $scope.target_chunks["suf_name1"]="ak";
+              if (deters[iRandom_deter1].quant == "indet") $scope.target_chunks["ordin1"]=deters[iRandom_deter1].eus;
             };
             if ("plur_fr" in name1) {$scope.name1 = name1.plur_fr;} else{$scope.name1 +="s";}
           } else{
             if (deters[iRandom_deter1].quant == "deter") $scope.target_chunks["suf_name1"]="a";
+            if (deters[iRandom_deter1].quant == "indet") $scope.target_chunks["ordin1"]=deters[iRandom_deter1].eus;
           };
           if (deters[iRandom_deter1].quant == "ordin") {
             $scope.hints.push(deters[iRandom_deter1]);
             $scope.target_chunks["ordin1"]=deters[iRandom_deter1].eus;
           }
+          if (deters[iRandom_deter1].quant == "indet") $scope.hints.push(deters[iRandom_deter1]);
+
           
 
 
@@ -427,6 +441,7 @@
               }
             } else {
               if (deters[iRandom_deter2].quant == "deter") $scope.target_chunks["suf_name2"]="ak";
+              if (deters[iRandom_deter2].quant == "indet") $scope.target_chunks["ordin2"]=deters[iRandom_deter2].eus;
             };
             if ("plur_fr" in name2) {$scope.name2 = name2.plur_fr;} else{$scope.name2 +="s";}
           } else {
@@ -435,7 +450,9 @@
               if ( (name1_is_pronom) || ( (!(name1_is_pronom)) && (iRandom_deter1!=iRandom_deter2) )) $scope.hints.push(deters[iRandom_deter2]);
               $scope.target_chunks["ordin2"]=deters[iRandom_deter2].eus;
             };
+            if (deters[iRandom_deter2].quant == "indet") $scope.target_chunks["ordin2"]=deters[iRandom_deter2].eus;
           };
+          if (deters[iRandom_deter2].quant == "indet") $scope.hints.push(deters[iRandom_deter2]);
 
 
           var iRandom_adj2 = Math.floor((Math.random() * (1+$scope.adjs.length)));
@@ -517,7 +534,7 @@
         var lastchar;
         var last_is_vowel;
 
-        if ($scope.target_chunks["ordin1"]=="bat"){
+        if (($scope.target_chunks["ordin1"]=="bat")||(($scope.target_chunks["ordin1"].length>0)&&(deters[iRandom_deter1].quant == "indet"))) {
           bat1=true;
           $scope.target+=$scope.target_chunks["name1"];
         } else {
@@ -567,8 +584,8 @@
         $scope.target+=" ";
 
         //GN2 ###################################################################################
-        // bat2 = false;
-        if ($scope.target_chunks["ordin2"]=="bat"){
+        // if ($scope.target_chunks["ordin2"]=="bat"){
+        if (($scope.target_chunks["ordin2"]=="bat")||(($scope.target_chunks["ordin2"].length>0)&&(deters[iRandom_deter2].quant == "indet"))) {
           bat2=true;
           $scope.target+=$scope.target_chunks["name2"];
         } else {
@@ -623,7 +640,7 @@
 
       };
 
-    
+      
     });
 
 
@@ -633,6 +650,8 @@
           // return (angular.isString(input) && input.length > 0) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : input;
         }
     });
+
+
 
   </script>
 
