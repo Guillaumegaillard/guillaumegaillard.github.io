@@ -28,11 +28,29 @@
         },    
         {
             // "fr": "du (1 part. indén. de) ",
-            "fr": "peu de ",
+            "fr": "peu d'un ",
+            "fr_f": "peu d'une ",
+            // "fr_before_vowel": "peu de l'",
+            // "fr": "peu de ",
             "quant": "indet",
             "num": "sing",
             "eus": "gutxi",
-        },      
+        },
+        {
+            // "fr": "du (1 part. indén. de) ",
+            "fr": "un petit nombre de ",
+            "quant": "indet",
+            "num": "plur",
+            "eus": "gutxi",
+        }, 
+        {
+            // "fr": "du (1 part. indén. de) ",
+            "fr": "une petite partie de ",
+            // "fr": "un peu de ",
+            "quant": "indet",
+            "num": "sing",
+            "eus": "pixka bat",
+        },          
         // {
         //     // "fr": "du (1 part. indén. de) ",
         //     "fr": "du ",
@@ -453,7 +471,10 @@
     				};
     				if (deters[iRandom_deter2].quant == "indet") $scope.target_chunks["ordin2"]=deters[iRandom_deter2].eus;
     			};
-    			if (deters[iRandom_deter2].quant == "indet") $scope.hints.push(deters[iRandom_deter2]);
+    			if (deters[iRandom_deter2].quant == "indet") {
+    				// $scope.hints.push(deters[iRandom_deter2]);
+    				if ( (name1_is_pronom) || ( (!(name1_is_pronom)) && (iRandom_deter1!=iRandom_deter2) )) $scope.hints.push(deters[iRandom_deter2]);
+    			}
     
     
     			var iRandom_adj2 = Math.floor((Math.random() * (1+$scope.adjs.length)));
@@ -755,7 +776,7 @@
 
       <ul>
         <li ng-repeat="x in shownHints">
-          {{ x.fr + ': ' + x.eus }}
+          {{ x.fr.trim() + ': ' + x.eus }}
         </li>
       </ul>
     </div>
@@ -774,7 +795,7 @@
     </div>
   </div>
     <div>
-      Ukan_Izan version 1.09
+      Ukan_Izan version 1.11
     </div>
 </div>
 </body>
