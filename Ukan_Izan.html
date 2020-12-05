@@ -39,6 +39,7 @@
         {
             // "fr": "du (1 part. indén. de) ",
             "fr": "un petit nombre de ",
+            "fr_before_vowel": "un petit nombre d'",
             "quant": "indet",
             "num": "plur",
             "eus": "gutxi",
@@ -46,6 +47,7 @@
         {
             // "fr": "du (1 part. indén. de) ",
             "fr": "une petite partie de ",
+            "fr_before_vowel": "une petite partie d'",
             // "fr": "un peu de ",
             "quant": "indet",
             "num": "sing",
@@ -124,52 +126,146 @@
     
   </script>
   <script type="text/javascript">
-    var adjs=[
-        {
-            "fr": "beau",
-            "plur_fr": "beaux",
-            "fr_f": "belle",
-            "eus": "polita",
-        },
-        {
-            "fr": "petit",
-            "eus": "txiki",
-        },
-        {
-            "fr": "grand",
-            "eus": "haundi",
-        }
-    
-    ];
-    
     var names=[
-        {
-            "fr": "Guillaume",
-            "plur_fr": "Guillaume",
-            "eus": "Guillaume",
-        },
-        {
-            "fr": "poisson",
-            "eus": "arrain",
-        },
-        {
-            "fr": "Sonia",
-            "plur_fr": "Sonia",
-            "fr_f": true,
-            "eus": "Sonia",
-        },
-        {
-            "fr": "semaine",
-            "fr_f": true,
-            "eus": "aste",
-        },
-        {
-            "fr": "vérité",
-            "fr_f": true,
-            "eus": "egia",
-        }
+        {'fr': '19 octobre 2020', "plur_fr": "19 octobre 2020", 'eus': '2020ko urriaren 19', 'word_id': 0},
+        {'fr': 'partie', "fr_f": true, 'eus': 'atal', 'word_id': 1, 'syns_fr': [102]},
+        {'fr': 'chapitre', 'eus': 'kapitulu', 'word_id': 2},
+        {'fr': 'flûte', "fr_f": true, 'eus': 'txistu', 'word_id': 3},
+        {'fr': 'alphabet', 'eus': 'alfabeto', 'word_id': 5},
+        {'fr': 'lettre', "fr_f": true, 'eus': 'letra', 'word_id': 6},
+        {'fr': 'mot', 'eus': 'hitz', 'word_id': 7},
+        {'fr': 'nom', 'eus': 'izen', 'word_id': 8},
+        {'fr': 'exemple', 'eus': 'adibide', 'word_id': 9},
+        {'fr': 'T mouillé', 'eus': 't soinu', 'word_id': 11},
+        {'fr': 'son', 'eus': 'soinu', 'word_id': 12},
+        {'fr': 'présentation', "fr_f": true, 'eus': 'aurkezpen', 'word_id': 14},
+        {'fr': 'vie', "fr_f": true, 'eus': 'bizi', 'word_id': 15},
+        {'fr': 'Bretagne', "fr_f": true, 'eus': 'Bretainia', 'word_id': 17},
+        {'fr': 'pardon', 'eus': 'barkatu', 'word_id': 36},
+        {'fr': 'regret', 'eus': 'damu', 'word_id': 37},
+        {'fr': 'merci', 'eus': 'eskerrik asko', 'word_id': 40},
+        {'fr': 'bien', 'eus': 'ongi', 'word_id': 48},
+        {'fr': 'mal', "plur_fr": "maux", 'eus': 'gaizki', 'word_id': 49},
+        {'fr': 'chien', 'eus': 'txakur', 'word_id': 50, 'syns_fr': [51]},
+        {'fr': 'flic', 'eus': 'txakur', 'word_id': 51, 'syns_fr': [50]},
+        {'fr': 'chanson', "fr_f": true, 'eus': 'kantore', 'word_id': 55},
+        {'fr': 'champignon', 'eus': 'onddo', 'word_id': 56},
+        {'fr': 'vocabulaire', 'eus': 'hiztegi', 'word_id': 57},
+        {'fr': 'jour', 'eus': 'egun', 'word_id': 59},
+        {'fr': 'mois', "plur_fr": "mois", 'eus': 'hilabete', 'word_id': 60},
+        {'fr': 'saison', "fr_f": true, 'eus': 'urtaro', 'word_id': 61},
+        {'fr': 'milieu', "plur_fr": "milieux", 'eus': 'arte', 'word_id': 63},
+        {'fr': 'moitié', "fr_f": true, 'eus': 'erdi', 'word_id': 64},
+        {'fr': 'surlendemain', 'eus': 'etzidamu', 'word_id': 72},
+        {'fr': 'météo', "fr_f": true, 'eus': 'eguraldi', 'word_id': 73},
+        {'fr': 'période', "fr_f": true, 'eus': 'aldi', 'word_id': 74, 'syns_fr': [75, 76]},
+        {'fr': 'fois', "plur_fr": "fois", "fr_f": true, 'eus': 'aldi', 'word_id': 75, 'syns_fr': [74, 76]},
+        {'fr': 'tour', 'eus': 'aldi', 'word_id': 76, 'syns_fr': [74, 75]},
+        {'fr': 'bûche', "fr_f": true, 'eus': 'egur', 'word_id': 77},
+        {'fr': 'vent', 'eus': 'haize', 'word_id': 78},
+        {'fr': 'neige', "fr_f": true, 'eus': 'elur', 'word_id': 79},
+        {'fr': 'pluie', "fr_f": true, 'eus': 'euri', 'word_id': 80},
+        {'fr': 'soleil', 'eus': 'eguski', 'word_id': 87, 'syns_eus': [124]},
+        {'fr': 'dieu du soleil', "plur_fr": "dieux du soleil", 'eus': 'Eki', 'word_id': 123},
+        {'fr': 'soleil', 'eus': 'eki', 'word_id': 124, 'syns_eus': [87]},
+        {'fr': 'nuage', 'eus': 'hodei', 'word_id': 88},
+        {'fr': 'éclaircie', "fr_f": true, 'eus': 'ostarte', 'word_id': 89},
+        {'fr': 'tâche', "fr_f": true, 'eus': 'ari', 'word_id': 90, 'syns_fr': [91, 92]},
+        {'fr': 'ocupation', "fr_f": true, 'eus': 'ari', 'word_id': 91, 'syns_fr': [90, 92]},
+        {'fr': 'travail', "plur_fr": "travaux", 'eus': 'ari', 'word_id': 92, 'syns_fr': [90, 91]},
+        {'fr': 'brouillard bas', "plur_fr": "brouillards bas", 'eus': 'behe-laino', 'word_id': 93},
+        {'fr': 'ciel dégagé', "plur_fr": "cieux dégagés", 'eus': 'oskarbi', 'word_id': 95},
+        {'fr': 'pont', 'eus': 'zubi', 'word_id': 96},
+        {'fr': 'arc-en-ciel', 'eus': 'erromako zubi', 'word_id': 97, 'syns_eus': [99]},
+        {'fr': 'corne', "fr_f": true, 'eus': 'adar', 'word_id': 98},
+        {'fr': 'arc-en-ciel', 'eus': 'ortzadar', 'word_id': 99, 'syns_eus': [97]},
+        {'fr': 'lumière', "fr_f": true, 'eus': 'argi', 'word_id': 100},
+        {'fr': 'lune', "fr_f": true, 'eus': 'ilargi', 'word_id': 101},
+        {'fr': 'phase', "fr_f": true, 'eus': 'atal', 'word_id': 102, 'syns_fr': [1]},
+        {'fr': 'pleine lune', "plur_fr": "pleines lunes", "fr_f": true, 'eus': 'ilbete', 'word_id': 103},
+        {'fr': 'lune descendante', "plur_fr": "lunes descendantes", "fr_f": true, 'eus': 'ilbehera', 'word_id': 104},
+        {'fr': 'nouvelle lune', "plur_fr": "nouvelles lunes", "fr_f": true, 'eus': 'ilberri', 'word_id': 105},
+        {'fr': 'lune montante', "plur_fr": "lunes montantes", "fr_f": true, 'eus': 'ilgora', 'word_id': 106},
+        {'fr': 'averse', "fr_f": true, 'eus': 'zaparrada', 'word_id': 107},
+        {'fr': 'bruine', "fr_f": true, 'eus': 'zirimiri', 'word_id': 108, 'syns_fr': [109]},
+        {'fr': 'pluie fine', "plur_fr": "pluies fines", "fr_f": true, 'eus': 'zirimiri', 'word_id': 109, 'syns_fr': [108]},
+        {'fr': 'grêle', "fr_f": true, 'eus': 'kazkabar', 'word_id': 110},
+        {'fr': 'bourrasque', "fr_f": true, 'eus': 'bisuts', 'word_id': 111},
+        {'fr': 'crachin', 'eus': 'lanbro', 'word_id': 112},
+        {'fr': 'brume', "fr_f": true, 'eus': 'langar', 'word_id': 113},
+        // {'fr': 'brume et crachin', 'eus': 'langar-laino', 'word_id': 114},
+        {'fr': 'feu', "plur_fr": "feux", 'eus': 'su', 'word_id': 117},
+        {'fr': 'dieu du ciel', "plur_fr": "dieux des cieux", 'eus': 'Ortzi', 'word_id': 120},
+        {'fr': 'ciel', "plur_fr": "cieux", 'eus': 'ortzi', 'word_id': 121, 'syns_fr': [122]},
+        {'fr': 'tonnerre', 'eus': 'ortzi', 'word_id': 122, 'syns_fr': [121]},
+        {'fr': 'récolte', "fr_f": true, 'eus': 'uzta', 'word_id': 125},
+        {'fr': 'fougère', "fr_f": true, 'eus': 'iratze', 'word_id': 127},
+        {'fr': 'loup', 'eus': 'otso', 'word_id': 128},
+        {'fr': 'chou', "plur_fr": "choux", 'eus': 'aza', 'word_id': 129},
+        {'fr': 'applaudissement', 'eus': 'txalo', 'word_id': 130, 'syns_fr': [131]},
+        {'fr': 'bravo', 'eus': 'txalo', 'word_id': 131, 'syns_fr': [130]},
+        {'fr': 'jour de fête', "plur_fr": "jours fériés", 'eus': 'jaiegun', 'word_id': 132, 'syns_fr': [133]},
+        {'fr': 'jour férié', "plur_fr": "jours fériés", 'eus': 'jaiegun', 'word_id': 133, 'syns_fr': [132]},
+        {'fr': 'doute', 'eus': 'zalantza', 'word_id': 134},
+        {'fr': 'étudiant', 'eus': 'ikasle', 'word_id': 136},
+        {'fr': 'professeur', 'eus': 'irakasle', 'word_id': 137},
+        {'fr': 'exercice', 'eus': 'ariketa', 'word_id': 138},
+        {'fr': 'question', "fr_f": true, 'eus': 'galdera', 'word_id': 139},
+        {'fr': 'réponse', "fr_f": true, 'eus': 'erantzun', 'word_id': 140},
+        {'fr': 'verbe', 'eus': 'aditz', 'word_id': 141},
+        {'fr': 'vérité', "fr_f": true, 'eus': 'egia', 'word_id': 142},
+        {'fr': 'mensonge', 'eus': 'gezur', 'word_id': 145},
+        {'fr': 'négation', "fr_f": true, 'eus': 'ezezko', 'word_id': 149},
+        {'fr': 'garçon', 'eus': 'mutil', 'word_id': 151},
+        {'fr': 'fille', "fr_f": true, 'eus': 'neska', 'word_id': 152},
+        {'fr': 'pluriel', 'eus': 'plural', 'word_id': 148},
+        {'fr': 'au revoir', "plur_fr": "au revoir", 'eus': 'agur', 'word_id': 22},
+        {'fr': 'après-midi', 'eus': 'arratsalde', 'word_id': 27},
+        {'fr': "s'il te plaît", "plur_fr": "s'il te plaît", 'eus': 'mesedez', 'word_id': 38, 'syns_fr': [338], 'syns_eus': [39]},
+        {'fr': "s'il te plaît", "plur_fr": "s'il te plaît", 'eus': 'otoi', 'word_id': 39, 'syns_fr': [339], 'syns_eus': [38]},
+        {'fr': "s'il vous plaît", "plur_fr": "s'il vous plaît", 'eus': 'mesedez', 'word_id': 338, 'syns_fr': [39], 'syns_eus': [39]},
+        {'fr': "s'il vous plaît", "plur_fr": "s'il vous plaît", 'eus': 'otoi', 'word_id': 339, 'syns_fr': [39], 'syns_eus': [38]},
+        {'fr': 'lendemain', 'eus': 'bihar', 'word_id': 69},
+        {'fr': 'froid', 'eus': 'hotz', 'word_id': 81},
+        {'fr': 'chaleur', "fr_f": true, 'eus': 'bero', 'word_id': 82},
+        {'fr': 'premier', 'eus': 'lehen', 'word_id': 62},
+        {'fr': 'dernier', 'eus': 'azken', 'word_id': 65},    
+        {"fr": "Guillaume", "plur_fr": "Guillaume", "eus": "Guillaume"},
+        {"fr": "poisson", "eus": "arrain"},
+        {"fr": "Sonia", "plur_fr": "Sonia", "fr_f": true, "eus": "Sonia"},
+        {"fr": "semaine", "fr_f": true, "eus": "aste", 'word_id': 58}
     
     ];
+    //"fr_f_plur"
+    
+    var adjs=[
+        {'fr': 'négatif', 'fr_post': true, "fr_f": "négative", 'eus': 'ezezko', 'word_id': 150},
+        {'fr': 'facile', 'fr_post': true, "fr_f": "facile", 'eus': 'erraz', 'word_id': 147},
+        {'fr': 'difficile', 'fr_post': true, "fr_f": "difficile", 'eus': 'zail', 'word_id': 146},
+        {'fr': 'vrai', 'eus': 'egia', 'word_id': 143},
+        {'fr': 'faux', "plur_fr": "faux", "fr_f": "fausse", 'eus': 'gezur', 'word_id': 144},
+        {'fr': 'vivant', 'fr_post': true, 'eus': 'bizi', 'word_id': 16},
+        {'fr': 'premier', "fr_f": "première", 'eus': 'lehen', 'word_id': 62},
+        {'fr': 'dernier', "fr_f": "dernière", 'eus': 'azken', 'word_id': 65},
+        {'fr': 'bon', "fr_f": "bonne", 'eus': 'on', 'word_id': 84},
+        {'fr': 'mauvais', "plur_fr": "mauvais", 'eus': 'txar', 'word_id': 85, 'syns_fr': [86]},
+        {'fr': 'moche', 'fr_post': true, "fr_f": "moche", 'eus': 'txar', 'word_id': 86, 'syns_fr': [85]},
+        {'fr': 'bas', "plur_fr": "bas", "fr_f": "basse", 'eus': 'behe', 'word_id': 94},
+        {'fr': 'mouillé', 'fr_post': true, 'eus': 'busti', 'word_id': 115, 'syns_fr': [116]},
+        {'fr': 'humide', 'fr_post': true, "fr_f": "humide", "fr_h_mute":true, 'eus': 'busti', 'word_id': 116, 'syns_fr': [115]},
+        {'fr': 'peu abondant', 'fr_post': true, 'eus': 'urri', 'word_id': 126},
+        {'fr': 'froid', 'fr_post': true, 'eus': 'hotz', 'word_id': 81},
+        {'fr': 'chaud', 'fr_post': true, 'eus': 'bero', 'word_id': 82},
+        {"fr": "beau", "fr_before_vowel": "bel", "plur_fr": "beaux", "fr_f": "belle", "eus": "polita"},
+        {"fr": "petit","eus": "txiki"},
+        {"fr": "grand", "eus": "haundi"},
+        {'fr': 'habituel', 'fr_post': true, "fr_f": "habituelle", "fr_h_mute":true, 'eus': 'ohiko', 'word_id': 0},
+        {'fr': 'obligatoire', 'fr_post': true, "fr_f": "obligatoire", 'eus': 'beharrezko', 'word_id': 1},
+        {'fr': 'lent', 'fr_post': true, 'eus': 'motel', 'word_id': 2}
+    ];
+    
+    // {'fr': "d'accord", 'eus': 'ados', 'word_id': 135},
+    
   </script>
   <script type="text/javascript">
     var app = angular.module('myApp', []);
@@ -201,6 +297,7 @@
     	$scope.target_chunks = {"name1":"", "ordin1":"", "adj1":"", "verb":"", "name2":"", "adj2":"", "ordin2":""};
     
     	$scope.message = " Écrire la traduction. NB: l'ordre des mots n'est pas vérifié ici.";
+    	$scope.fr_phrase = ""
     
     	$scope.check = function() {
     
@@ -260,6 +357,7 @@
     		$scope.shown_verb_tab = false;
     
     		$scope.message = " Écrire la traduction. NB: l'ordre des mots n'est pas vérifié ici.";
+    		$scope.fr_phrase = ""
     
     		$scope.target = "";
     		$scope.target_chunks = {"name1":"", "suf_name1":"", "ordin1":"", "adj1":"", "verb":"", "name2":"", "suf_name2":"", "adj2":"", "ordin2":""};
@@ -289,6 +387,7 @@
     
     
     		if (!(name1_is_pronom)) {
+    
     			var iRandom_deter1 = Math.floor((Math.random() * ($scope.deters.length)));
     			if (name1.fr_f && "fr_f" in deters[iRandom_deter1]) {
     				$scope.deter1 = deters[iRandom_deter1].fr_f;
@@ -318,11 +417,12 @@
     
     			
     
-    
     			var iRandom_adj1 = Math.floor((Math.random() * (1+$scope.adjs.length)));
-    			if (iRandom_adj1 == 0) {
+    			if ((iRandom_adj1 == 0)||((iRandom_adj1>0)&&(adjs[iRandom_adj1-1].fr_post))) {
+    				
     				$scope.adj1 = "";
-    				if ((deters[iRandom_deter1].num == "sing") && ($scope.name1.match(vowelRegex)) && ("fr_before_vowel" in deters[iRandom_deter1])) {
+    				// if ((deters[iRandom_deter1].num == "sing") && (($scope.name1.match(vowelRegex))||name1.fr_h_mute) && ("fr_before_vowel" in deters[iRandom_deter1])) {
+    				if ((($scope.name1.match(vowelRegex))||name1.fr_h_mute) && ("fr_before_vowel" in deters[iRandom_deter1])) {
     					$scope.deter1 = deters[iRandom_deter1].fr_before_vowel;
     				};
     				if ($scope.name1.charAt(0)==$scope.name1.charAt(0).toUpperCase()) {				
@@ -333,7 +433,8 @@
     					}
     
     				};
-    			} else {
+    			};
+    			if (iRandom_adj1>0) {
     				if (deters[iRandom_deter1].num == "plur") {
     					if (name1.fr_f) {
     						if ("fr_f_plur" in adjs[iRandom_adj1-1]) {
@@ -353,8 +454,15 @@
     						if ("fr_f" in adjs[iRandom_adj1-1]) {
     							$scope.adj1 = adjs[iRandom_adj1-1].fr_f;
     						} else {$scope.adj1 = adjs[iRandom_adj1-1].fr+"e";}
-    					} else {$scope.adj1 = adjs[iRandom_adj1-1].fr;};
-    					if (($scope.adj1.match(vowelRegex)) && ("fr_before_vowel" in deters[iRandom_deter1])) {
+    					} else {
+    						if ((($scope.name1.match(vowelRegex))||(name1.fr_h_mute)) && ("fr_before_vowel" in adjs[iRandom_adj1-1])) {
+    							$scope.adj1 = adjs[iRandom_adj1-1].fr_before_vowel;
+    						} else {
+    							$scope.adj1 = adjs[iRandom_adj1-1].fr;};
+    						};
+    				};
+    				if (!(adjs[iRandom_adj1-1].fr_post)){
+    					if ((($scope.adj1.match(vowelRegex))||(adjs[iRandom_adj1-1].fr_h_mute)) && ("fr_before_vowel" in deters[iRandom_deter1])) {
     						$scope.deter1 = deters[iRandom_deter1].fr_before_vowel;
     					};
     				};
@@ -385,7 +493,7 @@
     		// $scope.verb = infinitif.fr;
     		$scope.verb = infinitif.fr_c[pers];
     
-    		if ((pers == 0) && ($scope.verb.match(vowelRegex))) {
+    		if ((pers == 0) && (($scope.verb.match(vowelRegex))||(infinitif.fr_h_mute))) {
     			$scope.name1 = "j'";
     		} else {
     			$scope.name1 += " ";			
@@ -477,10 +585,14 @@
     			}
     
     
+    
+    
     			var iRandom_adj2 = Math.floor((Math.random() * (1+$scope.adjs.length)));
-    			if (iRandom_adj2 == 0) {
+    			// if (iRandom_adj2 == 0) {
+    			if ((iRandom_adj2 == 0)||((iRandom_adj2>0)&&(adjs[iRandom_adj2-1].fr_post))) {
     				$scope.adj2 = "";
-    				if ((deters[iRandom_deter2].num == "sing") && ($scope.name2.match(vowelRegex)) && ("fr_before_vowel" in deters[iRandom_deter2])) {
+    				// if ((deters[iRandom_deter2].num == "sing") && (($scope.name2.match(vowelRegex))||(name2.fr_h_mute)) && ("fr_before_vowel" in deters[iRandom_deter2])) {
+    				if ((($scope.name2.match(vowelRegex))||(name2.fr_h_mute)) && ("fr_before_vowel" in deters[iRandom_deter2])) {
     					$scope.deter2 = deters[iRandom_deter2].fr_before_vowel;
     				};
     				if ($scope.name2.charAt(0)==$scope.name2.charAt(0).toUpperCase()) {
@@ -490,7 +602,8 @@
     						// if ($scope.target_chunks["suf_name2"]=="a") $scope.target_chunks["suf_name1"]="";
     					}
     				};
-    			} else {
+    			};
+    			if (iRandom_adj2>0) {
     				if (deters[iRandom_deter2].num == "plur") {
     					if (name2.fr_f) {
     						if ("fr_f_plur" in adjs[iRandom_adj2-1]) {
@@ -510,8 +623,16 @@
     						if ("fr_f" in adjs[iRandom_adj2-1]) {
     							$scope.adj2 = adjs[iRandom_adj2-1].fr_f;
     						} else {$scope.adj2 = adjs[iRandom_adj2-1].fr+"e";}
-    					} else {$scope.adj2 = adjs[iRandom_adj2-1].fr;};
-    					if (($scope.adj2.match(vowelRegex)) && ("fr_before_vowel" in deters[iRandom_deter2])) {
+    					} else {
+    						if ((($scope.name2.match(vowelRegex))||(name2.fr_h_mute)) && ("fr_before_vowel" in adjs[iRandom_adj2-1])) {
+    							$scope.adj2 = adjs[iRandom_adj2-1].fr_before_vowel;
+    						} else {
+    							$scope.adj2 = adjs[iRandom_adj2-1].fr;
+    						};
+    					};
+    				};
+    				if (!(adjs[iRandom_adj2-1].fr_post)){
+    					if ((($scope.adj2.match(vowelRegex))||(adjs[iRandom_adj2-1].fr_h_mute)) && ("fr_before_vowel" in deters[iRandom_deter2])) {
     						$scope.deter2 = deters[iRandom_deter2].fr_before_vowel;
     					};
     				};
@@ -522,7 +643,30 @@
     			}
     		};
     
-    		
+    
+    		///////// PREPARE THE FRENCH SENTENCE TO TRANSLATE		
+    
+    		$scope.fr_phrase = $scope.deter1;
+    		if (($scope.adj1.length>0) && (!(adjs[iRandom_adj1-1].fr_post))) {
+    			$scope.fr_phrase += $scope.adj1;
+    		};
+    		$scope.fr_phrase += $scope.name1;
+    		if (($scope.adj1.length>0) && (adjs[iRandom_adj1-1].fr_post)) {
+    			$scope.fr_phrase += $scope.adj1;
+    		};
+    		$scope.fr_phrase += $scope.verb;
+    		$scope.fr_phrase += " ";
+    		$scope.fr_phrase += $scope.deter2;
+    		if (($scope.adj2.length>0) && (!(adjs[iRandom_adj2-1].fr_post))) {
+    			$scope.fr_phrase += $scope.adj2;
+    		};
+    		$scope.fr_phrase += $scope.name2;
+    		if (($scope.adj2.length>0) && (adjs[iRandom_adj2-1].fr_post)) {
+    			$scope.fr_phrase += " ";
+    			$scope.fr_phrase += $scope.adj2;
+    		};
+    		$scope.fr_phrase=$scope.fr_phrase.trim();
+    
     
     
     		///////// CHANGE SUFFIXES OF GN1 IF NORK
@@ -758,7 +902,8 @@
 <body role="document">
   <div class="container theme-showcase" role="main">
     <div ng-controller="myCtrl" ng-init="newTest()">
-      <h1>Test : {{deter1 + adj1 + name1 + verb  +" "+ deter2+ adj2 + name2 + "." | capitalize}}</h1>
+      <!-- <h1>Test : {{deter1 + adj1 + name1 + verb  +" "+ deter2+ adj2 + name2 + "." | capitalize}}</h1> -->
+      <h1>Test : {{fr_phrase + "." | capitalize}}</h1>
   	
       <button ng-click="newTest()">Nouveau</button>
       <button ng-click="newHint()">Aide Vocabulaire</button>
@@ -795,7 +940,7 @@
     </div>
   </div>
     <div>
-      Ukan_Izan version 1.11
+      Ukan_Izan version 1.12
     </div>
 </div>
 </body>
