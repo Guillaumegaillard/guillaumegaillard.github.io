@@ -211,10 +211,10 @@
         {'fr': 'pluriel', 'eus': 'plural', 'word_id': 148},
         {'fr': 'au revoir', "plur_fr": "au revoir", 'eus': 'agur', 'word_id': 22},
         {'fr': 'après-midi', "plur_fr": "après-midi", 'eus': 'arratsalde', 'word_id': 27},
-        {'fr': "s'il te plaît", "plur_fr": "s'il te plaît", 'eus': 'mesedez', 'word_id': 38, 'syns_fr': [338], 'syns_eus': [39]},
-        {'fr': "s'il te plaît", "plur_fr": "s'il te plaît", 'eus': 'otoi', 'word_id': 39, 'syns_fr': [339], 'syns_eus': [38]},
-        {'fr': "s'il vous plaît", "plur_fr": "s'il vous plaît", 'eus': 'mesedez', 'word_id': 338, 'syns_fr': [39], 'syns_eus': [39]},
-        {'fr': "s'il vous plaît", "plur_fr": "s'il vous plaît", 'eus': 'otoi', 'word_id': 339, 'syns_fr': [39], 'syns_eus': [38]},
+        {'fr': "s'il te plaît", "plur_fr": "s'il te plaît", 'eus': 'mesedez', 'word_id': 41, 'syns_fr': [43], 'syns_eus': [42]},
+        {'fr': "s'il te plaît", "plur_fr": "s'il te plaît", 'eus': 'otoi', 'word_id': 42, 'syns_fr': [44], 'syns_eus': [41]},
+        {'fr': "s'il vous plaît", "plur_fr": "s'il vous plaît", 'eus': 'mesedez', 'word_id': 43, 'syns_fr': [41], 'syns_eus': [44]},
+        {'fr': "s'il vous plaît", "plur_fr": "s'il vous plaît", 'eus': 'otoi', 'word_id': 44, 'syns_fr': [42], 'syns_eus': [43]},
         {'fr': 'lendemain', 'eus': 'bihar', 'word_id': 69},
         {'fr': 'froid', 'eus': 'hotz', 'word_id': 81},
         {'fr': 'chaleur', "fr_f": true, 'eus': 'bero', 'word_id': 82},
@@ -650,11 +650,13 @@
     			name2_is_adj=true;
     			var iRandom_adj2 = Math.floor((Math.random() * ($scope.adjs.length)));
     			name2 = adjs[iRandom_adj2];
-    			if (!("word_id" in name2)){
-    				if (iRandom_adj2!=iRandom_adj1-1) $scope.hints.push(name2);
-    			} else {
-    				var index = $scope.hints.findIndex(x => x.word_id==name2.word_id); 
-    				if (index === -1) $scope.hints.push(name2);
+    			if (iRandom_adj2!=iRandom_adj1-1) {
+    				if (!("word_id" in name2)){
+    					$scope.hints.push(name2);
+    				} else {
+    					var index = $scope.hints.findIndex(x => x.word_id==name2.word_id); 
+    					if (index === -1) $scope.hints.push(name2);
+    				}
     			};
     
     
@@ -692,11 +694,13 @@
     			name2 = names[iRandom_name2-1];
     			$scope.name2 = name2.fr;
     			
-    			if (!("word_id" in name2)){
-    				if (iRandom_name2!=iRandom_name1) $scope.hints.push(name2);
-    			} else {
-    				var index = $scope.hints.findIndex(x => x.word_id==name2.word_id); 
-    				if (index === -1) $scope.hints.push(name2);
+    			if (iRandom_name2!=iRandom_name1) {
+    				if (!("word_id" in name2)){
+    					$scope.hints.push(name2);
+    				} else {
+    					var index = $scope.hints.findIndex(x => x.word_id==name2.word_id); 
+    					if (index === -1) $scope.hints.push(name2);
+    				}
     			};
     			// if (iRandom_name2!=iRandom_name1) $scope.hints.push(name2);
     		};
@@ -893,11 +897,13 @@
     				};
     				$scope.adj2+=" "
     				// if (iRandom_adj2!=iRandom_adj1) $scope.hints.push(adjs[iRandom_adj2-1]);
-    				if ("word_id" in adjs[iRandom_adj2-1]) {
-    					var index = $scope.hints.findIndex(x => x.word_id==adjs[iRandom_adj2-1].word_id); 
-    					if (index === -1) $scope.hints.push(adjs[iRandom_adj2-1]);
-    				} else {
-    					$scope.hints.push(adjs[iRandom_adj2-1]);
+    				if (iRandom_adj2!=iRandom_adj1) {
+    					if ("word_id" in adjs[iRandom_adj2-1]) {
+    						var index = $scope.hints.findIndex(x => x.word_id==adjs[iRandom_adj2-1].word_id); 
+    						if (index === -1) $scope.hints.push(adjs[iRandom_adj2-1]);
+    					} else {
+    						$scope.hints.push(adjs[iRandom_adj2-1]);
+    					}
     				};
     
     
@@ -1252,7 +1258,7 @@
     </div>
   </div>
     <div>
-      Ukan_Izan version 1.15
+      Ukan_Izan version 1.16
     </div>
 </div>
 </body>
