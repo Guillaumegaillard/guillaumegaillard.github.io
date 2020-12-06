@@ -118,13 +118,13 @@
   <script type="text/javascript">
     var names=[
         {'fr': '19 octobre 2020', "plur_fr": "19 octobre 2020", 'eus': '2020ko urriaren 19', 'word_id': 0},
-        {'fr': 'partie', "fr_f": true, 'eus': 'atal', 'word_id': 1, 'syns_fr': [102]},
-        {'fr': 'chapitre', 'eus': 'kapitulu', 'word_id': 2},
-        {'fr': 'flûte', "fr_f": true, 'eus': 'txistu', 'word_id': 3},
-        {'fr': 'alphabet', 'eus': 'alfabeto', 'word_id': 5},
-        {'fr': 'lettre', "fr_f": true, 'eus': 'letra', 'word_id': 6},
-        {'fr': 'mot', 'eus': 'hitz', 'word_id': 7},
-        {'fr': 'nom', 'eus': 'izen', 'word_id': 8},
+        {'fr': 'partie', "fr_f": true, 'eus': 'atal', 'word_id': 203, 'syns_fr': [102]},
+        {'fr': 'chapitre', 'eus': 'kapitulu', 'word_id': 204},
+        {'fr': 'flûte', "fr_f": true, 'eus': 'txistu', 'word_id': 205},
+        {'fr': 'alphabet', 'eus': 'alfabeto', 'word_id': 206},
+        {'fr': 'lettre', "fr_f": true, 'eus': 'letra', 'word_id': 207},
+        {'fr': 'mot', 'eus': 'hitz', 'word_id': 208},
+        {'fr': 'nom', 'eus': 'izen', 'word_id': 209},
         {'fr': 'exemple', 'eus': 'adibide', 'word_id': 9},
         {'fr': 'T mouillé', 'eus': 't soinu', 'word_id': 11},
         {'fr': 'son', 'eus': 'soinu', 'word_id': 12},
@@ -171,7 +171,7 @@
         {'fr': 'arc-en-ciel', 'eus': 'ortzadar', 'word_id': 99, 'syns_eus': [97]},
         {'fr': 'lumière', "fr_f": true, 'eus': 'argi', 'word_id': 100},
         {'fr': 'lune', "fr_f": true, 'eus': 'ilargi', 'word_id': 101},
-        {'fr': 'phase', "fr_f": true, 'eus': 'atal', 'word_id': 102, 'syns_fr': [1]},
+        {'fr': 'phase', "fr_f": true, 'eus': 'atal', 'word_id': 102, 'syns_fr': [203]},
         {'fr': 'pleine lune', "plur_fr": "pleines lunes", "fr_f": true, 'eus': 'ilbete', 'word_id': 103},
         {'fr': 'lune descendante', "plur_fr": "lunes descendantes", "fr_f": true, 'eus': 'ilbehera', 'word_id': 104},
         {'fr': 'nouvelle lune', "plur_fr": "nouvelles lunes", "fr_f": true, 'eus': 'ilberri', 'word_id': 105},
@@ -265,8 +265,8 @@
         {'fr': 'vrai', 'eus': 'egia', 'word_id': 143},
         {'fr': 'faux', "plur_fr": "faux", "fr_f": "fausse", 'eus': 'gezur', 'word_id': 144},
         {'fr': 'vivant', 'fr_post': true, 'eus': 'bizi', 'word_id': 16},
-        {'fr': 'premier', "fr_f": "première", 'eus': 'lehen', 'word_id': 62},
-        {'fr': 'dernier', "fr_f": "dernière", 'eus': 'azken', 'word_id': 65},
+        {'fr': 'premier', "fr_f": "première", 'eus': 'lehen', 'word_id': 162},
+        {'fr': 'dernier', "fr_f": "dernière", 'eus': 'azken', 'word_id': 165},
         {'fr': 'bon', "fr_f": "bonne", 'eus': 'on', 'word_id': 84},
         {'fr': 'mauvais', "plur_fr": "mauvais", 'eus': 'txar', 'word_id': 85, 'syns_fr': [86]},
         {'fr': 'moche', 'fr_post': true, "fr_f": "moche", 'eus': 'txar', 'word_id': 86, 'syns_fr': [85]},
@@ -279,9 +279,9 @@
         {"fr": "beau", "fr_before_vowel": "bel", "plur_fr": "beaux", "fr_f": "belle", "eus": "polita"},
         {"fr": "petit","eus": "txiki"},
         {"fr": "grand", "eus": "haundi"},
-        {'fr': 'habituel', 'fr_post': true, "fr_f": "habituelle", "fr_h_mute":true, 'eus': 'ohiko', 'word_id': 0},
-        {'fr': 'obligatoire', 'fr_post': true, "fr_f": "obligatoire", 'eus': 'beharrezko', 'word_id': 1},
-        {'fr': 'lent', 'fr_post': true, 'eus': 'motel', 'word_id': 2}
+        {'fr': 'habituel', 'fr_post': true, "fr_f": "habituelle", "fr_h_mute":true, 'eus': 'ohiko', 'word_id': 166},
+        {'fr': 'obligatoire', 'fr_post': true, "fr_f": "obligatoire", 'eus': 'beharrezko', 'word_id': 167},
+        {'fr': 'lent', 'fr_post': true, 'eus': 'motel', 'word_id': 168}
     ];
     
     // {'fr': "d'accord", 'eus': 'ados', 'word_id': 135},
@@ -296,6 +296,7 @@
     	$scope.adjs = adjs;
     	$scope.pronoms = pronoms;
     	$scope.shown_verb_tab = false;
+    	$scope.shown_solutions = false;
     
     	$scope.deter1 = "";
     	$scope.adj1="";
@@ -312,35 +313,40 @@
     	$scope.shownHints = [];
     	$scope.num_hints = 0;
     
+    	$scope.targets = [""];
     	$scope.target = "";
-    	$scope.target_chunks = {"name1":"", "ordin1":"", "adj1":"", "verb":"", "name2":"", "adj2":"", "ordin2":""};
+    	$scope.target_chunks = [{"name1":"", "ordin1":"", "adj1":"", "verb":"", "name2":"", "adj2":"", "ordin2":""}];
     
     	$scope.message = " Écrire la traduction. NB: l'ordre des mots n'est pas vérifié ici.";
     	$scope.fr_phrase = ""
     
     	$scope.check = function() {
     
-    		var form_input=$scope.client_input.toLowerCase().replace(" .","").replace(".","").replace(/  /g," ").split(" ").sort();
-    		var form_target=$scope.target.toLowerCase().replace(".","").split(" ").sort();
+    		var sol_id=0;
+    		var num_sols = $scope.targets.length;
+    		for (sol_id; sol_id < num_sols ; sol_id ++) {
     
-    		var is_same=true;
-    		var i = form_target.length;
-    		if (i!=form_input.length) {
-    			is_same= false;
-    		} else {
-    			while (i--) {
-    			    if (form_input[i] !== form_target[i]) is_same= false;
-    			};			
+    			var form_input=$scope.client_input.toLowerCase().replace(" .","").replace(".","").replace(/  /g," ").split(" ").sort();
+    			var form_target=$scope.targets[sol_id].toLowerCase().replace(".","").split(" ").sort();
+    
+    			var is_same=true;
+    			var i = form_target.length;
+    			if (i!=form_input.length) {
+    				is_same= false;
+    			} else {
+    				while (i--) {
+    				    if (form_input[i] !== form_target[i]) is_same= false;
+    				};			
+    			};
+    
+    			// console.log("input chunks: " + form_input);
+    			// console.log("target chunks: " + form_target);
+    
+    			// if ($scope.client_input == $scope.target)
+    			// if (form_input == form_target)
+    			if (is_same) return 1;
     		};
-    
-    		// console.log("input chunks: " + form_input);
-    		// console.log("target chunks: " + form_target);
-    
-    		// if ($scope.client_input == $scope.target)
-    		// if (form_input == form_target)
-    		if (is_same)
-    			return 1;
-    		else return 0;
+    		return 0;
     	};
     
     	$scope.validate = function($event) {
@@ -374,14 +380,18 @@
     		$scope.num_hints = 0;
     		$scope.shownHints=[];
     		$scope.shown_verb_tab = false;
+    		$scope.shown_solutions = false;
     
     		$scope.message = " Écrire la traduction. NB: l'ordre des mots n'est pas vérifié ici.";
     		$scope.fr_phrase = ""
     
+    		$scope.targets = [""];
     		$scope.target = "";
-    		$scope.target_chunks = {"name1":"", "suf_name1":"", "ordin1":"", "adj1":"", "verb":"", "name2":"", "suf_name2":"", "adj2":"", "ordin2":""};
+    		$scope.target_chunks = [{"name1":"", "suf_name1":"", "ordin1":"", "adj1":"", "verb":"", "name2":"", "suf_name2":"", "adj2":"", "ordin2":""}];
+    		var target_len=$scope.targets.length;
+    		var i;
     
-    		var vowelRegex = '^[aieouAIEOUéèêÊÉÈËëÜü].*'; //TODO: French H muda
+    		var vowelRegex = '^[aieouAIEOUéèêÊÉÈËëÜü].*'; 
     
     
     		//////// NAME GROUP 1
@@ -402,8 +412,45 @@
     
     		$scope.name1 = name1.fr;
     		$scope.hints.push(name1);
-    		$scope.target_chunks["name1"]=name1.eus;
+    		for (i = 0; i < target_len; i++) { 
+    			$scope.target_chunks[i]["name1"]=name1.eus;
+    		}
     
+    		if ("syns_eus" in name1){
+    			var syn_id=0;
+    			var num_syns = name1.syns_eus.length;
+    			for (syn_id; syn_id < num_syns ; syn_id ++) {
+    				// find the syn
+    				var word;
+    				if (name1_is_pronom) {
+    					for (word of $scope.pronoms) {
+    						if (("word_id" in word) && (word.word_id==name1.syns_eus[syn_id])) {
+    							// console.log(word.eus);
+    							break;
+    						}
+    					}
+    				} else {
+    					for (word of $scope.names){
+    						if (("word_id" in word) && (word.word_id==name1.syns_eus[syn_id])) {
+    							// console.log(word.eus);
+    							break;
+    						}
+    					}
+    				};
+    
+    				var index = $scope.hints.findIndex(x => x.word_id==word.word_id); 
+    				if (index === -1) $scope.hints.push(word);
+    
+    				for (i = 0; i < target_len; i++) { 
+    					$scope.targets.push("");
+    					$scope.target_chunks.push(Object.create($scope.target_chunks[i]));
+    					$scope.target_chunks[(syn_id+1)*target_len+i]["name1"]=word.eus;
+    					// $scope.target_chunks[i]["name1"]=name1.eus;
+    				}
+    			}
+    		};
+    
+    		target_len=$scope.targets.length;
     
     
     		if (!(name1_is_pronom)) {
@@ -418,24 +465,62 @@
     				if (deters[iRandom_deter1].quant == "ordin") {
     					if (Math.floor((Math.random() *2))>0) {
     						$scope.deter1 = "les "+$scope.deter1;
-    						$scope.target_chunks["suf_name1"]="ak";
+    						for (i = 0; i < target_len; i++) { 
+    							$scope.target_chunks[i]["suf_name1"]="ak";
+    						};
+    						// $scope.target_chunks["suf_name1"]="ak";
     					};
     				} else {
-    					if (deters[iRandom_deter1].quant == "deter") $scope.target_chunks["suf_name1"]="ak";
-    					if (deters[iRandom_deter1].quant == "indet") $scope.target_chunks["ordin1"]=deters[iRandom_deter1].eus;
+    					for (i = 0; i < target_len; i++) { 
+    						if (deters[iRandom_deter1].quant == "deter") $scope.target_chunks[i]["suf_name1"]="ak";
+    						if (deters[iRandom_deter1].quant == "indet") $scope.target_chunks[i]["ordin1"]=deters[iRandom_deter1].eus;
+    					}
     				};
     				if ("plur_fr" in name1) {$scope.name1 = name1.plur_fr;} else{$scope.name1 +="s";}
     			} else{
-    				if (deters[iRandom_deter1].quant == "deter") $scope.target_chunks["suf_name1"]="a";
-    				if (deters[iRandom_deter1].quant == "indet") $scope.target_chunks["ordin1"]=deters[iRandom_deter1].eus;
+    				for (i = 0; i < target_len; i++) { 
+    					if (deters[iRandom_deter1].quant == "deter") $scope.target_chunks[i]["suf_name1"]="a";
+    					if (deters[iRandom_deter1].quant == "indet") $scope.target_chunks[i]["ordin1"]=deters[iRandom_deter1].eus;
+    				}
     			};
     			if (deters[iRandom_deter1].quant == "ordin") {
     				$scope.hints.push(deters[iRandom_deter1]);
-    				$scope.target_chunks["ordin1"]=deters[iRandom_deter1].eus;
+    				// TODO: deters may have syns_eus => ordin or fake ordin, e.g. gutxi, huts; Others?
+    				for (i = 0; i < target_len; i++) { 
+    					$scope.target_chunks[i]["ordin1"]=deters[iRandom_deter1].eus;
+    				};
+    
+    				if ("syns_eus" in deters[iRandom_deter1]){
+    					var syn_id=0;
+    					var num_syns = deters[iRandom_deter1].syns_eus.length;
+    					for (syn_id; syn_id < num_syns ; syn_id ++) {
+    						// find the syn
+    						var word;
+    						for (word of deters) {
+    							if (("word_id" in word) && (word.word_id==deters[iRandom_deter1].syns_eus[syn_id])) {
+    								// console.log(word.eus);
+    								break;
+    							}
+    						};
+    
+    						var index = $scope.hints.findIndex(x => x.word_id==word.word_id); 
+    						if (index === -1) $scope.hints.push(word);
+    
+    						for (i = 0; i < target_len; i++) { 
+    							$scope.targets.push("");
+    							$scope.target_chunks.push(Object.create($scope.target_chunks[i]));
+    							$scope.target_chunks[(syn_id+1)*target_len+i]["ordin1"]=word.eus;
+    							// $scope.target_chunks[i]["name1"]=name1.eus;
+    						}
+    					}
+    				};
+    
+    
+    
     			}
     			if (deters[iRandom_deter1].quant == "indet") $scope.hints.push(deters[iRandom_deter1]);
     
-    			
+    			target_len=$scope.targets.length;
     
     			var iRandom_adj1 = Math.floor((Math.random() * (1+$scope.adjs.length)));
     			if ((iRandom_adj1 == 0)||((iRandom_adj1>0)&&(adjs[iRandom_adj1-1].fr_post))) {
@@ -490,11 +575,42 @@
     				};
     				$scope.adj1+=" ";
     				$scope.hints.push(adjs[iRandom_adj1-1]);
-    				$scope.target_chunks["adj1"]=adjs[iRandom_adj1-1].eus;
+    
+    				// $scope.target_chunks["adj1"]=adjs[iRandom_adj1-1].eus;
+    				for (i = 0; i < target_len; i++) { 
+    					$scope.target_chunks[i]["adj1"]=adjs[iRandom_adj1-1].eus;
+    				};
+    
+    				if ("syns_eus" in adjs[iRandom_adj1-1]){
+    					var syn_id=0;
+    					var num_syns = adjs[iRandom_adj1-1].syns_eus.length;
+    					for (syn_id; syn_id < num_syns ; syn_id ++) {
+    						// find the syn
+    						var word;
+    						for (word of adjs) {
+    							if (("word_id" in word) && (word.word_id==adjs[iRandom_adj1-1].syns_eus[syn_id])) {
+    								// console.log(word.eus);
+    								break;
+    							}
+    						};
+    
+    						var index = $scope.hints.findIndex(x => x.word_id==word.word_id); 
+    						if (index === -1) $scope.hints.push(word);
+    
+    						for (i = 0; i < target_len; i++) { 
+    							$scope.targets.push("");
+    							$scope.target_chunks.push(Object.create($scope.target_chunks[i]));
+    							$scope.target_chunks[(syn_id+1)*target_len+i]["adj1"]=word.eus;
+    							// $scope.target_chunks[i]["name1"]=name1.eus;
+    						}
+    					}
+    				};
+    
     
     			}
     		};
     
+    		target_len=$scope.targets.length;
     
     		//////// VERB
     		var iRandom_verb = Math.floor((Math.random() * $scope.verbs.length));
@@ -534,7 +650,12 @@
     			name2_is_adj=true;
     			var iRandom_adj2 = Math.floor((Math.random() * ($scope.adjs.length)));
     			name2 = adjs[iRandom_adj2];
-    			if (iRandom_adj2!=iRandom_adj1-1) $scope.hints.push(name2);
+    			if (!("word_id" in name2)){
+    				if (iRandom_adj2!=iRandom_adj1-1) $scope.hints.push(name2);
+    			} else {
+    				var index = $scope.hints.findIndex(x => x.word_id==name2.word_id); 
+    				if (index === -1) $scope.hints.push(name2);
+    			};
     
     
     			if ((name1_is_pronom && name1.fr_pers>2) || (!(name1_is_pronom) && deters[iRandom_deter1].num == "plur")) {
@@ -551,14 +672,18 @@
     						$scope.name2 = name2.plur_fr;
     					} else {$scope.name2 = name2.fr+"s";}
     				};
-    				$scope.target_chunks["suf_name2"]="ak";
+    				for (i = 0; i < target_len; i++) { 
+    					$scope.target_chunks[i]["suf_name2"]="ak";
+    				};
     			} else {
     				if (name1.fr_f) {
     					if ("fr_f" in name2) {
     						$scope.name2 = name2.fr_f;
     					} else {$scope.name2 = name2.fr+"e";}
     				} else {$scope.name2 = name2.fr;};
-    				$scope.target_chunks["suf_name2"]="a";
+    				for (i = 0; i < target_len; i++) { 
+    					$scope.target_chunks[i]["suf_name2"]="a";
+    				};
     			}
     			// $scope.target_chunks["suf_name2"]=$scope.target_chunks["suf_name1"];
     
@@ -566,10 +691,56 @@
     			name2_is_adj=false;
     			name2 = names[iRandom_name2-1];
     			$scope.name2 = name2.fr;
-    			if (iRandom_name2!=iRandom_name1) $scope.hints.push(name2);
+    			
+    			if (!("word_id" in name2)){
+    				if (iRandom_name2!=iRandom_name1) $scope.hints.push(name2);
+    			} else {
+    				var index = $scope.hints.findIndex(x => x.word_id==name2.word_id); 
+    				if (index === -1) $scope.hints.push(name2);
+    			};
+    			// if (iRandom_name2!=iRandom_name1) $scope.hints.push(name2);
     		};
     
-    		$scope.target_chunks["name2"]=name2.eus;
+    		for (i = 0; i < target_len; i++) {
+    			$scope.target_chunks[i]["name2"]=name2.eus;
+    		};
+    		if ("syns_eus" in name2){
+    			var syn_id=0;
+    			var num_syns = name2.syns_eus.length;
+    			for (syn_id; syn_id < num_syns ; syn_id ++) {
+    				// find the syn
+    				var word;
+    				if (name2_is_adj) {
+    					for (word of adjs) {
+    						if (("word_id" in word) && (word.word_id==name2.syns_eus[syn_id])) {
+    							// console.log(word.eus);
+    							break;
+    						}
+    					}
+    				} else {
+    					for (word of $scope.names){
+    						if (("word_id" in word) && (word.word_id==name2.syns_eus[syn_id])) {
+    							// console.log(word.eus);
+    							break;
+    						}
+    					}
+    				};
+    
+    				var index = $scope.hints.findIndex(x => x.word_id==word.word_id); 
+    				if (index === -1) $scope.hints.push(word);
+    
+    				for (i = 0; i < target_len; i++) { 
+    					$scope.targets.push("");
+    					$scope.target_chunks.push(Object.create($scope.target_chunks[i]));
+    					$scope.target_chunks[(syn_id+1)*target_len+i]["name2"]=word.eus;
+    					// $scope.target_chunks[i]["name1"]=name1.eus;
+    				}
+    			}
+    		};
+    
+    		target_len=$scope.targets.length;
+    
+    
     
     
     		if (!(name2_is_adj)) {
@@ -581,33 +752,93 @@
     			}
     			if (deters[iRandom_deter2].num == "plur") {
     				if (deters[iRandom_deter2].quant == "ordin") {
-    					$scope.target_chunks["ordin2"]=deters[iRandom_deter2].eus;
-    					if ( (name1_is_pronom) || ( (!(name1_is_pronom)) && (iRandom_deter1!=iRandom_deter2) )) $scope.hints.push(deters[iRandom_deter2]);
+    					for (i = 0; i < target_len; i++) { 
+    						$scope.target_chunks[i]["ordin2"]=deters[iRandom_deter2].eus;
+    					};
+    					if ( (name1_is_pronom) || ( (!(name1_is_pronom)) && (iRandom_deter1!=iRandom_deter2) )) {
+    						if ("word_id" in deters[iRandom_deter2]) {
+    							var index = $scope.hints.findIndex(x => x.word_id==deters[iRandom_deter2].word_id); 
+    							if (index === -1) $scope.hints.push(deters[iRandom_deter2]);
+    						} else {
+    							$scope.hints.push(deters[iRandom_deter2]);
+    						}
+    					};
     
     					if (Math.floor((Math.random() *2))>0) {
     						$scope.deter2 = "les "+$scope.deter2;
-    						$scope.target_chunks["suf_name2"]="ak";
+    						for (i = 0; i < target_len; i++) { 
+    							$scope.target_chunks[i]["suf_name2"]="ak";
+    						};
     					}
     				} else {
-    					if (deters[iRandom_deter2].quant == "deter") $scope.target_chunks["suf_name2"]="ak";
-    					if (deters[iRandom_deter2].quant == "indet") $scope.target_chunks["ordin2"]=deters[iRandom_deter2].eus;
+    					for (i = 0; i < target_len; i++) { 
+    						if (deters[iRandom_deter2].quant == "deter") $scope.target_chunks[i]["suf_name2"]="ak";
+    						if (deters[iRandom_deter2].quant == "indet") $scope.target_chunks[i]["ordin2"]=deters[iRandom_deter2].eus;
+    					};
     				};
     				if ("plur_fr" in name2) {$scope.name2 = name2.plur_fr;} else{$scope.name2 +="s";}
     			} else {
-    				if (deters[iRandom_deter2].quant == "deter") $scope.target_chunks["suf_name2"]="a";
-    				if (deters[iRandom_deter2].quant == "ordin") {
-    					if ( (name1_is_pronom) || ( (!(name1_is_pronom)) && (iRandom_deter1!=iRandom_deter2) )) $scope.hints.push(deters[iRandom_deter2]);
-    					$scope.target_chunks["ordin2"]=deters[iRandom_deter2].eus;
+    				for (i = 0; i < target_len; i++) { 
+    					if (deters[iRandom_deter2].quant == "deter") $scope.target_chunks[i]["suf_name2"]="a";
     				};
-    				if (deters[iRandom_deter2].quant == "indet") $scope.target_chunks["ordin2"]=deters[iRandom_deter2].eus;
+    				if (deters[iRandom_deter2].quant == "ordin") {
+    					if ( (name1_is_pronom) || ( (!(name1_is_pronom)) && (iRandom_deter1!=iRandom_deter2) )) {
+    						if ("word_id" in deters[iRandom_deter2]) {
+    							var index = $scope.hints.findIndex(x => x.word_id==deters[iRandom_deter2].word_id); 
+    							if (index === -1) $scope.hints.push(deters[iRandom_deter2]);
+    						} else {
+    							$scope.hints.push(deters[iRandom_deter2]);
+    						}
+    					};
+    					for (i = 0; i < target_len; i++) { 
+    						$scope.target_chunks[i]["ordin2"]=deters[iRandom_deter2].eus;
+    					};
+    				};
+    				for (i = 0; i < target_len; i++) { 
+    					if (deters[iRandom_deter2].quant == "indet") $scope.target_chunks[i]["ordin2"]=deters[iRandom_deter2].eus;
+    				};
     			};
     			if (deters[iRandom_deter2].quant == "indet") {
     				// $scope.hints.push(deters[iRandom_deter2]);
-    				if ( (name1_is_pronom) || ( (!(name1_is_pronom)) && (iRandom_deter1!=iRandom_deter2) )) $scope.hints.push(deters[iRandom_deter2]);
-    			}
+    				if ( (name1_is_pronom) || ( (!(name1_is_pronom)) && (iRandom_deter1!=iRandom_deter2) )) {
+    					if ("word_id" in deters[iRandom_deter2]) {
+    						var index = $scope.hints.findIndex(x => x.word_id==deters[iRandom_deter2].word_id); 
+    						if (index === -1) $scope.hints.push(deters[iRandom_deter2]);
+    					} else {
+    						$scope.hints.push(deters[iRandom_deter2]);
+    					};
+    				};
+    			};
     
+    			if (deters[iRandom_deter2].quant == "ordin") {
+    				// TODO: deters may have syns_eus => ordin or fake ordin, e.g. gutxi, huts; Others? gutxi not considered
+    				if ("syns_eus" in deters[iRandom_deter2]){
+    					var syn_id=0;
+    					var num_syns = deters[iRandom_deter2].syns_eus.length;
+    					for (syn_id; syn_id < num_syns ; syn_id ++) {
+    						// find the syn
+    						var word;
+    						for (word of deters) {
+    							if (("word_id" in word) && (word.word_id==deters[iRandom_deter2].syns_eus[syn_id])) {
+    								// console.log(word.eus);
+    								break;
+    							}
+    						};
     
+    						var index = $scope.hints.findIndex(x => x.word_id==word.word_id); 
+    						if (index === -1) $scope.hints.push(word);
     
+    						for (i = 0; i < target_len; i++) { 
+    							$scope.targets.push("");
+    							$scope.target_chunks.push(Object.create($scope.target_chunks[i]));
+    							$scope.target_chunks[(syn_id+1)*target_len+i]["ordin2"]=word.eus;
+    							// $scope.target_chunks[i]["name1"]=name1.eus;
+    						}
+    					}
+    				};
+    			};
+    
+    			target_len=$scope.targets.length;
     
     			var iRandom_adj2 = Math.floor((Math.random() * (1+$scope.adjs.length)));
     			// if (iRandom_adj2 == 0) {
@@ -661,12 +892,50 @@
     					};
     				};
     				$scope.adj2+=" "
-    				if (iRandom_adj2!=iRandom_adj1) $scope.hints.push(adjs[iRandom_adj2-1]);
-    				$scope.target_chunks["adj2"]=adjs[iRandom_adj2-1].eus;
+    				// if (iRandom_adj2!=iRandom_adj1) $scope.hints.push(adjs[iRandom_adj2-1]);
+    				if ("word_id" in adjs[iRandom_adj2-1]) {
+    					var index = $scope.hints.findIndex(x => x.word_id==adjs[iRandom_adj2-1].word_id); 
+    					if (index === -1) $scope.hints.push(adjs[iRandom_adj2-1]);
+    				} else {
+    					$scope.hints.push(adjs[iRandom_adj2-1]);
+    				};
+    
+    
+    
+    				// $scope.target_chunks["adj2"]=adjs[iRandom_adj2-1].eus;
+    				for (i = 0; i < target_len; i++) { 
+    					$scope.target_chunks[i]["adj2"]=adjs[iRandom_adj2-1].eus;
+    				};
+    
+    				if ("syns_eus" in adjs[iRandom_adj2-1]){
+    					var syn_id=0;
+    					var num_syns = adjs[iRandom_adj2-1].syns_eus.length;
+    					for (syn_id; syn_id < num_syns ; syn_id ++) {
+    						// find the syn
+    						var word;
+    						for (word of adjs) {
+    							if (("word_id" in word) && (word.word_id==adjs[iRandom_adj2-1].syns_eus[syn_id])) {
+    								// console.log(word.eus);
+    								break;
+    							}
+    						};
+    
+    						var index = $scope.hints.findIndex(x => x.word_id==word.word_id); 
+    						if (index === -1) $scope.hints.push(word);
+    
+    						for (i = 0; i < target_len; i++) { 
+    							$scope.targets.push("");
+    							$scope.target_chunks.push(Object.create($scope.target_chunks[i]));
+    							$scope.target_chunks[(syn_id+1)*target_len+i]["adj2"]=word.eus;
+    							// $scope.target_chunks[i]["name1"]=name1.eus;
+    						}
+    					}
+    				};
     
     			}
     		};
     
+    		target_len=$scope.targets.length;
     
     		///////// PREPARE THE FRENCH SENTENCE TO TRANSLATE		
     
@@ -694,150 +963,158 @@
     
     
     		///////// CHANGE SUFFIXES OF GN1 IF NORK
-    		if (infinitif.trans) {
-    			if (deters[iRandom_deter2].num == "plur") pers_COD = 1;
-    			if ($scope.target_chunks["suf_name1"]=="ak") $scope.target_chunks["suf_name1"]="ek";
-    			if ($scope.target_chunks["suf_name1"]=="a") $scope.target_chunks["suf_name1"]="ak";
-    			if ($scope.target_chunks["suf_name1"]=="") $scope.target_chunks["suf_name1"]="k";
-    			if (name1_is_pronom) $scope.target_chunks["suf_name1"]="k";			
-    		};
-    		$scope.target_chunks["verb"]=infinitif.eus_c[pers_COD][pers];
-    
-    		// console.log("target chunks: " + $scope.target_chunks["name1"]);
-    		// console.log("target chunks: " + $scope.target_chunks["suf_name1"]);
-    		// console.log("target chunks: " + $scope.target_chunks["ordin1"]);
-    		// console.log("target chunks: " + $scope.target_chunks["adj1"]);
-    		// console.log("target chunks: " + $scope.target_chunks["verb"]);
-    		// console.log("target chunks: " + $scope.target_chunks["name2"]);
-    		// console.log("target chunks: " + $scope.target_chunks["suf_name2"]);
-    		// console.log("target chunks: " + $scope.target_chunks["adj2"]);
-    		// console.log("target chunks: " + $scope.target_chunks["ordin2"]);
-    
-    
-    		///////// GATHER THE BASQUE
-    
-    		//GN1
-    		// ordin goes first
-    		// then name
-    		// except bat
-    		var bat1 = false;
-    		var bat2 = false;
-    		var lastchar;
-    		var last_is_vowel;
-    
-    
-    		var name1_is_last_and_proper_noun = name1_is_proper_noun;
-    		var name2_is_last_and_proper_noun = name2_is_proper_noun;
-    
-    		
-    
-    		if (($scope.target_chunks["ordin1"]=="bat")||(($scope.target_chunks["ordin1"].length>0)&&(deters[iRandom_deter1].quant == "indet"))) {
-    			bat1=true;
-    			$scope.target+=$scope.target_chunks["name1"];
-    			name1_is_last_and_proper_noun=false;
-    		} else {
-    			if ($scope.target_chunks["ordin1"].length > 0){
-    				$scope.target+=$scope.target_chunks["ordin1"];
-    				$scope.target+=" ";
+    		for (i = 0; i < target_len; i++) { 
+    			$scope.target="";
+    			if (infinitif.trans) {
+    				if (deters[iRandom_deter2].num == "plur") pers_COD = 1;
+    				if ($scope.target_chunks[i]["suf_name1"]=="ak") $scope.target_chunks[i]["suf_name1"]="ek";
+    				if ($scope.target_chunks[i]["suf_name1"]=="a") $scope.target_chunks[i]["suf_name1"]="ak";
+    				if ($scope.target_chunks[i]["suf_name1"]=="") $scope.target_chunks[i]["suf_name1"]="k";
+    				if (name1_is_pronom) $scope.target_chunks[i]["suf_name1"]="k";			
     			};
-    			$scope.target+=$scope.target_chunks["name1"];
-    		};
-    		
-    		// adj bears suffix unless bat
-    		if ($scope.target_chunks["adj1"].length > 0){
-    			name1_is_last_and_proper_noun=false;
-    			$scope.target+=" ";
-    			$scope.target+=$scope.target_chunks["adj1"];
-    		};
+    			$scope.target_chunks[i]["verb"]=infinitif.eus_c[pers_COD][pers];
     
-    		if (bat1) {
-    			$scope.target+=" ";
-    			$scope.target+=$scope.target_chunks["ordin1"];			
-    		};
+    			// console.log("target chunks: " + $scope.target_chunks[i]["name1"]);
+    			// console.log("target chunks: " + $scope.target_chunks[i]["suf_name1"]);
+    			// console.log("target chunks: " + $scope.target_chunks[i]["ordin1"]);
+    			// console.log("target chunks: " + $scope.target_chunks[i]["adj1"]);
+    			// console.log("target chunks: " + $scope.target_chunks[i]["verb"]);
+    			// console.log("target chunks: " + $scope.target_chunks[i]["name2"]);
+    			// console.log("target chunks: " + $scope.target_chunks[i]["suf_name2"]);
+    			// console.log("target chunks: " + $scope.target_chunks[i]["adj2"]);
+    			// console.log("target chunks: " + $scope.target_chunks[i]["ordin2"]);
     
-    		if ($scope.target_chunks["suf_name1"].length > 0){
     
-    			// pronom +k (trans) except if already a k (zuek, beraiek) 
-    			if ((name1_is_pronom) && ($scope.target.slice(-1)!="k") ) {
-    				$scope.target+=$scope.target_chunks["suf_name1"];
+    			///////// GATHER THE BASQUE
+    
+    			//GN1
+    			// ordin goes first
+    			// then name
+    			// except bat
+    			var bat1 = false;
+    			var bat2 = false;
+    			var lastchar;
+    			var last_is_vowel;
+    
+    
+    			var name1_is_last_and_proper_noun = name1_is_proper_noun;
+    			var name2_is_last_and_proper_noun = name2_is_proper_noun;
+    
+    			
+    
+    			if (($scope.target_chunks[i]["ordin1"]=="bat")||(($scope.target_chunks[i]["ordin1"].length>0)&&(deters[iRandom_deter1].quant == "indet"))) {
+    				bat1=true;
+    				$scope.target+=$scope.target_chunks[i]["name1"];
+    				name1_is_last_and_proper_noun=false;
     			} else {
-    				if (!(name1_is_pronom)){
-    					lastchar=$scope.target.slice(-1);
-    					if (name1_is_last_and_proper_noun){
-    						if ($scope.target_chunks["suf_name1"]=="a") $scope.target_chunks["suf_name1"]="";
-    						// if ($scope.target_chunks["suf_name1"]=="ak") $scope.target_chunks["suf_name1"]="ak";
-    						if (infinitif.trans) {
-    							if ($scope.target_chunks["suf_name1"]=="ak") $scope.target_chunks["suf_name1"]="k";
-    						}
-    						if (($scope.target_chunks["suf_name1"]=="ak")&&(lastchar=="a")) $scope.target_chunks["suf_name1"]="k";
-    						if ($scope.target_chunks["suf_name1"]=="ek") $scope.target_chunks["suf_name1"]="k"; //TODO: check that (Guillaumeek?)
-    						// if ($scope.target_chunks["suf_name1"]=="k") $scope.target_chunks["suf_name1"]="k";
+    				if ($scope.target_chunks[i]["ordin1"].length > 0){
+    					$scope.target+=$scope.target_chunks[i]["ordin1"];
+    					$scope.target+=" ";
+    				};
+    				$scope.target+=$scope.target_chunks[i]["name1"];
+    			};
+    			
+    			// adj bears suffix unless bat
+    			if ($scope.target_chunks[i]["adj1"].length > 0){
+    				name1_is_last_and_proper_noun=false;
+    				$scope.target+=" ";
+    				$scope.target+=$scope.target_chunks[i]["adj1"];
+    			};
     
-    					};
-    					if ($scope.target_chunks["suf_name1"].length > 0){
-    						last_is_vowel= (lastchar.match(vowelRegex));
+    			if (bat1) {
+    				$scope.target+=" ";
+    				$scope.target+=$scope.target_chunks[i]["ordin1"];			
+    			};
     
-    						// +r if r
-    						if (lastchar=="r") $scope.target+="r";
+    			if ($scope.target_chunks[i]["suf_name1"].length > 0){
     
-    						// +e if indet conson + ergative (k)
-    						if ($scope.target_chunks["suf_name1"]=="k") {
-    							if (!(last_is_vowel)) $scope.target+="e";
-    							$scope.target+="k";
-    						// else -a if already a + suf
-    						} else {
-    							if ((lastchar=="a")&&(!(name1_is_last_and_proper_noun))) $scope.target=$scope.target.slice(0,-1);
-    							$scope.target+=$scope.target_chunks["suf_name1"];
-    						}
+    				// pronom +k (trans) except if already a k (zuek, beraiek) 
+    				if (name1_is_pronom) {
+    					if ($scope.target.slice(-4)=="hura") $scope.target=$scope.target.slice(0,-4)+"hark";
+    					if ($scope.target.slice(-1)!="k") $scope.target+=$scope.target_chunks[i]["suf_name1"];
+    				} else {
+    					if (!(name1_is_pronom)){
+    						lastchar=$scope.target.slice(-1);
+    						if (name1_is_last_and_proper_noun){
+    							if ($scope.target_chunks[i]["suf_name1"]=="a") $scope.target_chunks[i]["suf_name1"]="";
+    							// if ($scope.target_chunks[i]["suf_name1"]=="ak") $scope.target_chunks[i]["suf_name1"]="ak";
+    							if (infinitif.trans) {
+    								if ($scope.target_chunks[i]["suf_name1"]=="ak") $scope.target_chunks[i]["suf_name1"]="k";
+    							}
+    							if (($scope.target_chunks[i]["suf_name1"]=="ak")&&(lastchar=="a")) $scope.target_chunks[i]["suf_name1"]="k";
+    							if ($scope.target_chunks[i]["suf_name1"]=="ek") $scope.target_chunks[i]["suf_name1"]="k"; //TODO: check that (Guillaumeek?)
+    							// if ($scope.target_chunks[i]["suf_name1"]=="k") $scope.target_chunks[i]["suf_name1"]="k";
+    
+    						};
+    						if ($scope.target_chunks[i]["suf_name1"].length > 0){
+    							last_is_vowel= (lastchar.match(vowelRegex));
+    
+    							// +r if r
+    							if (lastchar=="r") $scope.target+="r";
+    
+    							// +e if indet conson + ergative (k)
+    							if ($scope.target_chunks[i]["suf_name1"]=="k") {
+    								if (!(last_is_vowel)) $scope.target+="e";
+    								$scope.target+="k";
+    							// else -a if already a + suf
+    							} else {
+    								if ((lastchar=="a")&&(!(name1_is_last_and_proper_noun))) $scope.target=$scope.target.slice(0,-1);
+    								$scope.target+=$scope.target_chunks[i]["suf_name1"];
+    							}
+    						};
     					};
     				};
     			};
-    		};
-    		$scope.target+=" ";
+    			$scope.target+=" ";
     
-    		//GN2 ###################################################################################
-    		// if ($scope.target_chunks["ordin2"]=="bat"){
-    		if (($scope.target_chunks["ordin2"]=="bat")||(($scope.target_chunks["ordin2"].length>0)&&(deters[iRandom_deter2].quant == "indet"))) {
-    			bat2=true;
-    			$scope.target+=$scope.target_chunks["name2"];
-    			name2_is_last_and_proper_noun=false;
-    		} else {
-    			if ($scope.target_chunks["ordin2"].length > 0){
-    				$scope.target+=$scope.target_chunks["ordin2"];
+    			//GN2 ###################################################################################
+    			// if ($scope.target_chunks[i]["ordin2"]=="bat"){
+    			if (($scope.target_chunks[i]["ordin2"]=="bat")||(($scope.target_chunks[i]["ordin2"].length>0)&&(deters[iRandom_deter2].quant == "indet"))) {
+    				bat2=true;
+    				$scope.target+=$scope.target_chunks[i]["name2"];
+    				name2_is_last_and_proper_noun=false;
+    			} else {
+    				if ($scope.target_chunks[i]["ordin2"].length > 0){
+    					$scope.target+=$scope.target_chunks[i]["ordin2"];
+    					$scope.target+=" ";
+    				};
+    				$scope.target+=$scope.target_chunks[i]["name2"];
+    			};
+    			
+    			if ($scope.target_chunks[i]["adj2"].length > 0){
+    				name2_is_last_and_proper_noun=false;
     				$scope.target+=" ";
+    				$scope.target+=$scope.target_chunks[i]["adj2"];
     			};
-    			$scope.target+=$scope.target_chunks["name2"];
-    		};
-    		
-    		if ($scope.target_chunks["adj2"].length > 0){
-    			name2_is_last_and_proper_noun=false;
+    			if (bat2) {
+    				$scope.target+=" ";
+    				$scope.target+=$scope.target_chunks[i]["ordin2"];			
+    			};
+    
+    			if ($scope.target_chunks[i]["suf_name2"].length > 0){
+    				lastchar=$scope.target.slice(-1);
+    				if (name2_is_last_and_proper_noun){
+    					if ($scope.target_chunks[i]["suf_name2"]=="a") $scope.target_chunks[i]["suf_name2"]="";
+    					if (($scope.target_chunks[i]["suf_name2"]=="ak")&&(lastchar=="a")) $scope.target_chunks[i]["suf_name2"]="k";
+    				};
+    				if ($scope.target_chunks[i]["suf_name2"].length > 0){
+    					if (lastchar=="r") $scope.target+="r";
+    					if ((!(name2_is_last_and_proper_noun))&&(lastchar=="a")) $scope.target=$scope.target.slice(0,-1);
+    					$scope.target+=$scope.target_chunks[i]["suf_name2"];
+    				};
+    			};
+    
+    			// verb
     			$scope.target+=" ";
-    			$scope.target+=$scope.target_chunks["adj2"];
-    		};
-    		if (bat2) {
-    			$scope.target+=" ";
-    			$scope.target+=$scope.target_chunks["ordin2"];			
-    		};
+    			$scope.target+=$scope.target_chunks[i]["verb"];
+    			$scope.target+=".";
     
-    		if ($scope.target_chunks["suf_name2"].length > 0){
-    			lastchar=$scope.target.slice(-1);
-    			if (name2_is_last_and_proper_noun){
-    				if ($scope.target_chunks["suf_name2"]=="a") $scope.target_chunks["suf_name2"]="";
-    				if (($scope.target_chunks["suf_name2"]=="ak")&&(lastchar=="a")) $scope.target_chunks["suf_name2"]="k";
-    			};
-    			if ($scope.target_chunks["suf_name2"].length > 0){
-    				if (lastchar=="r") $scope.target+="r";
-    				if ((!(name2_is_last_and_proper_noun))&&(lastchar=="a")) $scope.target=$scope.target.slice(0,-1);
-    				$scope.target+=$scope.target_chunks["suf_name2"];
-    			};
+    			$scope.client_input = "";
+    			$scope.num_hints=$scope.hints.length;
+    
+    			$scope.targets[i]=$scope.target;
     		};
     
-    		// verb
-    		$scope.target+=" ";
-    		$scope.target+=$scope.target_chunks["verb"];
-    
-    		$scope.client_input = "";
-    		$scope.num_hints=$scope.hints.length;
     
     	};
     
@@ -851,7 +1128,7 @@
     	};
     
     	$scope.correction = function(){
-    		$scope.message = $scope.target+".";
+    		$scope.shown_solutions = true;		
     	};
     
     	$scope.show_verb_tab = function(){
@@ -940,6 +1217,17 @@
       	&nbsp;{{message | capitalize}}
       </p>
 
+    <div ng-show="shown_solutions">
+      <label>Solution(s) :</label>
+
+      <ul>
+        <li ng-repeat="x in targets track by $index ">
+          {{ x | capitalize }}
+        </li>
+      </ul>
+    </div>
+
+
     <div>
       <label>Encore {{num_hints}} aides voca possibles...</label>
 
@@ -964,7 +1252,7 @@
     </div>
   </div>
     <div>
-      Ukan_Izan version 1.14
+      Ukan_Izan version 1.15
     </div>
 </div>
 </body>
