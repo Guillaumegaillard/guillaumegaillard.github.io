@@ -8,51 +8,53 @@
 
   <script type="text/javascript">
     var deters=[
+        {"fr": "le ","fr_f": "la ","fr_before_vowel": "l'","quant": "deter","num": "sing"},
+        {"fr": "les ","quant": "deter","num": "plur"},    
+        {"fr": "quelques ","quant": "indet","num": "plur","eus": "zenbait"},    
+        {"fr": "peu d'un ","fr_f": "peu d'une ","quant": "indet","num": "sing","eus": "gutxi"},
+    // "fr": "du (1 part. indén. de) ",
+    // "fr_before_vowel": "peu de l'",
+    // "fr": "peu de ",
         {
-            "fr": "le ",
-            "fr_f": "la ",
-            "fr_before_vowel": "l'",
-            "quant": "deter",
-            "num": "sing",
+            "fr": "un petit nombre de ","fr_before_vowel": "un petit nombre d'","quant": "indet","num": "plur",
+            "eus": "gutxi"
         },
         {
-            "fr": "les ",
-            "quant": "deter",
-            "num": "plur",
-        },    
-        {
-            "fr": "quelques ",
-            "quant": "indet",
-            "num": "plur",
-            "eus": "zenbait",
-        },    
-        {
-            // "fr": "du (1 part. indén. de) ",
-            "fr": "peu d'un ",
-            "fr_f": "peu d'une ",
-            // "fr_before_vowel": "peu de l'",
-            // "fr": "peu de ",
-            "quant": "indet",
-            "num": "sing",
-            "eus": "gutxi",
+            "fr": "une petite partie de ","fr_before_vowel": "une petite partie d'","quant": "indet","num": "sing",
+            "eus": "pixka bat"
         },
+    
         {
-            // "fr": "du (1 part. indén. de) ",
-            "fr": "un petit nombre de ",
-            "fr_before_vowel": "un petit nombre d'",
-            "quant": "indet",
-            "num": "plur",
-            "eus": "gutxi",
-        }, 
+            "fr": "de nombreux ","fr_f": "de nombreuses ","quant": "indet","num": "plur","eus": "asko", 
+            'word_id': 9, 'syns_eus': [12,15]},
         {
-            // "fr": "du (1 part. indén. de) ",
-            "fr": "une petite partie de ",
-            "fr_before_vowel": "une petite partie d'",
-            // "fr": "un peu de ",
-            "quant": "indet",
-            "num": "sing",
-            "eus": "pixka bat",
-        },          
+            "fr": "une grande partie de ","fr_before_vowel": "une grande partie d'","quant": "indet","num": "sing","eus": "asko", 
+            'word_id': 10, 'syns_eus': [13,16]},
+        {
+            "fr": "beaucoup d'un ","fr_f": "beaucoup d'une ","quant": "indet","num": "sing","eus": "asko", 
+            'word_id': 11, 'syns_eus': [14,17]},
+    
+        {
+            "fr": "de nombreux ","fr_f": "de nombreuses ","quant": "indet","num": "plur","eus": "anitz", 
+            'word_id': 12, 'syns_eus': [9,15]},
+        {
+            "fr": "une grande partie de ","fr_before_vowel": "une grande partie d'","quant": "indet","num": "sing","eus": "anitz", 
+            'word_id': 13, 'syns_eus': [10,16]},
+        {
+            "fr": "beaucoup d'un ","fr_f": "beaucoup d'une ","quant": "indet","num": "sing","eus": "anitz", 
+            'word_id': 14, 'syns_eus': [11,17]},
+    
+        {
+            "fr": "de nombreux ","fr_f": "de nombreuses ","quant": "indet","num": "plur","eus": "hanitx", 
+            'word_id': 15, 'syns_eus': [9,12]},
+        {
+            "fr": "une grande partie de ","fr_before_vowel": "une grande partie d'","quant": "indet","num": "sing","eus": "hanitx", 
+            'word_id': 16, 'syns_eus': [10,13]},
+        {
+            "fr": "beaucoup d'un ","fr_f": "beaucoup d'une ","quant": "indet","num": "sing","eus": "hanitx", 
+            'word_id': 17, 'syns_eus': [11,14]},
+    
+    // "fr": "un peu de ",
         // {
         //     // "fr": "du (1 part. indén. de) ",
         //     "fr": "du ",
@@ -61,20 +63,8 @@
         //     "quant": "indet",
         //     "num": "sing",
         // },    
-        {
-            "fr": "trois ",
-            "eus": "hiru",
-            "quant": "ordin", 
-            "num": "plur",
-        },
-        {
-            "fr": "un ",
-            "fr_f": "une ",
-            "eus": "bat",
-            "quant": "ordin",
-            "num": "sing",
-        }
-    
+        {"fr": "trois ","eus": "hiru","quant": "ordin","num": "plur"},
+        {"fr": "un ","fr_f": "une ","eus": "bat","quant": "ordin","num": "sing"}
     ];
     
     var pronoms=[
@@ -125,12 +115,12 @@
         {'fr': 'lettre', "fr_f": true, 'eus': 'letra', 'word_id': 207},
         {'fr': 'mot', 'eus': 'hitz', 'word_id': 208},
         {'fr': 'nom', 'eus': 'izen', 'word_id': 209},
-        {'fr': 'exemple', 'eus': 'adibide', 'word_id': 9},
-        {'fr': 'T mouillé', 'eus': 't soinu', 'word_id': 11},
-        {'fr': 'son', 'eus': 'soinu', 'word_id': 12},
-        {'fr': 'présentation', "fr_f": true, 'eus': 'aurkezpen', 'word_id': 14},
-        {'fr': 'vie', "fr_f": true, 'eus': 'bizi', 'word_id': 15},
-        {'fr': 'Bretagne', "fr_f": true, 'eus': 'Bretainia', 'word_id': 17},
+        {'fr': 'exemple', 'eus': 'adibide', 'word_id': 177},
+        {'fr': 'T mouillé', 'eus': 't soinu', 'word_id': 178},
+        {'fr': 'son', 'eus': 'soinu', 'word_id': 179},
+        {'fr': 'présentation', "fr_f": true, 'eus': 'aurkezpen', 'word_id': 180},
+        {'fr': 'vie', "fr_f": true, 'eus': 'bizi', 'word_id': 181},
+        {'fr': 'Bretagne', "fr_f": true, 'eus': 'Bretainia', 'word_id': 182},
         {'fr': 'pardon', 'eus': 'barkatu', 'word_id': 36},
         {'fr': 'regret', 'eus': 'damu', 'word_id': 37},
         {'fr': 'merci', 'eus': 'eskerrik asko', 'word_id': 40},
@@ -161,7 +151,7 @@
         {'fr': 'nuage', 'eus': 'hodei', 'word_id': 88},
         {'fr': 'éclaircie', "fr_f": true, 'eus': 'ostarte', 'word_id': 89},
         {'fr': 'tâche', "fr_f": true, 'eus': 'ari', 'word_id': 90, 'syns_fr': [91, 92]},
-        {'fr': 'ocupation', "fr_f": true, 'eus': 'ari', 'word_id': 91, 'syns_fr': [90, 92]},
+        {'fr': 'occupation', "fr_f": true, 'eus': 'ari', 'word_id': 91, 'syns_fr': [90, 92]},
         {'fr': 'travail', "plur_fr": "travaux", 'eus': 'ari', 'word_id': 92, 'syns_fr': [90, 91]},
         {'fr': 'brouillard bas', "plur_fr": "brouillards bas", 'eus': 'behe-laino', 'word_id': 93},
         {'fr': 'ciel dégagé', "plur_fr": "cieux dégagés", 'eus': 'oskarbi', 'word_id': 95},
@@ -250,11 +240,15 @@
         {"fr": "octobre", "eus": "urri", 'word_id': 202},
         {"fr": "novembre", "eus": "azaro"},
         {"fr": "décembre", "eus": "abendu"},
+        
+        {"fr": "étranger", "eus": "kanpotar", 'word_id': 170, 'syns_eus': [171]},
+        {"fr": "étranger", "eus": "arrotz", 'word_id': 171, 'syns_fr': [173], 'syns_eus': [170]},
+        {"fr": "hôte", "fr_h_mute":true, "eus": "arrotz", 'word_id': 173, 'syns_fr': [171]},
+    
         {"fr": "Guillaume", "pers_name": true, "plur_fr": "Guillaume", "eus": "Guillaume"},
         {"fr": "poisson", "eus": "arrain"},
         {"fr": "Sonia", "plur_fr": "Sonia", "pers_name": true, "fr_f": true, "eus": "Sonia"},
         {"fr": "semaine", "fr_f": true, "eus": "aste", 'word_id': 58}
-    
     ];
     //"fr_f_plur"
     
@@ -264,7 +258,7 @@
         {'fr': 'difficile', 'fr_post': true, "fr_f": "difficile", 'eus': 'zail', 'word_id': 146},
         {'fr': 'vrai', 'eus': 'egia', 'word_id': 143},
         {'fr': 'faux', "plur_fr": "faux", "fr_f": "fausse", 'eus': 'gezur', 'word_id': 144},
-        {'fr': 'vivant', 'fr_post': true, 'eus': 'bizi', 'word_id': 16},
+        {'fr': 'vivant', 'fr_post': true, 'eus': 'bizi', 'word_id': 183},
         {'fr': 'premier', "fr_f": "première", 'eus': 'lehen', 'word_id': 162},
         {'fr': 'dernier', "fr_f": "dernière", 'eus': 'azken', 'word_id': 165},
         {'fr': 'bon', "fr_f": "bonne", 'eus': 'on', 'word_id': 84},
@@ -276,12 +270,15 @@
         {'fr': 'peu abondant', 'fr_post': true, 'eus': 'urri', 'word_id': 126},
         {'fr': 'froid', 'fr_post': true, 'eus': 'hotz', 'word_id': 81},
         {'fr': 'chaud', 'fr_post': true, 'eus': 'bero', 'word_id': 82},
-        {"fr": "beau", "fr_before_vowel": "bel", "plur_fr": "beaux", "fr_f": "belle", "eus": "polita"},
+        {"fr": "beau", "fr_before_vowel": "bel", "plur_fr": "beaux", "fr_f": "belle", "eus": "polit"},
         {"fr": "petit","eus": "txiki"},
         {"fr": "grand", "eus": "haundi"},
         {'fr': 'habituel', 'fr_post': true, "fr_f": "habituelle", "fr_h_mute":true, 'eus': 'ohiko', 'word_id': 166},
         {'fr': 'obligatoire', 'fr_post': true, "fr_f": "obligatoire", 'eus': 'beharrezko', 'word_id': 167},
-        {'fr': 'lent', 'fr_post': true, 'eus': 'motel', 'word_id': 168}
+        {'fr': 'lent', 'fr_post': true, 'eus': 'motel', 'word_id': 168},
+        {"fr": "étranger", "fr_f": "étrangère", 'fr_post': true, "eus": "kanpotar", 'word_id': 174, 'syns_eus': [175]},
+        {"fr": "étranger", "fr_f": "étrangère", 'fr_post': true, "eus": "arrotz", 'word_id': 175, 'syns_fr': [176], 'syns_eus': [174]},
+        {"fr": "bizarre", "fr_f": "bizarre", 'fr_post': true, "eus": "arrotz", 'word_id': 176, 'syns_fr': [175]},    
     ];
     
     // {'fr': "d'accord", 'eus': 'ados', 'word_id': 135},
@@ -483,9 +480,12 @@
     					if (deters[iRandom_deter1].quant == "indet") $scope.target_chunks[i]["ordin1"]=deters[iRandom_deter1].eus;
     				}
     			};
-    			if (deters[iRandom_deter1].quant == "ordin") {
+    			// if (deters[iRandom_deter1].quant == "ordin") {
+    			// 	$scope.hints.push(deters[iRandom_deter1]);
+    			// 	// TODO: deters may have syns_eus => ordin or fake ordin, e.g. gutxi, huts; Others?
+    			if ("eus" in deters[iRandom_deter1]) {
     				$scope.hints.push(deters[iRandom_deter1]);
-    				// TODO: deters may have syns_eus => ordin or fake ordin, e.g. gutxi, huts; Others?
+    
     				for (i = 0; i < target_len; i++) { 
     					$scope.target_chunks[i]["ordin1"]=deters[iRandom_deter1].eus;
     				};
@@ -518,7 +518,7 @@
     
     
     			}
-    			if (deters[iRandom_deter1].quant == "indet") $scope.hints.push(deters[iRandom_deter1]);
+    			// if (deters[iRandom_deter1].quant == "indet") $scope.hints.push(deters[iRandom_deter1]);
     
     			target_len=$scope.targets.length;
     
@@ -774,14 +774,14 @@
     					for (i = 0; i < target_len; i++) { 
     						$scope.target_chunks[i]["ordin2"]=deters[iRandom_deter2].eus;
     					};
-    					if ( (name1_is_pronom) || ( (!(name1_is_pronom)) && (iRandom_deter1!=iRandom_deter2) )) {
-    						if ("word_id" in deters[iRandom_deter2]) {
-    							var index = $scope.hints.findIndex(x => x.word_id==deters[iRandom_deter2].word_id); 
-    							if (index === -1) $scope.hints.push(deters[iRandom_deter2]);
-    						} else {
-    							$scope.hints.push(deters[iRandom_deter2]);
-    						}
-    					};
+    					// if ( (name1_is_pronom) || ( (!(name1_is_pronom)) && (iRandom_deter1!=iRandom_deter2) )) {
+    					// 	if ("word_id" in deters[iRandom_deter2]) {
+    					// 		var index = $scope.hints.findIndex(x => x.word_id==deters[iRandom_deter2].word_id); 
+    					// 		if (index === -1) $scope.hints.push(deters[iRandom_deter2]);
+    					// 	} else {
+    					// 		$scope.hints.push(deters[iRandom_deter2]);
+    					// 	}
+    					// };
     
     					if (Math.floor((Math.random() *2))>0) {
     						$scope.deter2 = "les "+$scope.deter2;
@@ -801,14 +801,14 @@
     					if (deters[iRandom_deter2].quant == "deter") $scope.target_chunks[i]["suf_name2"]="a";
     				};
     				if (deters[iRandom_deter2].quant == "ordin") {
-    					if ( (name1_is_pronom) || ( (!(name1_is_pronom)) && (iRandom_deter1!=iRandom_deter2) )) {
-    						if ("word_id" in deters[iRandom_deter2]) {
-    							var index = $scope.hints.findIndex(x => x.word_id==deters[iRandom_deter2].word_id); 
-    							if (index === -1) $scope.hints.push(deters[iRandom_deter2]);
-    						} else {
-    							$scope.hints.push(deters[iRandom_deter2]);
-    						}
-    					};
+    					// if ( (name1_is_pronom) || ( (!(name1_is_pronom)) && (iRandom_deter1!=iRandom_deter2) )) {
+    					// 	if ("word_id" in deters[iRandom_deter2]) {
+    					// 		var index = $scope.hints.findIndex(x => x.word_id==deters[iRandom_deter2].word_id); 
+    					// 		if (index === -1) $scope.hints.push(deters[iRandom_deter2]);
+    					// 	} else {
+    					// 		$scope.hints.push(deters[iRandom_deter2]);
+    					// 	}
+    					// };
     					for (i = 0; i < target_len; i++) { 
     						$scope.target_chunks[i]["ordin2"]=deters[iRandom_deter2].eus;
     					};
@@ -817,7 +817,8 @@
     					if (deters[iRandom_deter2].quant == "indet") $scope.target_chunks[i]["ordin2"]=deters[iRandom_deter2].eus;
     				};
     			};
-    			if (deters[iRandom_deter2].quant == "indet") {
+    			// if (deters[iRandom_deter2].quant == "indet") {
+    			if ("eus" in deters[iRandom_deter2]) {
     				// $scope.hints.push(deters[iRandom_deter2]);
     				if ( (name1_is_pronom) || ( (!(name1_is_pronom)) && (iRandom_deter1!=iRandom_deter2) )) {
     					if ("word_id" in deters[iRandom_deter2]) {
@@ -827,9 +828,9 @@
     						$scope.hints.push(deters[iRandom_deter2]);
     					};
     				};
-    			};
+    			// };
     
-    			if (deters[iRandom_deter2].quant == "ordin") {
+    			// if (deters[iRandom_deter2].quant == "ordin") {
     				// TODO: deters may have syns_eus => ordin or fake ordin, e.g. gutxi, huts; Others? gutxi not considered
     				if ("syns_eus" in deters[iRandom_deter2]){
     					var syn_id=0;
@@ -1140,15 +1141,36 @@
     			$scope.target+=".";
     
     			$scope.client_input = "";
+    
     			$scope.num_hints=$scope.hints.length;
     
     			$scope.targets[i]=$scope.target;
     		};
     
+    		$scope.reduceHints();
+    		$scope.num_hints=$scope.hints.length;
     
     	};
     
-    	
+    	$scope.reduceHints = function(){
+    		var reducedHints=[];
+    		reducedHints.push($scope.hints[0].fr.trim() + ': ' + $scope.hints[0].eus);
+    		if ($scope.hints.length>1) {
+    			var j=1;
+    			var i=1;
+    			for (i ; i < $scope.hints.length; i++) { 
+    				if ($scope.hints[i].fr==$scope.hints[i-1].fr){
+    					reducedHints[j-1]+=", ";
+    					reducedHints[j-1]+=$scope.hints[i].eus;
+    				} else {
+    					reducedHints.push($scope.hints[i].fr.trim() + ': ' + $scope.hints[i].eus);
+    					j++;
+    				};
+    			};
+    		};
+    		$scope.hints=reducedHints;
+    
+    	};
     
     	$scope.newHint = function(){
     		if ($scope.num_hints>0) {
@@ -1158,8 +1180,12 @@
     	};
     
     	$scope.correction = function(){
-    		$scope.shown_solutions = true;		
+    		$scope.message = $scope.targets[0];		
     	};
+    
+    	$scope.solutions = function(){
+    		$scope.shown_solutions = true;		
+    	};	
     
     	$scope.show_verb_tab = function(){
     		$scope.shown_verb_tab = true;
@@ -1240,6 +1266,7 @@
       <button ng-click="newHint()">Aide Vocabulaire</button>
       <button ng-click="show_verb_tab()">Aide Conjugaison</button>
       <button ng-click="correction()">Correction</button>
+      <button ng-click="solutions()">Toutes les solutions</button>
 
     	<p>
         <input  ng-class="check()==1?'bg-success-light':'bg-danger-light'" type="text" class="bigText" ng-model="client_input"   ng-keydown="validate($event)" >
@@ -1263,7 +1290,8 @@
 
       <ul>
         <li ng-repeat="x in shownHints">
-          {{ x.fr.trim() + ': ' + x.eus }}
+          {{ x }}
+          <!-- {{ x.fr.trim() + ': ' + x.eus }} -->
         </li>
       </ul>
     </div>
@@ -1282,7 +1310,7 @@
     </div>
   </div>
     <div>
-      Ukan_Izan version 1.17
+      Ukan_Izan version 1.18
     </div>
 </div>
 </body>
