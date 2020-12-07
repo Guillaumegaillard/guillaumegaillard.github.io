@@ -7,64 +7,45 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   <script type="text/javascript">
-    var deters=[
+    var dets=[
         {"fr": "le ","fr_f": "la ","fr_before_vowel": "l'","quant": "deter","num": "sing"},
-        {"fr": "les ","quant": "deter","num": "plur"},    
+        {"fr": "les ","quant": "deter","num": "plur"},
+    ];
+    
+    var indets=[
         {"fr": "quelques ","quant": "indet","num": "plur","eus": "zenbait"},    
         {"fr": "peu d'un ","fr_f": "peu d'une ","quant": "indet","num": "sing","eus": "gutxi"},
-    // "fr": "du (1 part. indén. de) ",
-    // "fr_before_vowel": "peu de l'",
-    // "fr": "peu de ",
-        {
-            "fr": "un petit nombre de ","fr_before_vowel": "un petit nombre d'","quant": "indet","num": "plur",
-            "eus": "gutxi"
-        },
-        {
-            "fr": "une petite partie de ","fr_before_vowel": "une petite partie d'","quant": "indet","num": "sing",
-            "eus": "pixka bat"
-        },
+        // "fr": "du (1 part. indén. de) ", "fr_before_vowel": "peu de l'", "fr": "peu de ", "fr": "un peu de ",
+        // {   "fr": "du ","fr_f": "de la ","fr_before_vowel": "de l'","quant": "indet","num": "sing"},    
+        {   "fr": "un petit nombre de ","fr_before_vowel": "un petit nombre d'","quant": "indet","num": "plur",
+            "eus": "gutxi"},
+        {   "fr": "une petite partie de ","fr_before_vowel": "une petite partie d'","quant": "indet","num": "sing",
+            "eus": "pixka bat"},
     
-        {
-            "fr": "de nombreux ","fr_f": "de nombreuses ","quant": "indet","num": "plur","eus": "asko", 
+        {   "fr": "de nombreux ","fr_f": "de nombreuses ","quant": "indet","num": "plur","eus": "asko", 
             'word_id': 9, 'syns_eus': [12,15]},
-        {
-            "fr": "une grande partie de ","fr_before_vowel": "une grande partie d'","quant": "indet","num": "sing","eus": "asko", 
+        {   "fr": "une grande partie de ","fr_before_vowel": "une grande partie d'","quant": "indet","num": "sing","eus": "asko", 
             'word_id': 10, 'syns_eus': [13,16]},
-        {
-            "fr": "beaucoup d'un ","fr_f": "beaucoup d'une ","quant": "indet","num": "sing","eus": "asko", 
+        {   "fr": "beaucoup d'un ","fr_f": "beaucoup d'une ","quant": "indet","num": "sing","eus": "asko", 
             'word_id': 11, 'syns_eus': [14,17]},
     
-        {
-            "fr": "de nombreux ","fr_f": "de nombreuses ","quant": "indet","num": "plur","eus": "anitz", 
+        {   "fr": "de nombreux ","fr_f": "de nombreuses ","quant": "indet","num": "plur","eus": "anitz", 
             'word_id': 12, 'syns_eus': [9,15]},
-        {
-            "fr": "une grande partie de ","fr_before_vowel": "une grande partie d'","quant": "indet","num": "sing","eus": "anitz", 
+        {   "fr": "une grande partie de ","fr_before_vowel": "une grande partie d'","quant": "indet","num": "sing","eus": "anitz", 
             'word_id': 13, 'syns_eus': [10,16]},
-        {
-            "fr": "beaucoup d'un ","fr_f": "beaucoup d'une ","quant": "indet","num": "sing","eus": "anitz", 
+        {   "fr": "beaucoup d'un ","fr_f": "beaucoup d'une ","quant": "indet","num": "sing","eus": "anitz", 
             'word_id': 14, 'syns_eus': [11,17]},
     
-        {
-            "fr": "de nombreux ","fr_f": "de nombreuses ","quant": "indet","num": "plur","eus": "hanitx", 
+        {   "fr": "de nombreux ","fr_f": "de nombreuses ","quant": "indet","num": "plur","eus": "hanitx", 
             'word_id': 15, 'syns_eus': [9,12]},
-        {
-            "fr": "une grande partie de ","fr_before_vowel": "une grande partie d'","quant": "indet","num": "sing","eus": "hanitx", 
+        {   "fr": "une grande partie de ","fr_before_vowel": "une grande partie d'","quant": "indet","num": "sing","eus": "hanitx", 
             'word_id': 16, 'syns_eus': [10,13]},
-        {
-            "fr": "beaucoup d'un ","fr_f": "beaucoup d'une ","quant": "indet","num": "sing","eus": "hanitx", 
+        {   "fr": "beaucoup d'un ","fr_f": "beaucoup d'une ","quant": "indet","num": "sing","eus": "hanitx", 
             'word_id': 17, 'syns_eus': [11,14]},
-    
-    // "fr": "un peu de ",
-        // {
-        //     // "fr": "du (1 part. indén. de) ",
-        //     "fr": "du ",
-        //     "fr_f": "de la ",
-        //     "fr_before_vowel": "de l'",
-        //     "quant": "indet",
-        //     "num": "sing",
-        // },    
+    ];
+    var ordins=[
+        {"fr": "un ","fr_f": "une ","eus": "bat","quant": "ordin","num": "sing"},
         {"fr": "trois ","eus": "hiru","quant": "ordin","num": "plur"},
-        {"fr": "un ","fr_f": "une ","eus": "bat","quant": "ordin","num": "sing"}
     ];
     
     var pronoms=[
@@ -287,6 +268,8 @@
     var app = angular.module('myApp', []);
     
     app.controller('myCtrl', function($scope) {
+    
+    	var deters=dets.concat(indets,ordins);
     	$scope.verbs = verbs;
     	$scope.deters = deters;
     	$scope.names = names;
@@ -451,8 +434,26 @@
     
     
     		if (!(name1_is_pronom)) {
+    			// var iRandom_deter1 = Math.floor((Math.random() * ($scope.deters.length)));
+    			var iRandom_deter1;
+    			// det, indet, ordin sg or ordin plur?
+    			var deter1_family = Math.floor((Math.random() * 4));
+    			var ordin_sgs = 1;
+    			switch (deter1_family){
+    				case 0:
+    					iRandom_deter1 = Math.floor((Math.random() * (dets.length)));
+    					break;
+    				case 1:
+    					iRandom_deter1 = dets.length + Math.floor((Math.random() * (indets.length)));
+    					break;
+    				case 2:
+    					iRandom_deter1 = dets.length + indets.length + Math.floor((Math.random() * ordin_sgs));
+    					break;
+    				case 3:
+    					iRandom_deter1 = dets.length + indets.length + ordin_sgs + Math.floor((Math.random() * (ordins.length-ordin_sgs)));
+    					break;
+    			};
     
-    			var iRandom_deter1 = Math.floor((Math.random() * ($scope.deters.length)));
     			if (name1.fr_f && "fr_f" in deters[iRandom_deter1]) {
     				$scope.deter1 = deters[iRandom_deter1].fr_f;
     			} else {
@@ -763,7 +764,26 @@
     
     
     		if (!(name2_is_adj)) {
-    			var iRandom_deter2 = Math.floor((Math.random() * ($scope.deters.length)));
+    			// var iRandom_deter2 = Math.floor((Math.random() * ($scope.deters.length)));
+    			var iRandom_deter2;
+    			// det, indet, ordin sg or ordin plur?
+    			var deter2_family = Math.floor((Math.random() * 4));
+    			var ordin_sgs = 1;
+    			switch (deter2_family){
+    				case 0:
+    					iRandom_deter2 = Math.floor((Math.random() * (dets.length)));
+    					break;
+    				case 1:
+    					iRandom_deter2 = dets.length + Math.floor((Math.random() * (indets.length)));
+    					break;
+    				case 2:
+    					iRandom_deter2 = dets.length + indets.length + Math.floor((Math.random() * ordin_sgs));
+    					break;
+    				case 3:
+    					iRandom_deter2 = dets.length + indets.length + ordin_sgs + Math.floor((Math.random() * (ordins.length-ordin_sgs)));
+    					break;
+    			};
+    
     			if (name2.fr_f && "fr_f" in deters[iRandom_deter2]) {
     				$scope.deter2 = deters[iRandom_deter2].fr_f;
     			} else {
@@ -1274,16 +1294,6 @@
       	&nbsp;{{message | capitalize}}
       </p>
 
-    <div ng-show="shown_solutions">
-      <label>Solution(s) :</label>
-
-      <ul>
-        <li ng-repeat="x in targets track by $index ">
-          {{ x | capitalize }}
-        </li>
-      </ul>
-    </div>
-
 
     <div>
       <label>Encore {{num_hints}} aides voca possibles...</label>
@@ -1308,9 +1318,19 @@
         </tr>
       </table>
     </div>
+
+    <div ng-show="shown_solutions">
+      <label>Solution(s) :</label>
+
+      <ul>
+        <li ng-repeat="x in targets track by $index ">
+          {{ x | capitalize }}
+        </li>
+      </ul>
+    </div>
   </div>
     <div>
-      Ukan_Izan version 1.18
+      Ukan_Izan version 1.19
     </div>
 </div>
 </body>
