@@ -14,6 +14,7 @@
     
     var indets=[
         {"fr": "quelques ","quant": "indet","num": "plur","eus": "zenbait"},    
+        {"fr": "plusieurs ","quant": "indet","num": "plur","eus": "batzuk"},    
         {"fr": "peu d'un ","fr_f": "peu d'une ","quant": "indet","num": "sing","eus": "gutxi"},
         // "fr": "du (1 part. indén. de) ", "fr_before_vowel": "peu de l'", "fr": "peu de ", "fr": "un peu de ",
         // {   "fr": "du ","fr_f": "de la ","fr_before_vowel": "de l'","quant": "indet","num": "sing"},    
@@ -55,12 +56,12 @@
         {"fr": "elle", "fr_f": true, "eus": "bera", "fr_pers":2, 'word_id': 2, 'syns_fr': [6], 'syns_eus': [4]},
         {"fr": "elles", "plur": true, "fr_f": true, "eus": "haiek", "fr_pers":5, 'word_id': 3, 'syns_fr': [7], 'syns_eus': [1]},
         {"fr": "elle", "fr_f": true, "eus": "hura", "fr_pers":2, 'word_id': 4, 'syns_fr': [6], 'syns_eus': [2]},
-        {"fr": "ils", "plur": true, "eus": "beraiek", "fr_pers":5, 'word_id': 5, 'syns_fr': [1], 'syns_eus': [3]},
+        {"fr": "ils", "plur": true, "eus": "beraiek", "fr_pers":5, 'word_id': 5, 'syns_fr': [1], 'syns_eus': [7]},
         {"fr": "il", "eus": "bera", "fr_pers":2, 'word_id': 6, 'syns_fr': [2], 'syns_eus': [4]},
         {"fr": "ils", "plur": true, "eus": "haiek", "fr_pers":5, 'word_id': 7, 'syns_fr': [3], 'syns_eus': [5]},
         {"fr": "il", "eus": "hura", "fr_pers":2, 'word_id': 8, 'syns_fr': [2], 'syns_eus': [6]},
         {"fr": "nous", "eus": "gu", "fr_pers":3},
-        {"fr": "vous", "eus": "zuek", "fr_pers":4},
+        {"fr": "vous (pl.)", "eus": "zuek", "fr_pers":4},
         ];
     
     var verbs=[
@@ -88,7 +89,7 @@
   </script>
   <script type="text/javascript">
     var names=[
-        {'fr': '19 octobre 2020', "plur_fr": "19 octobre 2020", 'eus': '2020ko urriaren 19', 'word_id': 0},
+        {'fr': "'19 octobre 2020'", "plur_fr": "'19 octobre 2020'", 'eus': '2020ko urriaren 19', 'word_id': 0},
         {'fr': 'partie', "fr_f": true, 'eus': 'atal', 'word_id': 203, 'syns_fr': [102]},
         {'fr': 'chapitre', 'eus': 'kapitulu', 'word_id': 204},
         {'fr': 'flûte', "fr_f": true, 'eus': 'txistu', 'word_id': 205},
@@ -97,21 +98,21 @@
         {'fr': 'mot', 'eus': 'hitz', 'word_id': 208},
         {'fr': 'nom', 'eus': 'izen', 'word_id': 209},
         {'fr': 'exemple', 'eus': 'adibide', 'word_id': 177},
-        {'fr': 'T mouillé', 'eus': 't soinu', 'word_id': 178},
+        {'fr': "T mouillé", 'eus': 'T soinu', 'word_id': 178},
         {'fr': 'son', 'eus': 'soinu', 'word_id': 179},
         {'fr': 'présentation', "fr_f": true, 'eus': 'aurkezpen', 'word_id': 180},
         {'fr': 'vie', "fr_f": true, 'eus': 'bizi', 'word_id': 181},
         {'fr': 'Bretagne', "fr_f": true, 'eus': 'Bretainia', 'word_id': 182},
         {'fr': 'pardon', 'eus': 'barkatu', 'word_id': 36},
         {'fr': 'regret', 'eus': 'damu', 'word_id': 37},
-        {'fr': 'merci', 'eus': 'eskerrik asko', 'word_id': 40},
+        {'fr': "'merci'", "plur_fr": "'mercis'", 'eus': 'eskerrik asko', 'word_id': 40},
         {'fr': 'bien', 'eus': 'ongi', 'word_id': 48},
         {'fr': 'mal', "plur_fr": "maux", 'eus': 'gaizki', 'word_id': 49},
         {'fr': 'chien', 'eus': 'txakur', 'word_id': 50, 'syns_fr': [51]},
         {'fr': 'flic', 'eus': 'txakur', 'word_id': 51, 'syns_fr': [50]},
         {'fr': 'chanson', "fr_f": true, 'eus': 'kantore', 'word_id': 55},
         {'fr': 'champignon', 'eus': 'onddo', 'word_id': 56},
-        {'fr': 'vocabulaire', 'eus': 'hiztegi', 'word_id': 57},
+        {'fr': 'vocabulaire', 'eus': 'hiztegi', 'word_id': 57, 'syns_fr': [244]},
         {'fr': 'jour', 'eus': 'egun', 'word_id': 59},
         {'fr': 'mois', "plur_fr": "mois", 'eus': 'hilabete', 'word_id': 60},
         {'fr': 'saison', "fr_f": true, 'eus': 'urtaro', 'word_id': 61},
@@ -121,7 +122,7 @@
         {'fr': 'météo', "fr_f": true, 'eus': 'eguraldi', 'word_id': 73},
         {'fr': 'période', "fr_f": true, 'eus': 'aldi', 'word_id': 74, 'syns_fr': [75, 76]},
         {'fr': 'fois', "plur_fr": "fois", "fr_f": true, 'eus': 'aldi', 'word_id': 75, 'syns_fr': [74, 76]},
-        {'fr': 'tour', 'eus': 'aldi', 'word_id': 76, 'syns_fr': [74, 75]},
+        {'fr': 'tour', 'eus': 'aldi', 'word_id': 76, 'syns_fr': [74, 75]},//TODO: mismatch fr towers = fr tours
         {'fr': 'bûche', "fr_f": true, 'eus': 'egur', 'word_id': 77},
         {'fr': 'vent', 'eus': 'haize', 'word_id': 78},
         {'fr': 'neige', "fr_f": true, 'eus': 'elur', 'word_id': 79},
@@ -137,9 +138,9 @@
         {'fr': 'brouillard bas', "plur_fr": "brouillards bas", 'eus': 'behe-laino', 'word_id': 93},
         {'fr': 'ciel dégagé', "plur_fr": "cieux dégagés", 'eus': 'oskarbi', 'word_id': 95},
         {'fr': 'pont', 'eus': 'zubi', 'word_id': 96},
-        {'fr': 'arc-en-ciel', 'eus': 'erromako zubi', 'word_id': 97, 'syns_eus': [99]},
+        {'fr': 'arc-en-ciel', "plur_fr": "arcs-en-ciel", 'eus': 'erromako zubi', 'word_id': 97, 'syns_eus': [99]},
         {'fr': 'corne', "fr_f": true, 'eus': 'adar', 'word_id': 98},
-        {'fr': 'arc-en-ciel', 'eus': 'ortzadar', 'word_id': 99, 'syns_eus': [97]},
+        {'fr': 'arc-en-ciel', "plur_fr": "arcs-en-ciel", 'eus': 'ortzadar', 'word_id': 99, 'syns_eus': [97]},
         {'fr': 'lumière', "fr_f": true, 'eus': 'argi', 'word_id': 100},
         {'fr': 'lune', "fr_f": true, 'eus': 'ilargi', 'word_id': 101},
         {'fr': 'phase', "fr_f": true, 'eus': 'atal', 'word_id': 102, 'syns_fr': [203]},
@@ -172,7 +173,7 @@
         {'fr': 'professeur', 'eus': 'irakasle', 'word_id': 137},
         {'fr': 'exercice', 'eus': 'ariketa', 'word_id': 138},
         {'fr': 'question', "fr_f": true, 'eus': 'galdera', 'word_id': 139},
-        {'fr': 'réponse', "fr_f": true, 'eus': 'erantzun', 'word_id': 140},
+        {'fr': 'réponse', "fr_f": true, 'eus': 'erantzun', 'word_id': 140, 'syns_eus': [184]},
         {'fr': 'verbe', 'eus': 'aditz', 'word_id': 141},
         {'fr': 'vérité', "fr_f": true, 'eus': 'egia', 'word_id': 142},
         {'fr': 'mensonge', 'eus': 'gezur', 'word_id': 145},
@@ -180,12 +181,12 @@
         {'fr': 'garçon', 'eus': 'mutil', 'word_id': 151},
         {'fr': 'fille', "fr_f": true, 'eus': 'neska', 'word_id': 152},
         {'fr': 'pluriel', 'eus': 'plural', 'word_id': 148},
-        {'fr': 'au revoir', "plur_fr": "au revoir", 'eus': 'agur', 'word_id': 22},
+        {'fr': "'au revoir'", "plur_fr": "'au revoir'", 'eus': 'agur', 'word_id': 22},
         {'fr': 'après-midi', "plur_fr": "après-midi", 'eus': 'arratsalde', 'word_id': 27},
-        {'fr': "s'il te plaît", "plur_fr": "s'il te plaît", 'eus': 'mesedez', 'word_id': 41, 'syns_fr': [43], 'syns_eus': [42]},
-        {'fr': "s'il te plaît", "plur_fr": "s'il te plaît", 'eus': 'otoi', 'word_id': 42, 'syns_fr': [44], 'syns_eus': [41]},
-        {'fr': "s'il vous plaît", "plur_fr": "s'il vous plaît", 'eus': 'mesedez', 'word_id': 43, 'syns_fr': [41], 'syns_eus': [44]},
-        {'fr': "s'il vous plaît", "plur_fr": "s'il vous plaît", 'eus': 'otoi', 'word_id': 44, 'syns_fr': [42], 'syns_eus': [43]},
+        {'fr': "'s'il te plaît'", "plur_fr": "'s'il te plaît'", 'eus': 'mesedez', 'word_id': 41, 'syns_fr': [43], 'syns_eus': [42]},
+        {'fr': "'s'il te plaît'", "plur_fr": "'s'il te plaît'", 'eus': 'otoi', 'word_id': 42, 'syns_fr': [44], 'syns_eus': [41]},
+        {'fr': "'s'il vous plaît'", "plur_fr": "'s'il vous plaît'", 'eus': 'mesedez', 'word_id': 43, 'syns_fr': [41], 'syns_eus': [44]},
+        {'fr': "'s'il vous plaît'", "plur_fr": "'s'il vous plaît'", 'eus': 'otoi', 'word_id': 44, 'syns_fr': [42], 'syns_eus': [43]},
         {'fr': 'lendemain', 'eus': 'bihar', 'word_id': 69},
         {'fr': 'froid', 'eus': 'hotz', 'word_id': 81},
         {'fr': 'chaleur', "fr_f": true, 'eus': 'bero', 'word_id': 82},
@@ -221,17 +222,71 @@
         {"fr": "octobre", "eus": "urri", 'word_id': 202},
         {"fr": "novembre", "eus": "azaro"},
         {"fr": "décembre", "eus": "abendu"},
-        
         {"fr": "étranger", "eus": "kanpotar", 'word_id': 170, 'syns_eus': [171]},
         {"fr": "étranger", "eus": "arrotz", 'word_id': 171, 'syns_fr': [173], 'syns_eus': [170]},
         {"fr": "hôte", "fr_h_mute":true, "eus": "arrotz", 'word_id': 173, 'syns_fr': [171]},
-    
         {"fr": "Guillaume", "pers_name": true, "plur_fr": "Guillaume", "eus": "Guillaume"},
         {"fr": "poisson", "eus": "arrain"},
         {"fr": "Sonia", "plur_fr": "Sonia", "pers_name": true, "fr_f": true, "eus": "Sonia"},
-        {"fr": "semaine", "fr_f": true, "eus": "aste", 'word_id': 58}
+        {"fr": "semaine", "fr_f": true, "eus": "aste", 'word_id': 58},
+        {'fr': 'réponse', "fr_f": true, 'eus': 'arrapostu', 'word_id': 184, 'syns_eus': [140]},
+        {'fr': 'second', 'eus': 'bigarren', 'word_id': 185},
+        // {'fr': 'rose', 'eus': 'arrosa', 'word_id': 211, 'syns_fr': [214]},
+        {'fr': 'rose', "fr_f": true, 'eus': 'arrosa', 'word_id': 214, 'syns_fr': [211]},
+        // {'fr': 'vert', 'eus': 'berde', 'word_id': 215},
+        // {'fr': 'noir', 'eus': 'beltz', 'word_id': 216},
+        // {'fr': 'rouge', 'eus': 'gorri', 'word_id': 217},
+        {'fr': 'communiste', 'eus': 'komunista', 'word_id': 189},
+        {'fr': 'Afrique', "fr_f": true, 'eus': 'Afrika', 'word_id': 190},
+        {'fr': 'Chine', "fr_f": true, 'eus': 'Txina', 'word_id': 191},
+        {'fr': 'Italie', "fr_f": true, 'eus': 'Italia', 'word_id': 192},
+        {'fr': 'Grèce', "fr_f": true, 'eus': 'Grezia', 'word_id': 193},
+        {'fr': 'Portugal', 'eus': 'Portugal', 'word_id': 194},
+        {'fr': 'Belgique', "fr_f": true, 'eus': 'Belgika', 'word_id': 195},
+        {'fr': 'pizza', "fr_f": true, 'eus': 'pizza', 'word_id': 196},
+        {'fr': 'tour (f)', "plur_fr": "tours (f)", "fr_f": true, 'eus': 'dorre', 'word_id': 197},
+        {'fr': 'Fado', 'eus': 'Fado', 'word_id': 198},
+        {'fr': 'parc', 'eus': 'parke', 'word_id': 199},
+        {'fr': 'liqueur de prunelles', "plur_fr": "liqueurs de prunelles", "fr_f": true, 'eus': 'patxaran', 'word_id': 210},
+        {'fr': 'chanteur', 'eus': 'kantari', 'word_id': 218, 'syns_eus': [219]},
+        {'fr': 'chanteur', 'eus': 'abeslari', 'word_id': 219, 'syns_eus': [218]},
+        {'fr': 'leçon', "fr_f": true, 'eus': 'ikasgai', 'word_id': 220},
+        {'fr': 'langue basque', "plur_fr": 'langues basques', "fr_f": true, 'eus': 'Euskara', 'word_id': 221},
+        {'fr': 'basque', 'eus': 'euskaldun', 'word_id': 222},
+        {'fr': 'langage', 'eus': 'hizkuntza', 'word_id': 223},
+        {'fr': 'voiture', "fr_f": true, 'eus': 'auto', 'word_id': 224},
+        {'fr': 'ordinateur', 'eus': 'ordenagailu', 'word_id': 225},
+        {'fr': 'maison', "fr_f": true, 'eus': 'etxe', 'word_id': 226},
+        {'fr': 'bonbon', 'eus': 'goxoki', 'word_id': 227, 'syns_eus': [228]},
+        {'fr': 'bonbon', 'eus': 'gozoki', 'word_id': 228, 'syns_eus': [227]},
+        {'fr': 'ami', 'eus': 'lagun', 'word_id': 229},
+        {'fr': 'sœur d’une femme', "fr_f": true, "plur_fr": 'sœurs d’une femme', 'eus': 'ahizpa', 'word_id': 230},
+        {'fr': 'sœur d’un homme', "fr_f": true, "plur_fr": 'sœurs d’un homme', 'eus': 'arreba', 'word_id': 231},
+        {'fr': 'livre', 'eus': 'liburu', 'word_id': 232},
+        {'fr': 'vacance', "fr_f": true, 'eus': 'opor', 'word_id': 233, 'syns_eus': [234]},
+        {'fr': 'vacance', "fr_f": true, 'eus': 'bakantza', 'word_id': 234, 'syns_eus': [233]},
+        {'fr': 'appartement', 'eus': 'apartamentu', 'word_id': 235, 'syns_eus': [236]},
+        {'fr': 'appartement', 'eus': 'apartamendu', 'word_id': 236, 'syns_eus': [235]},
+        {'fr': 'bras', "plur_fr": "bras", 'eus': 'beso', 'word_id': 237},
+        {'fr': 'fille (filiation)', "plur_fr": 'filles (filiation)', "fr_f": true, 'eus': 'alaba', 'word_id': 238},
+        {'fr': 'chat', 'eus': 'katu', 'word_id': 239},
+        {'fr': 'dictionnaire', 'eus': 'hiztegi', 'word_id': 244, 'syns_fr': [57]},
+        {'fr': 'pêcheur', 'eus': 'arrantzale', 'word_id': 245},
+        {'fr': 'téléphone', 'eus': 'telefono', 'word_id': 246},
+        {'fr': 'ciseau', "plur_fr": 'ciseaux', 'eus': 'guraize', 'word_id': 247},
+        {'fr': 'France', "fr_f": true, 'eus': 'Frantzia', 'word_id': 248},
+        {'fr': 'cuisinier', 'eus': 'sukaldari', 'word_id': 249},
+        {'fr': 'tramway', 'eus': 'tranbia', 'word_id': 252},
+        {'fr': 'conducteur', 'eus': 'gidari', 'word_id': 253},
+        {'fr': 'grève', "fr_f": true, 'eus': 'greba', 'word_id': 254},
+        {'fr': 'montre', "fr_f": true, 'eus': 'erloju', 'word_id': 255, 'syns_fr': [256]},
+        {'fr': 'horloge', "fr_f": true, "fr_h_mute":true, 'eus': 'erloju', 'word_id': 256, 'syns_fr': [256]},
+        {'fr': 'film', 'eus': 'film', 'word_id': 257},
+        {'fr': 'enfant', 'eus': 'ume', 'word_id': 258},
+        {'fr': 'euro', 'eus': 'euro', 'word_id': 259},
+        {'fr': 'béret', 'eus': 'txapel', 'word_id': 260},
+        {'fr': 'année', "fr_f": true, 'eus': 'urte', 'word_id': 261},
     ];
-    //"fr_f_plur"
     
     var adjs=[
         {'fr': 'négatif', 'fr_post': true, "fr_f": "négative", 'eus': 'ezezko', 'word_id': 150},
@@ -260,9 +315,26 @@
         {"fr": "étranger", "fr_f": "étrangère", 'fr_post': true, "eus": "kanpotar", 'word_id': 174, 'syns_eus': [175]},
         {"fr": "étranger", "fr_f": "étrangère", 'fr_post': true, "eus": "arrotz", 'word_id': 175, 'syns_fr': [176], 'syns_eus': [174]},
         {"fr": "bizarre", "fr_f": "bizarre", 'fr_post': true, "eus": "arrotz", 'word_id': 176, 'syns_fr': [175]},    
+        {'fr': 'second', 'eus': 'bigarren', 'word_id': 212},
+        {'fr': 'rose', "fr_f": "rose", 'fr_post': true, 'eus': 'arrosa', 'word_id': 213},
+        {'fr': 'vert', 'fr_post': true, 'eus': 'berde', 'word_id': 186},
+        {'fr': 'noir', 'fr_post': true, 'eus': 'beltz', 'word_id': 187},
+        {'fr': 'rouge', "fr_f": "rouge", 'fr_post': true, 'eus': 'gorri', 'word_id': 188},
+        {'fr': 'jaune', "fr_f": "jaune", 'fr_post': true, 'eus': 'hori', 'word_id': 250},
+        {'fr': 'bleu', 'fr_post': true, 'eus': 'urdin', 'word_id': 251},
+        {'fr': 'couvert de brouillard', "fr_f": "couverte de brouillard", "plur_fr": "couverts de brouillard", 
+         "fr_f_plur": "couvertes de brouillard", 'fr_post': true, 'eus': 'lainotuta', 'word_id': 240},
+        {'fr': 'propre', "fr_f": "propre", 'fr_post': true, 'eus': 'garbi', 'word_id': 241},
+        {'fr': 'cher', "fr_f": "chère", 'eus': 'maite', 'word_id': 242, 'syns_eus': [243]},
+        {'fr': 'cher', "fr_f": "chère", 'eus': 'maitia', 'word_id': 243, 'syns_eus': [242]},
+        {'fr': 'excellent', 'eus': 'bikain', 'word_id': 262},
     ];
     
     // {'fr': "d'accord", 'eus': 'ados', 'word_id': 135},
+    //noun  "plur_fr": , "fr_f": true, "pers_name": true, "fr_h_mute":true,
+    //adj   , "plur_fr": "mauvais", "fr_f_plur" "fr_f": "rouge", 'fr_post': true, "fr_before_vowel": "bel", "fr_h_mute":true,
+    
+    
   </script>
   <script type="text/javascript">
     var app = angular.module('myApp', []);
@@ -1098,6 +1170,7 @@
     
     							// +e if indet conson + ergative (k)
     							if ($scope.target_chunks[i]["suf_name1"]=="k") {
+    								if ($scope.target.slice(-2)=="uk") $scope.target=$scope.target.slice(0,-1); //TODO: check that (batzuk-> batzuek) but (Yannick, Pok, Puk)?
     								if (!(last_is_vowel)) $scope.target+="e";
     								$scope.target+="k";
     							// else -a if already a + suf
@@ -1332,7 +1405,7 @@
     </div>
   </div>
     <div>
-      Ukan_Izan version 1.20
+      Ukan_Izan version 1.22
     </div>
 </div>
 </body>
