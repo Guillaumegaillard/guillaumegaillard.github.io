@@ -50,18 +50,20 @@
     ];
     
     var pronoms=[
-        {"fr": "je", "eus": "ni", "fr_pers":0},
-        {"fr": "tu", "eus": "zu", "fr_pers":1},
-        {"fr": "elles", "plur": true, "fr_f": true, "eus": "beraiek", "fr_pers":5, 'word_id': 1, 'syns_fr': [7], 'syns_eus': [3]},
-        {"fr": "elle", "fr_f": true, "eus": "bera", "fr_pers":2, 'word_id': 2, 'syns_fr': [6], 'syns_eus': [4]},
-        {"fr": "elles", "plur": true, "fr_f": true, "eus": "haiek", "fr_pers":5, 'word_id': 3, 'syns_fr': [7], 'syns_eus': [1]},
-        {"fr": "elle", "fr_f": true, "eus": "hura", "fr_pers":2, 'word_id': 4, 'syns_fr': [6], 'syns_eus': [2]},
-        {"fr": "ils", "plur": true, "eus": "beraiek", "fr_pers":5, 'word_id': 5, 'syns_fr': [1], 'syns_eus': [7]},
-        {"fr": "il", "eus": "bera", "fr_pers":2, 'word_id': 6, 'syns_fr': [2], 'syns_eus': [4]},
-        {"fr": "ils", "plur": true, "eus": "haiek", "fr_pers":5, 'word_id': 7, 'syns_fr': [3], 'syns_eus': [5]},
-        {"fr": "il", "eus": "hura", "fr_pers":2, 'word_id': 8, 'syns_fr': [2], 'syns_eus': [6]},
-        {"fr": "nous", "eus": "gu", "fr_pers":3},
-        {"fr": "vous (pl.)", "eus": "zuek", "fr_pers":4},
+        {"fr": "je", "fr_f": true, "eus": "ni", "fr_pers":0},
+        {"fr": "tu", "fr_f": true, "eus": "zu", "fr_pers":1},
+        // {"fr": "il", "eus": "bera", "fr_pers":2, 'word_id': 6, 'syns_fr': [2], 'syns_eus': [4]},
+        // {"fr": "il", "eus": "hura", "fr_pers":2, 'word_id': 8, 'syns_fr': [2], 'syns_eus': [6]},
+        {"fr": "il", "fr_f_form": "elle", "eus": "hura", "fr_pers":2, 'word_id': 8, 'syns_eus': [6]},
+        {"fr": "il", "fr_f_form": "elle", "eus": "bera", "fr_pers":2, 'word_id': 6, 'syns_eus': [8]},
+        // {"fr": "elle", "fr_f": true, "eus": "hura", "fr_pers":2, 'word_id': 4, 'syns_fr': [6], 'syns_eus': [2]},
+        // {"fr": "elle", "fr_f": true, "eus": "bera", "fr_pers":2, 'word_id': 2, 'syns_fr': [6], 'syns_eus': [4]},
+        {"fr": "ils", "fr_f_form": "elles", "plur": true, "eus": "haiek", "fr_pers":5, 'word_id': 7, 'syns_eus': [5]},
+        {"fr": "ils", "fr_f_form": "elles", "plur": true, "eus": "beraiek", "fr_pers":5, 'word_id': 5, 'syns_eus': [7]},
+        // {"fr": "elles", "plur": true, "fr_f": true, "eus": "haiek", "fr_pers":5, 'word_id': 3, 'syns_fr': [7], 'syns_eus': [1]},
+        // {"fr": "elles", "plur": true, "fr_f": true, "eus": "beraiek", "fr_pers":5, 'word_id': 1, 'syns_fr': [7], 'syns_eus': [3]},
+        {"fr": "nous", "fr_f": true, "eus": "gu", "fr_pers":3},
+        {"fr": "vous (pl.)", "fr_f": true, "eus": "zuek", "fr_pers":4},
         ];
     
     var verbs=[
@@ -108,7 +110,7 @@
         {'fr': "'merci'", "plur_fr": "'mercis'", 'eus': 'eskerrik asko', 'word_id': 40},
         {'fr': 'bien', 'eus': 'ongi', 'word_id': 48},
         {'fr': 'mal', "plur_fr": "maux", 'eus': 'gaizki', 'word_id': 49},
-        {'fr': 'chien', 'eus': 'txakur', 'word_id': 50, 'syns_fr': [51]},
+        {'fr': 'chien', "fr_f_suf": "ne", 'eus': 'txakur', 'word_id': 50, 'syns_fr': [51]},
         {'fr': 'flic', 'eus': 'txakur', 'word_id': 51, 'syns_fr': [50]},
         {'fr': 'chanson', "fr_f": true, 'eus': 'kantore', 'word_id': 55},
         {'fr': 'champignon', 'eus': 'onddo', 'word_id': 56},
@@ -162,15 +164,15 @@
         {'fr': 'tonnerre', 'eus': 'ortzi', 'word_id': 122, 'syns_fr': [121]},
         {'fr': 'récolte', "fr_f": true, 'eus': 'uzta', 'word_id': 125},
         {'fr': 'fougère', "fr_f": true, 'eus': 'iratze', 'word_id': 127},
-        {'fr': 'loup', 'eus': 'otso', 'word_id': 128},
+        {'fr': 'loup', "fr_f_form": "louve", 'eus': 'otso', 'word_id': 128},
         {'fr': 'chou', "plur_fr": "choux", 'eus': 'aza', 'word_id': 129},
         {'fr': 'applaudissement', 'eus': 'txalo', 'word_id': 130, 'syns_fr': [131]},
         {'fr': 'bravo', 'eus': 'txalo', 'word_id': 131, 'syns_fr': [130]},
         {'fr': 'jour de fête', "plur_fr": "jours fériés", 'eus': 'jaiegun', 'word_id': 132, 'syns_fr': [133]},
         {'fr': 'jour férié', "plur_fr": "jours fériés", 'eus': 'jaiegun', 'word_id': 133, 'syns_fr': [132]},
         {'fr': 'doute', 'eus': 'zalantza', 'word_id': 134},
-        {'fr': 'étudiant', 'eus': 'ikasle', 'word_id': 136},
-        {'fr': 'professeur', 'eus': 'irakasle', 'word_id': 137},
+        {'fr': 'étudiant', "fr_f_suf": "e", 'eus': 'ikasle', 'word_id': 136},
+        {'fr': 'professeur', "fr_f_form": "professoresse", 'eus': 'irakasle', 'word_id': 137},
         {'fr': 'exercice', 'eus': 'ariketa', 'word_id': 138},
         {'fr': 'question', "fr_f": true, 'eus': 'galdera', 'word_id': 139},
         {'fr': 'réponse', "fr_f": true, 'eus': 'erantzun', 'word_id': 140, 'syns_eus': [184]},
@@ -182,7 +184,7 @@
         {'fr': 'fille', "fr_f": true, 'eus': 'neska', 'word_id': 152},
         {'fr': 'pluriel', 'eus': 'plural', 'word_id': 148},
         {'fr': "'au revoir'", "plur_fr": "'au revoir'", 'eus': 'agur', 'word_id': 22},
-        {'fr': 'après-midi', "plur_fr": "après-midi", 'eus': 'arratsalde', 'word_id': 27},
+        {'fr': 'après-midi', "fr_f_suf": "", "plur_fr": "après-midi", 'eus': 'arratsalde', 'word_id': 27},
         {'fr': "'s'il te plaît'", "plur_fr": "'s'il te plaît'", 'eus': 'mesedez', 'word_id': 41, 'syns_fr': [43], 'syns_eus': [42]},
         {'fr': "'s'il te plaît'", "plur_fr": "'s'il te plaît'", 'eus': 'otoi', 'word_id': 42, 'syns_fr': [44], 'syns_eus': [41]},
         {'fr': "'s'il vous plaît'", "plur_fr": "'s'il vous plaît'", 'eus': 'mesedez', 'word_id': 43, 'syns_fr': [41], 'syns_eus': [44]},
@@ -190,8 +192,8 @@
         {'fr': 'lendemain', 'eus': 'bihar', 'word_id': 69},
         {'fr': 'froid', 'eus': 'hotz', 'word_id': 81},
         {'fr': 'chaleur', "fr_f": true, 'eus': 'bero', 'word_id': 82},
-        {'fr': 'premier', 'eus': 'lehen', 'word_id': 62},
-        {'fr': 'dernier', 'eus': 'azken', 'word_id': 65},
+        {'fr': 'premier', "fr_f_form": "première", 'eus': 'lehen', 'word_id': 62},
+        {'fr': 'dernier', "fr_f_form": "dernière", 'eus': 'azken', 'word_id': 65},
         {"fr": "lundi", "eus": "astelehen"},
         {"fr": "mardi", "eus": "astearte"},
         {"fr": "mercredi", "eus": "asteasken"},
@@ -222,21 +224,21 @@
         {"fr": "octobre", "eus": "urri", 'word_id': 202},
         {"fr": "novembre", "eus": "azaro"},
         {"fr": "décembre", "eus": "abendu"},
-        {"fr": "étranger", "eus": "kanpotar", 'word_id': 170, 'syns_eus': [171]},
-        {"fr": "étranger", "eus": "arrotz", 'word_id': 171, 'syns_fr': [173], 'syns_eus': [170]},
-        {"fr": "hôte", "fr_h_mute":true, "eus": "arrotz", 'word_id': 173, 'syns_fr': [171]},
+        {"fr": "étranger", "fr_f_form": "étrangère", "eus": "kanpotar", 'word_id': 170, 'syns_eus': [171]},
+        {"fr": "étranger", "fr_f_form": "étrangère", "eus": "arrotz", 'word_id': 171, 'syns_fr': [173], 'syns_eus': [170]},
+        {"fr": "hôte", "fr_f_suf": "", "fr_h_mute":true, "eus": "arrotz", 'word_id': 173, 'syns_fr': [171]},
         {"fr": "Guillaume", "pers_name": true, "plur_fr": "Guillaume", "eus": "Guillaume"},
         {"fr": "poisson", "eus": "arrain"},
         {"fr": "Sonia", "plur_fr": "Sonia", "pers_name": true, "fr_f": true, "eus": "Sonia"},
         {"fr": "semaine", "fr_f": true, "eus": "aste", 'word_id': 58},
         {'fr': 'réponse', "fr_f": true, 'eus': 'arrapostu', 'word_id': 184, 'syns_eus': [140]},
-        {'fr': 'second', 'eus': 'bigarren', 'word_id': 185},
+        {'fr': 'second', "fr_f_suf": "e", 'eus': 'bigarren', 'word_id': 185},
         // {'fr': 'rose', 'eus': 'arrosa', 'word_id': 211, 'syns_fr': [214]},
         {'fr': 'rose', "fr_f": true, 'eus': 'arrosa', 'word_id': 214, 'syns_fr': [211]},
         // {'fr': 'vert', 'eus': 'berde', 'word_id': 215},
         // {'fr': 'noir', 'eus': 'beltz', 'word_id': 216},
         // {'fr': 'rouge', 'eus': 'gorri', 'word_id': 217},
-        {'fr': 'communiste', 'eus': 'komunista', 'word_id': 189},
+        {'fr': 'communiste', "fr_f_suf": "", 'eus': 'komunista', 'word_id': 189},
         {'fr': 'Afrique', "fr_f": true, 'eus': 'Afrika', 'word_id': 190},
         {'fr': 'Chine', "fr_f": true, 'eus': 'Txina', 'word_id': 191},
         {'fr': 'Italie', "fr_f": true, 'eus': 'Italia', 'word_id': 192},
@@ -248,18 +250,18 @@
         {'fr': 'Fado', 'eus': 'Fado', 'word_id': 198},
         {'fr': 'parc', 'eus': 'parke', 'word_id': 199},
         {'fr': 'liqueur de prunelles', "plur_fr": "liqueurs de prunelles", "fr_f": true, 'eus': 'patxaran', 'word_id': 210},
-        {'fr': 'chanteur', 'eus': 'kantari', 'word_id': 218, 'syns_eus': [219]},
-        {'fr': 'chanteur', 'eus': 'abeslari', 'word_id': 219, 'syns_eus': [218]},
+        {'fr': 'chanteur', "fr_f_form": "chanteuse", 'eus': 'kantari', 'word_id': 218, 'syns_eus': [219]},
+        {'fr': 'chanteur', "fr_f_form": "chanteuse", 'eus': 'abeslari', 'word_id': 219, 'syns_eus': [218]},
         {'fr': 'leçon', "fr_f": true, 'eus': 'ikasgai', 'word_id': 220},
         {'fr': 'langue basque', "plur_fr": 'langues basques', "fr_f": true, 'eus': 'Euskara', 'word_id': 221},
-        {'fr': 'basque', 'eus': 'euskaldun', 'word_id': 222},
+        {'fr': 'basque', "fr_f_suf": "", 'eus': 'euskaldun', 'word_id': 222},
         {'fr': 'langage', 'eus': 'hizkuntza', 'word_id': 223},
         {'fr': 'voiture', "fr_f": true, 'eus': 'auto', 'word_id': 224},
         {'fr': 'ordinateur', 'eus': 'ordenagailu', 'word_id': 225},
         {'fr': 'maison', "fr_f": true, 'eus': 'etxe', 'word_id': 226},
         {'fr': 'bonbon', 'eus': 'goxoki', 'word_id': 227, 'syns_eus': [228]},
         {'fr': 'bonbon', 'eus': 'gozoki', 'word_id': 228, 'syns_eus': [227]},
-        {'fr': 'ami', 'eus': 'lagun', 'word_id': 229},
+        {'fr': 'ami', "fr_f_suf": "e", 'eus': 'lagun', 'word_id': 229},
         {'fr': 'sœur d’une femme', "fr_f": true, "plur_fr": 'sœurs d’une femme', 'eus': 'ahizpa', 'word_id': 230},
         {'fr': 'sœur d’un homme', "fr_f": true, "plur_fr": 'sœurs d’un homme', 'eus': 'arreba', 'word_id': 231},
         {'fr': 'livre', 'eus': 'liburu', 'word_id': 232},
@@ -269,15 +271,15 @@
         {'fr': 'appartement', 'eus': 'apartamendu', 'word_id': 236, 'syns_eus': [235]},
         {'fr': 'bras', "plur_fr": "bras", 'eus': 'beso', 'word_id': 237},
         {'fr': 'fille (filiation)', "plur_fr": 'filles (filiation)', "fr_f": true, 'eus': 'alaba', 'word_id': 238},
-        {'fr': 'chat', 'eus': 'katu', 'word_id': 239},
+        {'fr': 'chat', "fr_f_suf": "te",  'eus': 'katu', 'word_id': 239},
         {'fr': 'dictionnaire', 'eus': 'hiztegi', 'word_id': 244, 'syns_fr': [57]},
-        {'fr': 'pêcheur', 'eus': 'arrantzale', 'word_id': 245},
+        {'fr': 'pêcheur', "fr_f_form": "pêcheuse", 'eus': 'arrantzale', 'word_id': 245},
         {'fr': 'téléphone', 'eus': 'telefono', 'word_id': 246},
         {'fr': 'ciseau', "plur_fr": 'ciseaux', 'eus': 'guraize', 'word_id': 247},
         {'fr': 'France', "fr_f": true, 'eus': 'Frantzia', 'word_id': 248},
-        {'fr': 'cuisinier', 'eus': 'sukaldari', 'word_id': 249},
+        {'fr': 'cuisinier', "fr_f_form": "cuisinière", 'eus': 'sukaldari', 'word_id': 249},
         {'fr': 'tramway', 'eus': 'tranbia', 'word_id': 252},
-        {'fr': 'conducteur', 'eus': 'gidari', 'word_id': 253},
+        {'fr': 'conducteur', "fr_f_form": "conductrice", 'eus': 'gidari', 'word_id': 253},
         {'fr': 'grève', "fr_f": true, 'eus': 'greba', 'word_id': 254},
         {'fr': 'montre', "fr_f": true, 'eus': 'erloju', 'word_id': 255, 'syns_fr': [256]},
         {'fr': 'horloge', "fr_f": true, "fr_h_mute":true, 'eus': 'erloju', 'word_id': 256, 'syns_fr': [256]},
@@ -325,8 +327,8 @@
         {'fr': 'couvert de brouillard', "fr_f": "couverte de brouillard", "plur_fr": "couverts de brouillard", 
          "fr_f_plur": "couvertes de brouillard", 'fr_post': true, 'eus': 'lainotuta', 'word_id': 240},
         {'fr': 'propre', "fr_f": "propre", 'fr_post': true, 'eus': 'garbi', 'word_id': 241},
-        {'fr': 'cher', "fr_f": "chère", 'eus': 'maite', 'word_id': 242, 'syns_eus': [243]},
-        {'fr': 'cher', "fr_f": "chère", 'eus': 'maitia', 'word_id': 243, 'syns_eus': [242]},
+        {'fr': 'chéri', "fr_f": "chérie", 'fr_post': true, 'eus': 'maite', 'word_id': 242, 'syns_eus': [243]},
+        {'fr': 'chéri', "fr_f": "chérie", 'fr_post': true, 'eus': 'maitia', 'word_id': 243, 'syns_eus': [242]},
         {'fr': 'excellent', 'eus': 'bikain', 'word_id': 262},
     ];
     
@@ -448,11 +450,13 @@
     
     		//////// NAME GROUP 1
     		var pronom_proba=50; //percent
+    		var femi_proba=50; //percent
     		var name1;
     		var iRandom_name1 = 0;
     		var name1_is_proper_noun = false;
     
     		var name1_is_pronom = (Math.floor((Math.random() * 100))<pronom_proba);
+    		var fem1 = (Math.floor((Math.random() * 100))<femi_proba);
     
     		if (name1_is_pronom) {
     			var iRandom_pron1 = Math.floor((Math.random() * ($scope.pronoms.length)));
@@ -462,7 +466,29 @@
     			name1 = names[iRandom_name1-1];
     		}
     
-    		$scope.name1 = name1.fr;
+    		if (fem1){
+    			var fem_exists=false;
+    			if(name1.fr_f) {
+    				$scope.name1 = name1.fr;
+    				fem_exists=true;
+    			}
+    			if("fr_f_suf" in name1) {
+    				$scope.name1 = name1.fr+name1.fr_f_suf;
+    				fem_exists=true;
+    			}
+    			if("fr_f_form" in name1) {
+    				$scope.name1 = name1.fr_f_form;
+    				fem_exists=true;
+    			};
+    			if (!(fem_exists)) {
+    				fem1=false;
+    				$scope.name1 = name1.fr;
+    			}
+    		} else {
+    			if(name1.fr_f) fem1=true;
+    			$scope.name1 = name1.fr;
+    		}
+    
     		$scope.hints.push(name1);
     		for (i = 0; i < target_len; i++) { 
     			$scope.target_chunks[i]["name1"]=name1.eus;
@@ -526,11 +552,32 @@
     					break;
     			};
     
-    			if (name1.fr_f && "fr_f" in deters[iRandom_deter1]) {
-    				$scope.deter1 = deters[iRandom_deter1].fr_f;
+    			// if (name1.fr_f && "fr_f" in deters[iRandom_deter1]) {
+    			// 	$scope.deter1 = deters[iRandom_deter1].fr_f;
+    			// } else {
+    			// 	$scope.deter1 = deters[iRandom_deter1].fr;
+    			// }
+    
+    			if (fem1){
+    				var fem_exists=false;
+    				if("fr_f" in deters[iRandom_deter1]) {
+    					$scope.deter1 = deters[iRandom_deter1].fr_f;
+    					fem_exists=true;
+    				}
+    				if("fr_f_suf" in deters[iRandom_deter1]) {
+    					$scope.deter1 = deters[iRandom_deter1].fr+deters[iRandom_deter1].fr_f_suf;
+    					fem_exists=true;
+    				};
+    				if (!(fem_exists)) $scope.deter1 = deters[iRandom_deter1].fr;
     			} else {
     				$scope.deter1 = deters[iRandom_deter1].fr;
     			}
+    
+    
+    
+    
+    
+    
     			if (deters[iRandom_deter1].num == "plur") {
     				if (deters[iRandom_deter1].quant == "ordin") {
     					if (Math.floor((Math.random() *2))>0) {
@@ -546,7 +593,11 @@
     						if (deters[iRandom_deter1].quant == "indet") $scope.target_chunks[i]["ordin1"]=deters[iRandom_deter1].eus;
     					}
     				};
-    				if ("plur_fr" in name1) {$scope.name1 = name1.plur_fr;} else{$scope.name1 +="s";}
+    				if ((fem1)&&("plur_fr_f" in name1)) {
+    					$scope.name1 = name1.plur_fr_f;
+    				} else {
+    					if ("plur_fr" in name1) {$scope.name1 = name1.plur_fr;} else{$scope.name1 +="s";}
+    				};
     			} else{
     				for (i = 0; i < target_len; i++) { 
     					if (deters[iRandom_deter1].quant == "deter") $scope.target_chunks[i]["suf_name1"]="a";
@@ -617,7 +668,8 @@
     			};
     			if (iRandom_adj1>0) {
     				if (deters[iRandom_deter1].num == "plur") {
-    					if (name1.fr_f) {
+    					// if (name1.fr_f) {
+    					if (fem1) {
     						if ("fr_f_plur" in adjs[iRandom_adj1-1]) {
     							$scope.adj1 = adjs[iRandom_adj1-1].fr_f_plur;
     						} else{
@@ -631,7 +683,8 @@
     						} else {$scope.adj1 = adjs[iRandom_adj1-1].fr+"s";}
     					}
     				} else {
-    					if (name1.fr_f) {
+    					// if (name1.fr_f) {
+    					if (fem1) {
     						if ("fr_f" in adjs[iRandom_adj1-1]) {
     							$scope.adj1 = adjs[iRandom_adj1-1].fr_f;
     						} else {$scope.adj1 = adjs[iRandom_adj1-1].fr+"e";}
@@ -750,7 +803,8 @@
     
     
     			if ((name1_is_pronom && name1.fr_pers>2) || (!(name1_is_pronom) && deters[iRandom_deter1].num == "plur")) {
-    				if (name1.fr_f) {
+    				// if (name1.fr_f) {
+    				if (fem1) {
     					if ("fr_f_plur" in name2) {
     						$scope.name2 = name2.fr_f_plur;
     					} else{
@@ -767,7 +821,8 @@
     					$scope.target_chunks[i]["suf_name2"]="ak";
     				};
     			} else {
-    				if (name1.fr_f) {
+    				// if (name1.fr_f) {
+    				if (fem1) {
     					if ("fr_f" in name2) {
     						$scope.name2 = name2.fr_f;
     					} else {$scope.name2 = name2.fr+"e";}
@@ -781,7 +836,32 @@
     		} else {
     			name2_is_adj=false;
     			name2 = names[iRandom_name2-1];
-    			$scope.name2 = name2.fr;
+    
+    			var fem2 = (Math.floor((Math.random() * 100))<femi_proba);
+    
+    			// $scope.name2 = name2.fr;
+    			if (fem2){
+    				var fem_exists=false;
+    				if(name2.fr_f) {
+    					$scope.name2 = name2.fr;
+    					fem_exists=true;
+    				}
+    				if("fr_f_suf" in name2) {
+    					$scope.name2 = name2.fr+name2.fr_f_suf;
+    					fem_exists=true;
+    				}
+    				if("fr_f_form" in name2) {
+    					$scope.name2 = name2.fr_f_form;
+    					fem_exists=true;
+    				};
+    				if (!(fem_exists)) {
+    					fem2=false;
+    					$scope.name2 = name2.fr;
+    				}
+    			} else {
+    				if(name2.fr_f) fem2=true;
+    				$scope.name2 = name2.fr;
+    			}
     			
     			if (iRandom_name2!=iRandom_name1) {
     				if (!("word_id" in name2)){
@@ -857,11 +937,26 @@
     					break;
     			};
     
-    			if (name2.fr_f && "fr_f" in deters[iRandom_deter2]) {
-    				$scope.deter2 = deters[iRandom_deter2].fr_f;
+    			// if (name2.fr_f && "fr_f" in deters[iRandom_deter2]) {
+    			// 	$scope.deter2 = deters[iRandom_deter2].fr_f;
+    			// } else {
+    			// 	$scope.deter2 = deters[iRandom_deter2].fr;
+    			// }
+    			if (fem2){
+    				var fem_exists=false;
+    				if("fr_f" in deters[iRandom_deter2]) {
+    					$scope.deter2 = deters[iRandom_deter2].fr_f;
+    					fem_exists=true;
+    				}
+    				if("fr_f_suf" in deters[iRandom_deter2]) {
+    					$scope.deter2 = deters[iRandom_deter2].fr+deters[iRandom_deter2].fr_f_suf;
+    					fem_exists=true;
+    				};
+    				if (!(fem_exists)) $scope.deter2 = deters[iRandom_deter2].fr;
     			} else {
     				$scope.deter2 = deters[iRandom_deter2].fr;
     			}
+    
     			if (deters[iRandom_deter2].num == "plur") {
     				if (deters[iRandom_deter2].quant == "ordin") {
     					for (i = 0; i < target_len; i++) { 
@@ -888,7 +983,12 @@
     						if (deters[iRandom_deter2].quant == "indet") $scope.target_chunks[i]["ordin2"]=deters[iRandom_deter2].eus;
     					};
     				};
-    				if ("plur_fr" in name2) {$scope.name2 = name2.plur_fr;} else{$scope.name2 +="s";}
+    				// if ("plur_fr" in name2) {$scope.name2 = name2.plur_fr;} else{$scope.name2 +="s";}
+    				if ((fem2)&&("plur_fr_f" in name2)) {
+    					$scope.name2 = name2.plur_fr_f;
+    				} else {
+    					if ("plur_fr" in name2) {$scope.name2 = name2.plur_fr;} else{$scope.name2 +="s";}
+    				};
     			} else {
     				for (i = 0; i < target_len; i++) { 
     					if (deters[iRandom_deter2].quant == "deter") $scope.target_chunks[i]["suf_name2"]="a";
@@ -974,7 +1074,8 @@
     			};
     			if (iRandom_adj2>0) {
     				if (deters[iRandom_deter2].num == "plur") {
-    					if (name2.fr_f) {
+    					// if (name2.fr_f) {
+    					if (fem2) {
     						if ("fr_f_plur" in adjs[iRandom_adj2-1]) {
     							$scope.adj2 = adjs[iRandom_adj2-1].fr_f_plur;
     						} else{
@@ -988,7 +1089,8 @@
     						} else {$scope.adj2 = adjs[iRandom_adj2-1].fr+"s";}
     					}
     				} else {
-    					if (name2.fr_f) {
+    					// if (name2.fr_f) {
+    					if (fem2) {
     						if ("fr_f" in adjs[iRandom_adj2-1]) {
     							$scope.adj2 = adjs[iRandom_adj2-1].fr_f;
     						} else {$scope.adj2 = adjs[iRandom_adj2-1].fr+"e";}
@@ -1405,7 +1507,7 @@
     </div>
   </div>
     <div>
-      Ukan_Izan version 1.22
+      Ukan_Izan version 1.23
     </div>
 </div>
 </body>
