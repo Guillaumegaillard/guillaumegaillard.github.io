@@ -66,7 +66,7 @@
         {"fr": "vous (pl.)", "fr_f": true, "eus": "zuek", "fr_pers":4},
         ];
     
-    var verbs=[
+    var auxiliaries=[
         {
             "fr": "être",
             "eus": "izan",
@@ -288,6 +288,17 @@
         {'fr': 'euro', 'eus': 'euro', 'word_id': 259},
         {'fr': 'béret', 'eus': 'txapel', 'word_id': 260},
         {'fr': 'année', "fr_f": true, 'eus': 'urte', 'word_id': 261},
+        {'fr': 'classe', "fr_f": true, 'eus': 'klase', 'word_id': 263},
+        {'fr': 'sommet', 'eus': 'gailur', 'word_id': 264},
+        {'fr': 'mère', "fr_f": true, 'eus': 'ama', 'word_id': 265},
+        {'fr': 'oreille', "fr_f": true, 'eus': 'belarri', 'word_id': 266},
+        {'fr': 'bouche', "fr_f": true, 'eus': 'aho', 'word_id': 267},
+        {'fr': 'langue non basque', "plur_fr": "langues non basque", "fr_f": true, 'eus': 'erdara', 'word_id': 268, 'syns_eus': [269]},
+        {'fr': 'langue non basque', "plur_fr": "langues non basque", "fr_f": true, 'eus': 'erdera', 'word_id': 269, 'syns_eus': [268]},
+        {'fr': 'donnée', "fr_f": true, 'eus': 'datu', 'word_id': 270},
+        {'fr': 'bière', "fr_f": true, 'eus': 'garagardo', 'word_id': 271, 'syns_eus': [272, 273]},
+        {'fr': 'bière', "fr_f": true, 'eus': 'kaina', 'word_id': 272, 'syns_eus': [271, 273]},
+        {'fr': 'bière', "fr_f": true, 'eus': 'zerbeza', 'word_id': 273, 'syns_eus': [271, 272]},
     ];
     
     var adjs=[
@@ -301,7 +312,7 @@
         {'fr': 'dernier', "fr_f": "dernière", 'eus': 'azken', 'word_id': 165},
         {'fr': 'bon', "fr_f": "bonne", 'eus': 'on', 'word_id': 84},
         {'fr': 'mauvais', "plur_fr": "mauvais", 'eus': 'txar', 'word_id': 85, 'syns_fr': [86]},
-        {'fr': 'moche', 'fr_post': true, "fr_f": "moche", 'eus': 'txar', 'word_id': 86, 'syns_fr': [85]},
+        {'fr': 'méchant', 'eus': 'txar', 'word_id': 86, 'syns_fr': [85]},
         {'fr': 'bas', "plur_fr": "bas", "fr_f": "basse", 'eus': 'behe', 'word_id': 94},
         {'fr': 'mouillé', 'fr_post': true, 'eus': 'busti', 'word_id': 115, 'syns_fr': [116]},
         {'fr': 'humide', 'fr_post': true, "fr_f": "humide", "fr_h_mute":true, 'eus': 'busti', 'word_id': 116, 'syns_fr': [115]},
@@ -330,10 +341,13 @@
         {'fr': 'chéri', "fr_f": "chérie", 'fr_post': true, 'eus': 'maite', 'word_id': 242, 'syns_eus': [243]},
         {'fr': 'chéri', "fr_f": "chérie", 'fr_post': true, 'eus': 'maitia', 'word_id': 243, 'syns_eus': [242]},
         {'fr': 'excellent', 'eus': 'bikain', 'word_id': 262},
+        {'fr': 'prêt', 'fr_post': true, 'eus': 'prest', 'word_id': 274},
+        {'fr': 'ouvert', 'fr_post': true, 'eus': 'zabal', 'word_id': 275},
+        {'fr': 'moche', 'fr_post': true, "fr_f": "moche", 'eus': 'itsusi', 'word_id': 276},
     ];
     
     // {'fr': "d'accord", 'eus': 'ados', 'word_id': 135},
-    //noun  "plur_fr": , "fr_f": true, "pers_name": true, "fr_h_mute":true,
+    //noun  "plur_fr": , "fr_f": true, "pers_name": true, "fr_h_mute":true, "fr_f_form", "fr_f_suf": "te",
     //adj   , "plur_fr": "mauvais", "fr_f_plur" "fr_f": "rouge", 'fr_post': true, "fr_before_vowel": "bel", "fr_h_mute":true,
     
     
@@ -344,7 +358,7 @@
     app.controller('myCtrl', function($scope) {
     
     	var deters=dets.concat(indets,ordins);
-    	$scope.verbs = verbs;
+    	$scope.auxiliaries = auxiliaries;
     	$scope.deters = deters;
     	$scope.names = names;
     	$scope.adjs = adjs;
@@ -360,7 +374,7 @@
     	$scope.adj2="";
     	$scope.name2="";
     
-    	$scope.verb="";
+    	$scope.auxiliary="";
     	$scope.infinitif="";
     
     	$scope.hints = [];
@@ -369,7 +383,7 @@
     
     	$scope.targets = [""];
     	$scope.target = "";
-    	$scope.target_chunks = [{"name1":"", "ordin1":"", "adj1":"", "verb":"", "name2":"", "adj2":"", "ordin2":""}];
+    	$scope.target_chunks = [{"name1":"", "ordin1":"", "adj1":"", "auxiliary":"", "name2":"", "adj2":"", "ordin2":""}];
     
     	$scope.message = " Écrire la traduction. NB: l'ordre des mots n'est pas vérifié ici.";
     	$scope.fr_phrase = ""
@@ -427,7 +441,7 @@
     		$scope.adj2="";
     		$scope.name2="";
     
-    		$scope.verb="";
+    		$scope.auxiliary="";
     		$scope.infinitif="";
     
     		$scope.hints=[];
@@ -441,7 +455,7 @@
     
     		$scope.targets = [""];
     		$scope.target = "";
-    		$scope.target_chunks = [{"name1":"", "suf_name1":"", "ordin1":"", "adj1":"", "verb":"", "name2":"", "suf_name2":"", "adj2":"", "ordin2":""}];
+    		$scope.target_chunks = [{"name1":"", "suf_name1":"", "ordin1":"", "adj1":"", "auxiliary":"", "name2":"", "suf_name2":"", "adj2":"", "ordin2":""}];
     		var target_len=$scope.targets.length;
     		var i;
     
@@ -739,10 +753,10 @@
     
     		target_len=$scope.targets.length;
     
-    		//////// VERB
-    		var iRandom_verb = Math.floor((Math.random() * $scope.verbs.length));
-    		var infinitif=$scope.verbs[iRandom_verb];
-    		$scope.infinitif=$scope.verbs[iRandom_verb];
+    		//////// auxiliary
+    		var iRandom_auxiliary = Math.floor((Math.random() * $scope.auxiliaries.length));
+    		var infinitif=$scope.auxiliaries[iRandom_auxiliary];
+    		$scope.infinitif=$scope.auxiliaries[iRandom_auxiliary];
     		var pers;
     		var pers_COD = 0;
     
@@ -755,8 +769,8 @@
     			
     		} else {pers=name1.fr_pers;};
     
-    		// $scope.verb = infinitif.fr;
-    		$scope.verb = infinitif.fr_c[pers];
+    		// $scope.auxiliary = infinitif.fr;
+    		$scope.auxiliary = infinitif.fr_c[pers];
     
     		var negative=false;
     		if (Math.floor((Math.random() *2))>0) negative=true;
@@ -764,13 +778,13 @@
     		if (negative) {
     			$scope.name1 += " ";
     
-    			if (($scope.verb.match(vowelRegex))||(infinitif.fr_h_mute)) {
-    				$scope.verb="n'"+$scope.verb+" pas"
+    			if (($scope.auxiliary.match(vowelRegex))||(infinitif.fr_h_mute)) {
+    				$scope.auxiliary="n'"+$scope.auxiliary+" pas"
     			} else {
-    				$scope.verb="ne "+$scope.verb+" pas"
+    				$scope.auxiliary="ne "+$scope.auxiliary+" pas"
     			}
     		} else {
-    			if ((pers == 0) && (($scope.verb.match(vowelRegex))||(infinitif.fr_h_mute))) {
+    			if ((pers == 0) && (($scope.auxiliary.match(vowelRegex))||(infinitif.fr_h_mute))) {
     				$scope.name1 = "j'";
     			} else {
     				$scope.name1 += " ";			
@@ -1165,7 +1179,7 @@
     		if (($scope.adj1.length>0) && (adjs[iRandom_adj1-1].fr_post)) {
     			$scope.fr_phrase += $scope.adj1;
     		};
-    		$scope.fr_phrase += $scope.verb;
+    		$scope.fr_phrase += $scope.auxiliary;
     		$scope.fr_phrase += " ";
     		$scope.fr_phrase += $scope.deter2;
     		if (($scope.adj2.length>0) && (!(adjs[iRandom_adj2-1].fr_post))) {
@@ -1190,13 +1204,13 @@
     				if ($scope.target_chunks[i]["suf_name1"]=="") $scope.target_chunks[i]["suf_name1"]="k";
     				if (name1_is_pronom) $scope.target_chunks[i]["suf_name1"]="k";			
     			};
-    			$scope.target_chunks[i]["verb"]=infinitif.eus_c[pers_COD][pers];
+    			$scope.target_chunks[i]["auxiliary"]=infinitif.eus_c[pers_COD][pers];
     
     			// console.log("target chunks: " + $scope.target_chunks[i]["name1"]);
     			// console.log("target chunks: " + $scope.target_chunks[i]["suf_name1"]);
     			// console.log("target chunks: " + $scope.target_chunks[i]["ordin1"]);
     			// console.log("target chunks: " + $scope.target_chunks[i]["adj1"]);
-    			// console.log("target chunks: " + $scope.target_chunks[i]["verb"]);
+    			// console.log("target chunks: " + $scope.target_chunks[i]["auxiliary"]);
     			// console.log("target chunks: " + $scope.target_chunks[i]["name2"]);
     			// console.log("target chunks: " + $scope.target_chunks[i]["suf_name2"]);
     			// console.log("target chunks: " + $scope.target_chunks[i]["adj2"]);
@@ -1287,9 +1301,9 @@
     			$scope.target+=" ";
     
     			if (negative) {
-    				// verb
+    				// auxiliary
     				$scope.target+="ez ";
-    				$scope.target+=$scope.target_chunks[i]["verb"];
+    				$scope.target+=$scope.target_chunks[i]["auxiliary"];
     				$scope.target+=" ";
     			};
     
@@ -1331,9 +1345,9 @@
     			};
     
     			if (!(negative)) {
-    				// verb
+    				// auxiliary
     				$scope.target+=" ";
-    				$scope.target+=$scope.target_chunks[i]["verb"];
+    				$scope.target+=$scope.target_chunks[i]["auxiliary"];
     			};
     			$scope.target+=".";
     
@@ -1507,7 +1521,7 @@
     </div>
   </div>
     <div>
-      Ukan_Izan version 1.23
+      Ukan_Izan version 1.24
     </div>
 </div>
 </body>
