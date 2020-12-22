@@ -506,7 +506,7 @@
             for (sol_id; sol_id < num_sols ; sol_id ++) {
     
                 var form_input=$scope.eus_input.toLowerCase().replace(" .","").replace(".","").replace(/-/g," ").replace(/  /g," ").split(" ");
-                var form_target=$scope.eus_zenbakiak[sol_id].toLowerCase().replace(".","").replace(/-/g," ").split(" ");
+                var form_target=$scope.eus_zenbakiak[sol_id].toLowerCase().replace(".","").replace(/-/g," ").replace(/  /g," ").split(" ");
     
                 var is_same=true;
                 var i = form_target.length;
