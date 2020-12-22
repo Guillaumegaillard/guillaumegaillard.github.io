@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en-US" ng-app="myApp" >
+<head>
+  <meta charset="utf-8" />
+	<title>Zenbakiak</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script type="text/javascript">
+    var dets=[
+        {"fr": "le ","fr_f": "la ","fr_before_vowel": "l'","quant": "deter","num": "sing"},
+        {"fr": "les ","quant": "deter","num": "plur"},
+    ];
+    
+    var indets=[
+        {"fr": "quelques ","quant": "indet","num": "plur","eus": "zenbait"},    
+        {"fr": "plusieurs ","quant": "indet","num": "plur","eus": "batzuk"},    
+        {"fr": "peu d'un ","fr_f": "peu d'une ","quant": "indet","num": "sing","eus": "gutxi"},
+        // "fr": "du (1 part. indén. de) ", "fr_before_vowel": "peu de l'", "fr": "peu de ", "fr": "un peu de ",
+        // {   "fr": "du ","fr_f": "de la ","fr_before_vowel": "de l'","quant": "indet","num": "sing"},    
+        {   "fr": "un petit nombre de ","fr_before_vowel": "un petit nombre d'","quant": "indet","num": "plur",
+            "eus": "gutxi"},
+        {   "fr": "une petite partie de ","fr_before_vowel": "une petite partie d'","quant": "indet","num": "sing",
+            "eus": "pixka bat"},
+    
+        {   "fr": "de nombreux ","fr_f": "de nombreuses ","quant": "indet","num": "plur","eus": "asko", 
+            'word_id': 9, 'syns_eus': [12,15]},
+        {   "fr": "une grande partie de ","fr_before_vowel": "une grande partie d'","quant": "indet","num": "sing","eus": "asko", 
+            'word_id': 10, 'syns_eus': [13,16]},
+        {   "fr": "beaucoup d'un ","fr_f": "beaucoup d'une ","quant": "indet","num": "sing","eus": "asko", 
+            'word_id': 11, 'syns_eus': [14,17]},
+    
+        {   "fr": "de nombreux ","fr_f": "de nombreuses ","quant": "indet","num": "plur","eus": "anitz", 
+            'word_id': 12, 'syns_eus': [9,15]},
+        {   "fr": "une grande partie de ","fr_before_vowel": "une grande partie d'","quant": "indet","num": "sing","eus": "anitz", 
+            'word_id': 13, 'syns_eus': [10,16]},
+        {   "fr": "beaucoup d'un ","fr_f": "beaucoup d'une ","quant": "indet","num": "sing","eus": "anitz", 
+            'word_id': 14, 'syns_eus': [11,17]},
+    
+        {   "fr": "de nombreux ","fr_f": "de nombreuses ","quant": "indet","num": "plur","eus": "hanitx", 
+            'word_id': 15, 'syns_eus': [9,12]},
+        {   "fr": "une grande partie de ","fr_before_vowel": "une grande partie d'","quant": "indet","num": "sing","eus": "hanitx", 
+            'word_id': 16, 'syns_eus': [10,13]},
+        {   "fr": "beaucoup d'un ","fr_f": "beaucoup d'une ","quant": "indet","num": "sing","eus": "hanitx", 
+            'word_id': 17, 'syns_eus': [11,14]},
+        {'intval': 0, 'fr': 'zéro', 'eus': 'zero', 'es': 'cero', 'word_id': 278, 'syns_eus': [279], 'quant': 'ordin', 'num': 'sing'},
+        {'fr': 'zéro', 'eus': 'huts', 'word_id': 279, 'syns_eus': [278], 'quant': 'ordin', 'num': 'sing'},
+    ];
+    var ordins=[
+        {'intval': 1, 'es': 'uno', "fr": "un", "fr_f": "une", "eus": "bat","quant": "ordin","num": "sing"},
+        // {'fr': 'un', 'eus': 'bat', 'word_id': 280, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 2, 'es': 'dos', 'fr': "deux", 'eus': 'bi', 'word_id': 281, 'quant': 'ordin', 'num': 'plur'},
+        // {"fr": "trois ","eus": "hiru","quant": "ordin","num": "plur"},
+        {'intval': 3, 'es': 'tres', 'fr': 'trois', 'eus': 'hiru', 'word_id': 282, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 4, 'es': 'cuatro', 'fr': 'quatre', 'eus': 'lau', 'word_id': 283, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 5, 'es': 'cinco', 'fr': 'cinq', 'eus': 'bost', 'word_id': 284, 'syns_eus': [285], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 5, 'es': 'cinco', 'fr': 'cinq', 'eus': 'bortz', 'word_id': 285, 'syns_eus': [284], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 6, 'es': 'seis', 'fr': 'six', 'eus': 'sei', 'word_id': 286, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 7, 'es': 'siete', 'fr': 'sept', 'eus': 'zazpi', 'word_id': 287, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 8, 'es': 'ocho', 'fr': 'huit', 'eus': 'zortzi', 'word_id': 288, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 9, 'es': 'nueve', 'fr': 'neuf', 'eus': 'bederatzi', 'word_id': 289, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 10, 'es': 'diez', 'fr': 'dix', 'eus': 'hamar', 'word_id': 290, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 11, 'es': 'once', 'fr': 'onze', 'eus': 'hamaika', 'word_id': 291, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 12, 'es': 'doce', 'fr': 'douze', 'eus': 'hamabi', 'word_id': 292, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 13, 'es': 'trece', 'fr': 'treize', 'eus': 'hamahiru', 'word_id': 293, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 14, 'es': 'catorce', 'fr': 'quatorze', 'eus': 'hamalau', 'word_id': 294, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 15, 'es': 'quince', 'fr': 'quinze', 'eus': 'hamabost', 'word_id': 295, 'syns_eus': [341], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 15, 'es': 'quince', 'fr': 'quinze', 'eus': 'hamabortz', 'word_id': 341, 'syns_eus': [295], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 16, 'es': 'dieciséis', 'fr': 'seize', 'eus': 'hamasei', 'word_id': 296, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 17, 'es': 'diecisiete', 'fr': 'dix-sept', 'eus': 'hamazazpi', 'word_id': 297, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 18, 'es': 'dieciocho', 'fr': 'dix-huit', 'eus': 'hemezortzi', 'word_id': 298, 'syns_eus': [299], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 18, 'es': 'dieciocho', 'fr': 'dix-huit', 'eus': 'hamazortzi', 'word_id': 299, 'syns_eus': [298], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 19, 'es': 'diecinueve', 'fr': 'dix-neuf', 'eus': 'hemeretzi', 'word_id': 300, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 20, 'es': 'veinte', 'fr': 'vingt', 'eus': 'hogei', 'word_id': 301, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 21, 'es': 'veintiuno', 'fr': 'vingt et un', "fr_f": "vingt et une", 'eus': 'hogeita bat', 'word_id': 302, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 22, 'es': 'veintidós', 'fr': 'vingt-deux', 'eus': 'hogeita bi', 'word_id': 303, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 23, 'es': 'veintitrés', 'fr': 'vingt-trois', 'eus': 'hogeita hiru', 'word_id': 304, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 26, 'es': 'veintiséis', 'fr': 'vingt-six', 'eus': 'hogeita sei', 'word_id': 305, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 30, 'es': 'treinta', 'fr': 'trente', 'eus': 'hogeita hamar', 'word_id': 306, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 31, 'es': 'treinta y uno', 'fr': 'trente et un', "fr_f": "trente et une", 'eus': 'hogeita hamaika', 'word_id': 307, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 40, 'es': 'cuarenta', 'fr': 'quarante', 'eus': 'berrogei', 'word_id': 308, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 47, 'es': 'cuarenta y siete', 'fr': 'quarante-sept', 'eus': 'berrogeita zazpi', 'word_id': 309, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 54, 'es': 'cincuenta y cuatro', 'fr': 'cinquante-quatre', 'eus': 'berrogeita hamalau', 'word_id': 310, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 60, 'es': 'sesenta', 'fr': 'soixante', 'eus': 'hirurogei', 'word_id': 311, 'syns_eus': [312], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 60, 'es': 'sesenta', 'fr': 'soixante', 'eus': 'hiruretan hogei', 'word_id': 312, 'syns_eus': [311], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 70, 'es': 'setenta', 'fr': 'soixante-dix', 'eus': 'hirurogeita hamar', 'word_id': 313, 'syns_eus': [314], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 70, 'es': 'setenta', 'fr': 'soixante-dix', 'eus': 'hiruretan hogeita hamar', 'word_id': 314, 'syns_eus': [313], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 80, 'es': 'ochenta', 'fr': 'quatre-vingts', 'eus': 'laurogei', 'word_id': 315, 'syns_eus': [316], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 80, 'es': 'ochenta', 'fr': 'quatre-vingts', 'eus': 'lauretan hogei', 'word_id': 316, 'syns_eus': [315], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 90, 'es': 'noventa', 'fr': 'quatre-vingt-dix', 'eus': 'laurogeita hamar', 'word_id': 317, 'syns_eus': [318], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 90, 'es': 'noventa', 'fr': 'quatre-vingt-dix', 'eus': 'lauretan hogeita hamar', 'word_id': 318, 'syns_eus': [317], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 97, 'es': 'noventa y siete', 'fr': 'quatre-vingt-dix-sept', 'eus': 'laurogeita hamazazpi', 'word_id': 319, 'syns_eus': [320], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 97, 'es': 'noventa y siete', 'fr': 'quatre-vingt-dix-sept', 'eus': 'lauretan hogeita hamazazpi', 'word_id': 320, 'syns_eus': [319], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 100, 'es': 'cien', 'fr': 'cent', 'eus': 'ehun', 'word_id': 321, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 101, 'es': 'ciento uno', 'fr': 'cent un', "fr_f": "cent une", 'eus': 'ehun eta bat', 'word_id': 322, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 125, 'es': 'ciento veinticinco', 'fr': 'cent vingt-cinq', 'eus': 'ehun eta hogeita bost', 'syns_eus': [342], 'word_id': 323, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 125, 'es': 'ciento veinticinco', 'fr': 'cent vingt-cinq', 'eus': 'ehun eta hogeita bortz', 'syns_eus': [323], 'word_id': 342, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 200, 'es': 'doscientos', 'fr': 'deux cents', 'eus': 'berrehun', 'word_id': 324, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 300, 'es': 'trescientos', 'fr': 'trois cents', 'eus': 'hirurehun', 'word_id': 325, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 400, 'es': 'cuatrocientos', 'fr': 'quatre cents', 'eus': 'laurehun', 'word_id': 326, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 500, 'es': 'quinientos', 'fr': 'cinq cents', 'eus': 'bostehun', 'word_id': 327, 'syns_eus': [343], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 500, 'es': 'quinientos', 'fr': 'cinq cents', 'eus': 'bortzehun', 'word_id': 343, 'syns_eus': [327], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 600, 'es': 'seiscientos', 'fr': 'six cents', 'eus': 'seiehun', 'word_id': 328, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 700, 'es': 'setecientos', 'fr': 'sept cents', 'eus': 'zazpiehun', 'word_id': 329, 'syns_eus': [330], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 700, 'es': 'setecientos', 'fr': 'sept cents', 'eus': 'zazpirehun', 'word_id': 330, 'syns_eus': [329], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 800, 'es': 'ochocientos', 'fr': 'huit cents', 'eus': 'zortziehun', 'word_id': 331, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 900, 'es': 'novecientos', 'fr': 'neuf cents', 'eus': 'bederatziehun', 'word_id': 332, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 1000, 'es': 'mil', 'fr': 'mille', 'eus': 'mila', 'word_id': 333, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 1200, 'es': 'mil dos cientos', 'fr': 'mille deux cents', 'eus': 'mila eta berrehun', 'word_id': 334, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 1201, 'es': 'mil dos cientos uno', 'fr': 'mille deux cent un', "fr_f": "mille deux cent une", 'eus': 'mila berrehun eta bat', 'word_id': 335, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 1984, 'es': 'mil novecientos ochenta y cuatro', 'fr': 'mille neuf cent quatre-vingt quatre', 'eus': 'mila bederatziehun eta laurogeita lau', 'word_id': 336, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 1000000, 'es': 'un millón', 'fr': 'un million de', 'eus': 'milioi bat', 'word_id': 337, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 10000000, 'es': 'diez millones', 'fr': 'dix millions de', 'eus': 'hamar milioi', 'word_id': 338, 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 1000000000, 'es': 'un billón', 'fr': 'un milliard de', 'eus': 'mila milioi', 'word_id': 339, 'syns_eus': [340], 'quant': 'ordin', 'num': 'plur'},
+        {'intval': 1000000000, 'es': 'mil millones', 'fr': 'un milliard de', 'eus': 'miliar bat', 'word_id': 340, 'syns_eus': [339], 'quant': 'ordin', 'num': 'plur'},
+    ];
+    
+    var pronoms=[
+        {"fr": "je", "fr_f": true, "eus": "ni", "fr_pers":0},
+        {"fr": "tu", "fr_f": true, "eus": "zu", "fr_pers":1},
+        // {"fr": "il", "eus": "bera", "fr_pers":2, 'word_id': 6, 'syns_fr': [2], 'syns_eus': [4]},
+        // {"fr": "il", "eus": "hura", "fr_pers":2, 'word_id': 8, 'syns_fr': [2], 'syns_eus': [6]},
+        {"fr": "il", "fr_f_form": "elle", "eus": "hura", "fr_pers":2, 'word_id': 8, 'syns_eus': [6]},
+        {"fr": "il", "fr_f_form": "elle", "eus": "bera", "fr_pers":2, 'word_id': 6, 'syns_eus': [8]},
+        // {"fr": "elle", "fr_f": true, "eus": "hura", "fr_pers":2, 'word_id': 4, 'syns_fr': [6], 'syns_eus': [2]},
+        // {"fr": "elle", "fr_f": true, "eus": "bera", "fr_pers":2, 'word_id': 2, 'syns_fr': [6], 'syns_eus': [4]},
+        {"fr": "ils", "fr_f_form": "elles", "plur": true, "eus": "haiek", "fr_pers":5, 'word_id': 7, 'syns_eus': [5]},
+        {"fr": "ils", "fr_f_form": "elles", "plur": true, "eus": "beraiek", "fr_pers":5, 'word_id': 5, 'syns_eus': [7]},
+        // {"fr": "elles", "plur": true, "fr_f": true, "eus": "haiek", "fr_pers":5, 'word_id': 3, 'syns_fr': [7], 'syns_eus': [1]},
+        // {"fr": "elles", "plur": true, "fr_f": true, "eus": "beraiek", "fr_pers":5, 'word_id': 1, 'syns_fr': [7], 'syns_eus': [3]},
+        {"fr": "nous", "fr_f": true, "eus": "gu", "fr_pers":3},
+        {"fr": "vous (pl.)", "fr_f": true, "eus": "zuek", "fr_pers":4},
+        ];
+    
+    var auxiliaries=[
+        {
+            "fr": "être",
+            "eus": "izan",
+            "fr_c":["suis","es","est","sommes","êtes","sont"],
+            "eus_c":[["naiz","zara","da","gara","zarete","dira"]],
+            "trans":false
+        },
+        {
+            "fr": "avoir",
+            "eus": "ukan",
+            "fr_c":["ai","as","a","avons","avez","ont"],
+            "eus_c":
+                [
+                    ["dut","duzu","du","dugu","duzue","dute"],
+                    ["ditut","dituzu","ditu","ditugu","dituzue","dituzte"]
+                ],
+            "trans":true
+        },
+    
+    ];
+    
+    
+    var version_Ukan_Izan = '1.26';
+    var version_Zenbakiak = '1.0';
+    
+  </script>
+  <script type="text/javascript">
+    var names=[
+        {'fr': "'19 octobre 2020'", "plur_fr": "'19 octobre 2020'", 'eus': '2020ko urriaren 19', 'word_id': 0},
+        {'fr': 'partie', "fr_f": true, 'eus': 'atal', 'word_id': 203, 'syns_fr': [102]},
+        {'fr': 'chapitre', 'eus': 'kapitulu', 'word_id': 204},
+        {'fr': 'flûte', "fr_f": true, 'eus': 'txistu', 'word_id': 205},
+        {'fr': 'alphabet', 'eus': 'alfabeto', 'word_id': 206},
+        {'fr': 'lettre', "fr_f": true, 'eus': 'letra', 'word_id': 207},
+        {'fr': 'mot', 'eus': 'hitz', 'word_id': 208},
+        {'fr': 'nom', 'eus': 'izen', 'word_id': 209},
+        {'fr': 'exemple', 'eus': 'adibide', 'word_id': 177},
+        {'fr': "T mouillé", 'eus': 'T soinu', 'word_id': 178},
+        {'fr': 'son', 'eus': 'soinu', 'word_id': 179},
+        {'fr': 'présentation', "fr_f": true, 'eus': 'aurkezpen', 'word_id': 180},
+        {'fr': 'vie', "fr_f": true, 'eus': 'bizi', 'word_id': 181},
+        {'fr': 'Bretagne', "fr_f": true, 'eus': 'Bretainia', 'word_id': 182},
+        {'fr': 'pardon', 'eus': 'barkatu', 'word_id': 36},
+        {'fr': 'regret', 'eus': 'damu', 'word_id': 37},
+        {'fr': "'merci'", "plur_fr": "'mercis'", 'eus': 'eskerrik asko', 'word_id': 40},
+        {'fr': 'bien', 'eus': 'ongi', 'word_id': 48},
+        {'fr': 'mal', "plur_fr": "maux", 'eus': 'gaizki', 'word_id': 49},
+        {'fr': 'chien', "fr_f_suf": "ne", 'eus': 'txakur', 'word_id': 50, 'syns_fr': [51]},
+        {'fr': 'flic', 'eus': 'txakur', 'word_id': 51, 'syns_fr': [50]},
+        {'fr': 'chanson', "fr_f": true, 'eus': 'kantore', 'word_id': 55},
+        {'fr': 'champignon', 'eus': 'onddo', 'word_id': 56},
+        {'fr': 'vocabulaire', 'eus': 'hiztegi', 'word_id': 57, 'syns_fr': [244]},
+        {'fr': 'jour', 'eus': 'egun', 'word_id': 59},
+        {'fr': 'mois', "plur_fr": "mois", 'eus': 'hilabete', 'word_id': 60},
+        {'fr': 'saison', "fr_f": true, 'eus': 'urtaro', 'word_id': 61},
+        {'fr': 'milieu', "plur_fr": "milieux", 'eus': 'arte', 'word_id': 63},
+        {'fr': 'moitié', "fr_f": true, 'eus': 'erdi', 'word_id': 64},
+        {'fr': 'surlendemain', 'eus': 'etzidamu', 'word_id': 72},
+        {'fr': 'météo', "fr_f": true, 'eus': 'eguraldi', 'word_id': 73},
+        {'fr': 'période', "fr_f": true, 'eus': 'aldi', 'word_id': 74, 'syns_fr': [75, 76]},
+        {'fr': 'fois', "plur_fr": "fois", "fr_f": true, 'eus': 'aldi', 'word_id': 75, 'syns_fr': [74, 76]},
+        {'fr': 'tour', 'eus': 'aldi', 'word_id': 76, 'syns_fr': [74, 75]},//TODO: mismatch fr towers = fr tours
+        {'fr': 'bûche', "fr_f": true, 'eus': 'egur', 'word_id': 77},
+        {'fr': 'vent', 'eus': 'haize', 'word_id': 78},
+        {'fr': 'neige', "fr_f": true, 'eus': 'elur', 'word_id': 79},
+        {'fr': 'pluie', "fr_f": true, 'eus': 'euri', 'word_id': 80},
+        {'fr': 'soleil', 'eus': 'eguski', 'word_id': 87, 'syns_eus': [124]},
+        {'fr': 'dieu du soleil', "plur_fr": "dieux du soleil", "pers_name": true, 'eus': 'Eki', 'word_id': 123},
+        {'fr': 'soleil', 'eus': 'eki', 'word_id': 124, 'syns_eus': [87]},
+        {'fr': 'nuage', 'eus': 'hodei', 'word_id': 88},
+        {'fr': 'éclaircie', "fr_f": true, 'eus': 'ostarte', 'word_id': 89},
+        {'fr': 'tâche', "fr_f": true, 'eus': 'ari', 'word_id': 90, 'syns_fr': [91, 92]},
+        {'fr': 'occupation', "fr_f": true, 'eus': 'ari', 'word_id': 91, 'syns_fr': [90, 92]},
+        {'fr': 'travail', "plur_fr": "travaux", 'eus': 'ari', 'word_id': 92, 'syns_fr': [90, 91]},
+        {'fr': 'brouillard bas', "plur_fr": "brouillards bas", 'eus': 'behe-laino', 'word_id': 93},
+        {'fr': 'ciel dégagé', "plur_fr": "cieux dégagés", 'eus': 'oskarbi', 'word_id': 95},
+        {'fr': 'pont', 'eus': 'zubi', 'word_id': 96},
+        {'fr': 'arc-en-ciel', "plur_fr": "arcs-en-ciel", 'eus': 'erromako zubi', 'word_id': 97, 'syns_eus': [99]},
+        {'fr': 'corne', "fr_f": true, 'eus': 'adar', 'word_id': 98},
+        {'fr': 'arc-en-ciel', "plur_fr": "arcs-en-ciel", 'eus': 'ortzadar', 'word_id': 99, 'syns_eus': [97]},
+        {'fr': 'lumière', "fr_f": true, 'eus': 'argi', 'word_id': 100},
+        {'fr': 'lune', "fr_f": true, 'eus': 'ilargi', 'word_id': 101},
+        {'fr': 'phase', "fr_f": true, 'eus': 'atal', 'word_id': 102, 'syns_fr': [203]},
+        {'fr': 'pleine lune', "plur_fr": "pleines lunes", "fr_f": true, 'eus': 'ilbete', 'word_id': 103},
+        {'fr': 'lune descendante', "plur_fr": "lunes descendantes", "fr_f": true, 'eus': 'ilbehera', 'word_id': 104},
+        {'fr': 'nouvelle lune', "plur_fr": "nouvelles lunes", "fr_f": true, 'eus': 'ilberri', 'word_id': 105},
+        {'fr': 'lune montante', "plur_fr": "lunes montantes", "fr_f": true, 'eus': 'ilgora', 'word_id': 106},
+        {'fr': 'averse', "fr_f": true, 'eus': 'zaparrada', 'word_id': 107},
+        {'fr': 'bruine', "fr_f": true, 'eus': 'zirimiri', 'word_id': 108, 'syns_fr': [109]},
+        {'fr': 'pluie fine', "plur_fr": "pluies fines", "fr_f": true, 'eus': 'zirimiri', 'word_id': 109, 'syns_fr': [108]},
+        {'fr': 'grêle', "fr_f": true, 'eus': 'kazkabar', 'word_id': 110},
+        {'fr': 'bourrasque', "fr_f": true, 'eus': 'bisuts', 'word_id': 111},
+        {'fr': 'crachin', 'eus': 'lanbro', 'word_id': 112},
+        {'fr': 'brume', "fr_f": true, 'eus': 'langar', 'word_id': 113},
+        // {'fr': 'brume et crachin', 'eus': 'langar-laino', 'word_id': 114},
+        {'fr': 'feu', "plur_fr": "feux", 'eus': 'su', 'word_id': 117},
+        {'fr': 'dieu du ciel', "plur_fr": "dieux des cieux", "pers_name": true, 'eus': 'Ortzi', 'word_id': 120},
+        {'fr': 'ciel', "plur_fr": "cieux", 'eus': 'ortzi', 'word_id': 121, 'syns_fr': [122]},
+        {'fr': 'tonnerre', 'eus': 'ortzi', 'word_id': 122, 'syns_fr': [121]},
+        {'fr': 'récolte', "fr_f": true, 'eus': 'uzta', 'word_id': 125},
+        {'fr': 'fougère', "fr_f": true, 'eus': 'iratze', 'word_id': 127},
+        {'fr': 'loup', "fr_f_form": "louve", 'eus': 'otso', 'word_id': 128},
+        {'fr': 'chou', "plur_fr": "choux", 'eus': 'aza', 'word_id': 129},
+        {'fr': 'applaudissement', 'eus': 'txalo', 'word_id': 130, 'syns_fr': [131]},
+        {'fr': 'bravo', 'eus': 'txalo', 'word_id': 131, 'syns_fr': [130]},
+        {'fr': 'jour de fête', "plur_fr": "jours fériés", 'eus': 'jaiegun', 'word_id': 132, 'syns_fr': [133]},
+        {'fr': 'jour férié', "plur_fr": "jours fériés", 'eus': 'jaiegun', 'word_id': 133, 'syns_fr': [132]},
+        {'fr': 'doute', 'eus': 'zalantza', 'word_id': 134},
+        {'fr': 'étudiant', "fr_f_suf": "e", 'eus': 'ikasle', 'word_id': 136},
+        {'fr': 'professeur', "fr_f_form": "professoresse", 'eus': 'irakasle', 'word_id': 137},
+        {'fr': 'exercice', 'eus': 'ariketa', 'word_id': 138},
+        {'fr': 'question', "fr_f": true, 'eus': 'galdera', 'word_id': 139},
+        {'fr': 'réponse', "fr_f": true, 'eus': 'erantzun', 'word_id': 140, 'syns_eus': [184]},
+        {'fr': 'verbe', 'eus': 'aditz', 'word_id': 141},
+        {'fr': 'vérité', "fr_f": true, 'eus': 'egia', 'word_id': 142},
+        {'fr': 'mensonge', 'eus': 'gezur', 'word_id': 145},
+        {'fr': 'négation', "fr_f": true, 'eus': 'ezezko', 'word_id': 149},
+        {'fr': 'garçon', 'eus': 'mutil', 'word_id': 151},
+        {'fr': 'fille', "fr_f": true, 'eus': 'neska', 'word_id': 152},
+        {'fr': 'pluriel', 'eus': 'plural', 'word_id': 148},
+        {'fr': "'au revoir'", "plur_fr": "'au revoir'", 'eus': 'agur', 'word_id': 22},
+        {'fr': 'après-midi', "fr_f_suf": "", "plur_fr": "après-midi", 'eus': 'arratsalde', 'word_id': 27},
+        {'fr': "'s'il te plaît'", "plur_fr": "'s'il te plaît'", 'eus': 'mesedez', 'word_id': 41, 'syns_fr': [43], 'syns_eus': [42]},
+        {'fr': "'s'il te plaît'", "plur_fr": "'s'il te plaît'", 'eus': 'otoi', 'word_id': 42, 'syns_fr': [44], 'syns_eus': [41]},
+        {'fr': "'s'il vous plaît'", "plur_fr": "'s'il vous plaît'", 'eus': 'mesedez', 'word_id': 43, 'syns_fr': [41], 'syns_eus': [44]},
+        {'fr': "'s'il vous plaît'", "plur_fr": "'s'il vous plaît'", 'eus': 'otoi', 'word_id': 44, 'syns_fr': [42], 'syns_eus': [43]},
+        {'fr': 'lendemain', 'eus': 'bihar', 'word_id': 69},
+        {'fr': 'froid', 'eus': 'hotz', 'word_id': 81},
+        {'fr': 'chaleur', "fr_f": true, 'eus': 'bero', 'word_id': 82},
+        {'fr': 'premier', "fr_f_form": "première", 'eus': 'lehen', 'word_id': 62},
+        {'fr': 'dernier', "fr_f_form": "dernière", 'eus': 'azken', 'word_id': 65},
+        {"fr": "lundi", "eus": "astelehen"},
+        {"fr": "mardi", "eus": "astearte"},
+        {"fr": "mercredi", "eus": "asteasken"},
+        {"fr": "jeudi", "eus": "ostegun"},
+        {"fr": "vendredi", "eus": "ostiral"},
+        {"fr": "samedi", "eus": "larunbat"},
+        {"fr": "dimanche", "eus": "igande"},
+        {"fr": "aube", "fr_f": true, "eus": "egunsenti"},
+        {"fr": "matin", "eus": "goiz"},
+        {"fr": "midi", "eus": "eguerdi"},
+        {"fr": "soir", "eus": "iluntze"},
+        {"fr": "crépuscule", "eus": "ilunabar"},
+        {"fr": "nuit", "fr_f": true, "eus": "gau"},
+        {"fr": "automne", "eus": "udazken"},
+        {"fr": "hiver", "fr_h_mute":true, "eus": "negu"},
+        {"fr": "printemps", "plur_fr": "printemps", "eus": "udaberri"},
+        {"fr": "été", "eus": "uda"},
+        {"fr": "janvier", "eus": "urtarril"},
+        {"fr": "février", "eus": "otsail"},
+        {"fr": "mars", "plur_fr": "mars", "eus": "martxo"},
+        {"fr": "avril", "eus": "apiril"},
+        {"fr": "mai", "plur_fr": "mois de mai", "eus": "maiatz"},
+        {"fr": "juin", "eus": "ekain"},
+        {"fr": "juillet", "eus": "uztail"},
+        {"fr": "août", "eus": "abuztu", 'word_id': 200, 'syns_eus': [201]},
+        {"fr": "août", "eus": "agorril", 'word_id': 201, 'syns_eus': [200]},
+        {"fr": "septembre", "eus": "irail"},
+        {"fr": "octobre", "eus": "urri", 'word_id': 202},
+        {"fr": "novembre", "eus": "azaro"},
+        {"fr": "décembre", "eus": "abendu"},
+        {"fr": "étranger", "fr_f_form": "étrangère", "eus": "kanpotar", 'word_id': 170, 'syns_eus': [171]},
+        {"fr": "étranger", "fr_f_form": "étrangère", "eus": "arrotz", 'word_id': 171, 'syns_fr': [173], 'syns_eus': [170]},
+        {"fr": "hôte", "fr_f_suf": "", "fr_h_mute":true, "eus": "arrotz", 'word_id': 173, 'syns_fr': [171]},
+        {"fr": "Guillaume", "pers_name": true, "plur_fr": "Guillaume", "eus": "Guillaume"},
+        {"fr": "poisson", "eus": "arrain"},
+        {"fr": "Sonia", "plur_fr": "Sonia", "pers_name": true, "fr_f": true, "eus": "Sonia"},
+        {"fr": "semaine", "fr_f": true, "eus": "aste", 'word_id': 58},
+        {'fr': 'réponse', "fr_f": true, 'eus': 'arrapostu', 'word_id': 184, 'syns_eus': [140]},
+        {'fr': 'second', "fr_f_suf": "e", 'eus': 'bigarren', 'word_id': 185},
+        // {'fr': 'rose', 'eus': 'arrosa', 'word_id': 211, 'syns_fr': [214]},
+        {'fr': 'rose', "fr_f": true, 'eus': 'arrosa', 'word_id': 214, 'syns_fr': [211]},
+        // {'fr': 'vert', 'eus': 'berde', 'word_id': 215},
+        // {'fr': 'noir', 'eus': 'beltz', 'word_id': 216},
+        // {'fr': 'rouge', 'eus': 'gorri', 'word_id': 217},
+        {'fr': 'communiste', "fr_f_suf": "", 'eus': 'komunista', 'word_id': 189},
+        {'fr': 'Afrique', "fr_f": true, 'eus': 'Afrika', 'word_id': 190},
+        {'fr': 'Chine', "fr_f": true, 'eus': 'Txina', 'word_id': 191},
+        {'fr': 'Italie', "fr_f": true, 'eus': 'Italia', 'word_id': 192},
+        {'fr': 'Grèce', "fr_f": true, 'eus': 'Grezia', 'word_id': 193},
+        {'fr': 'Portugal', 'eus': 'Portugal', 'word_id': 194},
+        {'fr': 'Belgique', "fr_f": true, 'eus': 'Belgika', 'word_id': 195},
+        {'fr': 'pizza', "fr_f": true, 'eus': 'pizza', 'word_id': 196},
+        {'fr': 'tour (f)', "plur_fr": "tours (f)", "fr_f": true, 'eus': 'dorre', 'word_id': 197},
+        {'fr': 'Fado', 'eus': 'Fado', 'word_id': 198},
+        {'fr': 'parc', 'eus': 'parke', 'word_id': 199},
+        {'fr': 'liqueur de prunelles', "plur_fr": "liqueurs de prunelles", "fr_f": true, 'eus': 'patxaran', 'word_id': 210},
+        {'fr': 'chanteur', "fr_f_form": "chanteuse", 'eus': 'kantari', 'word_id': 218, 'syns_eus': [219]},
+        {'fr': 'chanteur', "fr_f_form": "chanteuse", 'eus': 'abeslari', 'word_id': 219, 'syns_eus': [218]},
+        {'fr': 'leçon', "fr_f": true, 'eus': 'ikasgai', 'word_id': 220},
+        {'fr': 'langue basque', "plur_fr": 'langues basques', "fr_f": true, 'eus': 'Euskara', 'word_id': 221},
+        {'fr': 'basque', "fr_f_suf": "", 'eus': 'euskaldun', 'word_id': 222},
+        {'fr': 'langage', 'eus': 'hizkuntza', 'word_id': 223},
+        {'fr': 'voiture', "fr_f": true, 'eus': 'auto', 'word_id': 224},
+        {'fr': 'ordinateur', 'eus': 'ordenagailu', 'word_id': 225},
+        {'fr': 'maison', "fr_f": true, 'eus': 'etxe', 'word_id': 226},
+        {'fr': 'bonbon', 'eus': 'goxoki', 'word_id': 227, 'syns_eus': [228]},
+        {'fr': 'bonbon', 'eus': 'gozoki', 'word_id': 228, 'syns_eus': [227]},
+        {'fr': 'ami', "fr_f_suf": "e", 'eus': 'lagun', 'word_id': 229},
+        {'fr': 'sœur d’une femme', "fr_f": true, "plur_fr": 'sœurs d’une femme', 'eus': 'ahizpa', 'word_id': 230},
+        {'fr': 'sœur d’un homme', "fr_f": true, "plur_fr": 'sœurs d’un homme', 'eus': 'arreba', 'word_id': 231},
+        {'fr': 'livre', 'eus': 'liburu', 'word_id': 232},
+        {'fr': 'vacance', "fr_f": true, 'eus': 'opor', 'word_id': 233, 'syns_eus': [234]},
+        {'fr': 'vacance', "fr_f": true, 'eus': 'bakantza', 'word_id': 234, 'syns_eus': [233]},
+        {'fr': 'appartement', 'eus': 'apartamentu', 'word_id': 235, 'syns_eus': [236]},
+        {'fr': 'appartement', 'eus': 'apartamendu', 'word_id': 236, 'syns_eus': [235]},
+        {'fr': 'bras', "plur_fr": "bras", 'eus': 'beso', 'word_id': 237},
+        {'fr': 'fille (filiation)', "plur_fr": 'filles (filiation)', "fr_f": true, 'eus': 'alaba', 'word_id': 238},
+        {'fr': 'chat', "fr_f_suf": "te",  'eus': 'katu', 'word_id': 239},
+        {'fr': 'dictionnaire', 'eus': 'hiztegi', 'word_id': 244, 'syns_fr': [57]},
+        {'fr': 'pêcheur', "fr_f_form": "pêcheuse", 'eus': 'arrantzale', 'word_id': 245},
+        {'fr': 'téléphone', 'eus': 'telefono', 'word_id': 246},
+        {'fr': 'ciseau', "plur_fr": 'ciseaux', 'eus': 'guraize', 'word_id': 247},
+        {'fr': 'France', "fr_f": true, 'eus': 'Frantzia', 'word_id': 248},
+        {'fr': 'cuisinier', "fr_f_form": "cuisinière", 'eus': 'sukaldari', 'word_id': 249},
+        {'fr': 'tramway', 'eus': 'tranbia', 'word_id': 252},
+        {'fr': 'conducteur', "fr_f_form": "conductrice", 'eus': 'gidari', 'word_id': 253},
+        {'fr': 'grève', "fr_f": true, 'eus': 'greba', 'word_id': 254},
+        {'fr': 'montre', "fr_f": true, 'eus': 'erloju', 'word_id': 255, 'syns_fr': [256]},
+        {'fr': 'horloge', "fr_f": true, "fr_h_mute":true, 'eus': 'erloju', 'word_id': 256, 'syns_fr': [256]},
+        {'fr': 'film', 'eus': 'film', 'word_id': 257},
+        {'fr': 'enfant', 'eus': 'ume', 'word_id': 258},
+        {'fr': 'euro', 'eus': 'euro', 'word_id': 259},
+        {'fr': 'béret', 'eus': 'txapel', 'word_id': 260},
+        {'fr': 'année', "fr_f": true, 'eus': 'urte', 'word_id': 261},
+        {'fr': 'classe', "fr_f": true, 'eus': 'klase', 'word_id': 263},
+        {'fr': 'sommet', 'eus': 'gailur', 'word_id': 264},
+        {'fr': 'mère', "fr_f": true, 'eus': 'ama', 'word_id': 265},
+        {'fr': 'oreille', "fr_f": true, 'eus': 'belarri', 'word_id': 266},
+        {'fr': 'bouche', "fr_f": true, 'eus': 'aho', 'word_id': 267},
+        {'fr': 'langue non basque', "plur_fr": "langues non basques", "fr_f": true, 'eus': 'erdara', 'word_id': 268, 'syns_eus': [269]},
+        {'fr': 'langue non basque', "plur_fr": "langues non basques", "fr_f": true, 'eus': 'erdera', 'word_id': 269, 'syns_eus': [268]},
+        {'fr': 'donnée', "fr_f": true, 'eus': 'datu', 'word_id': 270},
+        {'fr': 'bière', "fr_f": true, 'eus': 'garagardo', 'word_id': 271, 'syns_eus': [272, 273]},
+        {'fr': 'bière', "fr_f": true, 'eus': 'kaina', 'word_id': 272, 'syns_eus': [271, 273]},
+        {'fr': 'bière', "fr_f": true, 'eus': 'zerbeza', 'word_id': 273, 'syns_eus': [271, 272]},
+        {'fr': 'nombre', 'eus': 'zenbaki', 'word_id': 277},
+    ];
+    
+    var adjs=[
+        {'fr': 'négatif', 'fr_post': true, "fr_f": "négative", 'eus': 'ezezko', 'word_id': 150},
+        {'fr': 'facile', 'fr_post': true, "fr_f": "facile", 'eus': 'erraz', 'word_id': 147},
+        {'fr': 'difficile', 'fr_post': true, "fr_f": "difficile", 'eus': 'zail', 'word_id': 146},
+        {'fr': 'vrai', 'eus': 'egia', 'word_id': 143},
+        {'fr': 'faux', "plur_fr": "faux", "fr_f": "fausse", 'eus': 'gezur', 'word_id': 144},
+        {'fr': 'vivant', 'fr_post': true, 'eus': 'bizi', 'word_id': 183},
+        {'fr': 'premier', "fr_f": "première", 'eus': 'lehen', 'word_id': 162},
+        {'fr': 'dernier', "fr_f": "dernière", 'eus': 'azken', 'word_id': 165},
+        {'fr': 'bon', "fr_f": "bonne", 'eus': 'on', 'word_id': 84},
+        {'fr': 'mauvais', "plur_fr": "mauvais", 'eus': 'txar', 'word_id': 85},
+        {'fr': 'méchant', 'eus': 'gaizto', 'word_id': 86},
+        {'fr': 'bas', "plur_fr": "bas", "fr_f": "basse", 'eus': 'behe', 'word_id': 94},
+        {'fr': 'mouillé', 'fr_post': true, 'eus': 'busti', 'word_id': 115, 'syns_fr': [116]},
+        {'fr': 'humide', 'fr_post': true, "fr_f": "humide", "fr_h_mute":true, 'eus': 'busti', 'word_id': 116, 'syns_fr': [115]},
+        {'fr': 'peu abondant', 'fr_post': true, 'eus': 'urri', 'word_id': 126},
+        {'fr': 'froid', 'fr_post': true, 'eus': 'hotz', 'word_id': 81},
+        {'fr': 'chaud', 'fr_post': true, 'eus': 'bero', 'word_id': 82},
+        {"fr": "beau", "fr_before_vowel": "bel", "plur_fr": "beaux", "fr_f": "belle", "eus": "polit"},
+        {"fr": "petit","eus": "txiki"},
+        {"fr": "grand", "eus": "haundi"},
+        {'fr': 'habituel', 'fr_post': true, "fr_f": "habituelle", "fr_h_mute":true, 'eus': 'ohiko', 'word_id': 166},
+        {'fr': 'obligatoire', 'fr_post': true, "fr_f": "obligatoire", 'eus': 'beharrezko', 'word_id': 167},
+        {'fr': 'lent', 'fr_post': true, 'eus': 'motel', 'word_id': 168},
+        {"fr": "étranger", "fr_f": "étrangère", 'fr_post': true, "eus": "kanpotar", 'word_id': 174, 'syns_eus': [175]},
+        {"fr": "étranger", "fr_f": "étrangère", 'fr_post': true, "eus": "arrotz", 'word_id': 175, 'syns_fr': [176], 'syns_eus': [174]},
+        {"fr": "bizarre", "fr_f": "bizarre", 'fr_post': true, "eus": "arrotz", 'word_id': 176, 'syns_fr': [175]},    
+        {'fr': 'second', 'eus': 'bigarren', 'word_id': 212},
+        {'fr': 'rose', "fr_f": "rose", 'fr_post': true, 'eus': 'arrosa', 'word_id': 213},
+        {'fr': 'vert', 'fr_post': true, 'eus': 'berde', 'word_id': 186},
+        {'fr': 'noir', 'fr_post': true, 'eus': 'beltz', 'word_id': 187},
+        {'fr': 'rouge', "fr_f": "rouge", 'fr_post': true, 'eus': 'gorri', 'word_id': 188},
+        {'fr': 'jaune', "fr_f": "jaune", 'fr_post': true, 'eus': 'hori', 'word_id': 250},
+        {'fr': 'bleu', 'fr_post': true, 'eus': 'urdin', 'word_id': 251},
+        {'fr': 'couvert de brouillard', "fr_f": "couverte de brouillard", "plur_fr": "couverts de brouillard", 
+         "fr_f_plur": "couvertes de brouillard", 'fr_post': true, 'eus': 'lainotuta', 'word_id': 240},
+        {'fr': 'propre', "fr_f": "propre", 'fr_post': true, 'eus': 'garbi', 'word_id': 241},
+        {'fr': 'chéri', "fr_f": "chérie", 'fr_post': true, 'eus': 'maite', 'word_id': 242, 'syns_eus': [243]},
+        {'fr': 'chéri', "fr_f": "chérie", 'fr_post': true, 'eus': 'maitia', 'word_id': 243, 'syns_eus': [242]},
+        {'fr': 'excellent', 'eus': 'bikain', 'word_id': 262},
+        {'fr': 'prêt', 'fr_post': true, 'eus': 'prest', 'word_id': 274},
+        {'fr': 'ouvert', 'fr_post': true, 'eus': 'zabal', 'word_id': 275},
+        {'fr': 'moche', 'fr_post': true, "fr_f": "moche", 'eus': 'itsusi', 'word_id': 276},
+    ];
+    
+    // {'fr': "d'accord", 'eus': 'ados', 'word_id': 135},
+    //noun  "plur_fr": , "fr_f": true, "pers_name": true, "fr_h_mute":true, "fr_f_form", "fr_f_suf": "te",
+    //adj   , "plur_fr": "mauvais", "fr_f_plur" "fr_f": "rouge", 'fr_post': true, "fr_before_vowel": "bel", "fr_h_mute":true,
+    
+    
+    
+  </script>
+  <script type="text/javascript">
+    var app = angular.module('myApp', []);
+    
+    app.controller('myCtrl', function($scope) {
+    
+        $scope.version_Zenbakiak = version_Zenbakiak;
+    
+        $scope.hints = [];
+        $scope.shownHints = [];
+        $scope.num_hints = 0;
+    
+        $scope.message = "";
+            
+        $scope.target_input="";
+        $scope.fr_input="";
+        $scope.fr_nombres=[""];
+    
+        $scope.check_french = function() {
+    
+            var sol_id=0;
+            var num_sols = $scope.fr_nombres.length;
+            for (sol_id; sol_id < num_sols ; sol_id ++) {
+    
+                var form_input=$scope.fr_input.toLowerCase().replace(" .","").replace(".","").replace(/-/g," ").replace(/  /g," ").split(" ");
+                var form_target=$scope.fr_nombres[sol_id].toLowerCase().replace(".","").replace(/-/g," ").split(" ");
+    
+                var is_same=true;
+                var i = form_target.length;
+                if (i!=form_input.length) {
+                    is_same= false;
+                } else {
+                    while (i--) {
+                        if (form_input[i] !== form_target[i]) is_same= false;
+                    };          
+                };
+    
+                // console.log("input chunks: " + form_input);
+                // console.log("target chunks: " + form_target);
+    
+                // if ($scope.target_input == $scope.target)
+                // if (form_input == form_target)
+                if (is_same) return 1;
+            };
+            return 0;
+        };
+        
+        $scope.check_spanish = function() {
+    
+            var sol_id=0;
+            var num_sols = $scope.es_numeros.length;
+            for (sol_id; sol_id < num_sols ; sol_id ++) {
+    
+                var form_input=$scope.es_input.toLowerCase().replace(" .","").replace(".","").replace(/-/g," ").replace(/  /g," ").split(" ");
+                var form_target=$scope.es_numeros[sol_id].toLowerCase().replace(".","").replace(/-/g," ").split(" ");
+    
+                var is_same=true;
+                var i = form_target.length;
+                if (i!=form_input.length) {
+                    is_same= false;
+                } else {
+                    while (i--) {
+                        if (form_input[i] !== form_target[i]) is_same= false;
+                    };          
+                };
+    
+                // console.log("input chunks: " + form_input);
+                // console.log("target chunks: " + form_target);
+    
+                // if ($scope.target_input == $scope.target)
+                // if (form_input == form_target)
+                if (is_same) return 1;
+            };
+            return 0;
+        };
+        
+        $scope.check_basque = function() {
+    
+            var sol_id=0;
+            var num_sols = $scope.eus_zenbakiak.length;
+            for (sol_id; sol_id < num_sols ; sol_id ++) {
+    
+                var form_input=$scope.eus_input.toLowerCase().replace(" .","").replace(".","").replace(/-/g," ").replace(/  /g," ").split(" ");
+                var form_target=$scope.eus_zenbakiak[sol_id].toLowerCase().replace(".","").replace(/-/g," ").split(" ");
+    
+                var is_same=true;
+                var i = form_target.length;
+                if (i!=form_input.length) {
+                    is_same= false;
+                } else {
+                    while (i--) {
+                        if (form_input[i] !== form_target[i]) is_same= false;
+                    };          
+                };
+    
+                // console.log("input chunks: " + form_input);
+                // console.log("target chunks: " + form_target);
+    
+                // if ($scope.target_input == $scope.target)
+                // if (form_input == form_target)
+                if (is_same) return 1;
+            };
+            return 0;
+        };    
+        
+        function isInt(value) {
+            var x;
+            return isNaN(value) ? !1 : (x = parseFloat(value), (0 | x) === x);
+        }
+        
+        $scope.check_target = function() {
+            // return($scope.target_input.isInteger()?1:0);
+            return(isInt($scope.target_input)?1:0);
+            
+            
+        };
+    
+        $scope.validate = function($event) {
+            $scope.message = "";
+            if ($event.which === 13) {
+                if ($scope.check_target() == 1) {
+                    // $scope.message = " Correct !";
+                    $scope.newNb(parseInt($scope.target_input));
+                }
+                else {
+                    $scope.message = "Ceci n'est pas un nombre connu (max 2^31-1) !";
+                }
+    
+            }
+        };
+    
+        // $scope.validate = function($event) {
+            // $scope.message = "";
+            // if ($event.which === 13) {
+                // if ($scope.check() == 1) {
+                    // $scope.message = " Correct !";
+                    // // $scope.newTest();
+                // }
+                // else {
+                    // $scope.message = " Incorrect !";
+                // }
+    
+            // }
+        // };
+    
+        $scope.newNb = function(from_input) {
+            $scope.hints=[];
+            $scope.num_hints = 0;
+            $scope.shownHints=[];
+            
+            var iRandom_num;
+            // if (from_input) {
+            if (typeof from_input !== 'undefined') {
+                // console.log(from_input)
+                iRandom_num=from_input;
+            } else {
+                iRandom_num = Math.floor((Math.random() * (1000000)));
+            }        
+            $scope.target_input=iRandom_num.toString();
+            /* $scope.nombre=(iRandom_num+1).toString(); */
+            $scope.fr_nombres=prepare_french(iRandom_num);
+            $scope.nombre='';
+            $scope.fr_input='';
+            $scope.es_numeros=prepare_spanish(iRandom_num);
+            $scope.numero='';
+            $scope.es_input='';
+            $scope.eus_zenbakiak=prepare_basque(iRandom_num);
+            $scope.zenbaki='';
+            $scope.eus_input='';
+            // for (var i = 0; i < $scope.fr_nombres.length; i++) {
+                // $scope.nombre+=$scope.fr_nombres[i];
+                // if (i!=$scope.fr_nombres.length - 1) $scope.nombre+=', ';
+            // };
+            $scope.reduceHints();
+            $scope.num_hints=$scope.hints.length;
+            
+        };
+        
+        prepare_french = function(num) {
+            // return((num+1).toString());
+            var i;
+            var found=false;
+            var founds=[];
+            var num_ordins = ordins.length;
+            // console.log(num_ordins);
+            // console.log(num,num+1);
+            if (num==0) {
+                // founds.push("zéro");
+                founds.push(indets[14].fr);
+                founds.push(indets[15].fr);
+                $scope.hints.push(indets[14]);
+                $scope.hints.push(indets[15]);
+                found=true;
+            };
+            if (!(found)) {
+                for (i = 0; i < num_ordins; i++) {
+                    // console.log(i);
+                    // console.log(ordins[i].intval);
+                    // console.log(parseInt(ordins[i].intval));
+                    // console.log(num);
+                    if (parseInt(ordins[i].intval)==num) {
+                        found=true;
+                        $scope.hints.push(ordins[i]);
+                        if (ordins[i].fr.slice(-2)=="de") {
+                            founds.push(ordins[i].fr.slice(0,-3));
+                        } else {
+                            founds.push(ordins[i].fr);
+                        }
+                    };
+                };
+            };
+            if (!(found)) {
+                if (num<100){
+                    if (num==50){
+                        founds.push("cinquante");
+                        $scope.hints.push({'intval': 50, 'es': 'cincuenta', 'fr': 'cinquante', 'eus': 'berrogeita hamar', 'word_id': 30800, 'quant': 'ordin', 'num': 'plur'});
+                        found=true;
+                    } else if (num<70){
+                        tens=prepare_french(num-num%10)[0];                
+                        if (num%10==1){
+                            var andone=" et un"; 
+                            founds.push(tens+andone);
+                            found=true;
+                        } else {
+                            units=prepare_french(num%10);
+                            for (i = 0; i < units.length; i++) {                        
+                                founds.push(tens+'-'+units[i]);
+                            }
+                            found=true;
+                        }
+                    } else if (num==71) {
+                        founds.push('soixante et onze');
+                        $scope.hints.push({'intval': 71, 'es': 'setenta y uno', 'fr': 'soixante et onze', 'eus': 'hirurogeita hamaika', 'word_id': 30800, 'quant': 'ordin', 'num': 'plur'});
+                        $scope.hints.push({'intval': 71, 'es': 'setenta y uno', 'fr': 'soixante et onze', 'eus': 'hiruretan hogeita hamaika', 'word_id': 30800, 'quant': 'ordin', 'num': 'plur'});
+                        found=true;
+                    } else if (num<80) {
+                        units=prepare_french(num%20);
+                        for (i = 0; i < units.length; i++) {                        
+                            founds.push('soixante'+'-'+units[i]);
+                        }
+                        $scope.hints.push({'intval': 60, 'es': 'sesenta', 'fr': 'soixante', 'eus': 'hirurogei', 'word_id': 30800, 'quant': 'ordin', 'num': 'plur'});
+                        $scope.hints.push({'intval': 60, 'es': 'sesenta', 'fr': 'soixante', 'eus': 'hiruretan hogei', 'word_id': 30800, 'quant': 'ordin', 'num': 'plur'});
+                        found=true;
+                        
+                    } else {
+                        units=prepare_french(num%20);
+                        for (i = 0; i < units.length; i++) {                        
+                            founds.push('quatre-vingt'+'-'+units[i]);
+                        }
+                        found=true;
+                        $scope.hints.push({'intval': 80, 'es': 'ochenta', 'fr': 'quatre-vingts', 'eus': 'laurogei', 'word_id': 315, 'syns_eus': [316], 'quant': 'ordin', 'num': 'plur'});
+                        $scope.hints.push({'intval': 80, 'es': 'ochenta', 'fr': 'quatre-vingts', 'eus': 'lauretan hogei', 'word_id': 316, 'syns_eus': [315], 'quant': 'ordin', 'num': 'plur'});
+                                            
+                    };
+                } else if (num<1000) {
+                    cents=prepare_french(num-num%100)[0];
+                    // if (num%100)==0)
+                    if (num>199) cents=cents.slice(0,-1);
+                    remainder = prepare_french(num%100);
+                    for (i = 0; i < remainder.length; i++) {                        
+                        founds.push(cents+' '+remainder[i]);
+                    }
+                    found=true; 
+                    
+                } else if (num<1000000) {
+                    var milles;
+                    if (num<2000) {
+                        milles=[''];
+                    } else {
+                        milles = prepare_french(Math.floor(num/(1000)));
+                    };
+                    var lower;
+                    if (num%1000!=0) {
+                        lower = prepare_french(num%1000); 
+                    } else {
+                        lower = [''];
+                    }
+                    var j;
+                    if (num<2000) {
+                        for (j = 0; j < lower.length; j++) {                        
+                            founds.push('mille '+lower[j]);
+                        };
+                    } else {
+                        for (i = 0; i < milles.length; i++) {                        
+                            for (j = 0; j < lower.length; j++) {                        
+                                if (milles[i].slice(-5)=="cents") {
+                                    founds.push(milles[i].slice(0,-1)+' mille '+lower[j]);
+                                } else {
+                                    founds.push(milles[i]+' mille '+lower[j]);
+                                }
+                            };
+                        };
+                    };
+                    $scope.hints.push({'intval': 1000, 'es': 'mil', 'fr': 'mille', 'eus': 'mila', 'word_id': 333, 'quant': 'ordin', 'num': 'plur'});
+                    found=true; 
+                } else if (num<1000000000) {
+                    var milliones;
+                    if (num<2000000) {
+                        milliones=[''];
+                    } else {
+                        milliones = prepare_french(Math.floor(num/(1000000)));
+                    };
+                    var lower;
+                    if (num%1000000!=0) {
+                        lower = prepare_french(num%1000000); 
+                    } else {
+                        lower = [''];
+                    }
+                    var j;
+                    if (num<2000000) {
+                        for (j = 0; j < lower.length; j++) {                        
+                            founds.push('un million '+lower[j]);
+                        };
+                    } else {
+                        for (i = 0; i < milliones.length; i++) {                        
+                            for (j = 0; j < lower.length; j++) {                        
+                                if (milliones[i].slice(-5)=="cents") {
+                                    founds.push(milliones[i].slice(0,-1)+' millions '+lower[j]);
+                                } else {
+                                    founds.push(milliones[i]+' millions '+lower[j]);
+                                }
+                            };
+                        };
+                    };
+                    $scope.hints.push({'intval': 1000000, 'es': 'un millón', 'fr': 'un million de', 'eus': 'milioi bat', 'word_id': 337, 'quant': 'ordin', 'num': 'plur'});
+                    found=true; 
+                } else {
+                    var billiones;
+                    if (num<2000000000) {
+                        billiones=[''];
+                    } else {
+                        billiones = prepare_french(Math.floor(num/(1000000000)));
+                    };
+                    var lower;
+                    if (num%1000000000!=0) {
+                        lower = prepare_french(num%1000000000); 
+                    } else {
+                        lower = [''];
+                    }
+                    var j;
+                    if (num<2000000000) {
+                        for (j = 0; j < lower.length; j++) {                        
+                            founds.push('un milliard '+lower[j]);
+                        };
+                    } else {
+                        for (i = 0; i < billiones.length; i++) {                        
+                            for (j = 0; j < lower.length; j++) {                        
+                                if (billiones[i].slice(-5)=="cents") {
+                                    founds.push(billiones[i].slice(0,-1)+' milliards '+lower[j]);
+                                } else {
+                                    founds.push(billiones[i]+' milliards '+lower[j]);
+                                }
+                            };
+                        };
+                    };
+                    $scope.hints.push({'intval': 1000000000, 'es': 'un billón', 'fr': 'un milliard de', 'eus': 'mila milioi', 'word_id': 339, 'syns_eus': [340], 'quant': 'ordin', 'num': 'plur'});
+                    $scope.hints.push({'intval': 1000000000, 'es': 'mil millones', 'fr': 'un milliard de', 'eus': 'miliar bat', 'word_id': 340, 'syns_eus': [339], 'quant': 'ordin', 'num': 'plur'});
+                    found=true;                     
+                };
+            };
+            if (!(found)) {
+                return([(num).toString()]);
+            } else {
+                // for (i = 0; i < founds.length; i++) {
+                    // res+=founds[i];
+                    // res+=' ';
+                // };
+                // return(res);
+                return([...new Set(founds)]);
+            };
+        };
+        
+        
+        prepare_spanish = function(num) {
+            var i;
+            var found=false;
+            var founds=[];
+            var num_ordins = ordins.length;
+            if (num==0) {
+                founds.push(indets[14].es);
+                founds.push(indets[15].es);
+                found=true;
+            };
+            if (!(found)) {
+                for (i = 0; i < num_ordins; i++) {
+                    if (parseInt(ordins[i].intval)==num) {
+                        found=true;
+                        founds.push(ordins[i].es);
+                    };
+                };
+            };
+            if (!(found)) {
+                if (num<100){
+                    if (num==50){
+                        founds.push("cincuenta");
+                        found=true;
+                    } else if (num<30){
+                        tens="veinti";                
+                        units=prepare_spanish(num%10);
+                        for (i = 0; i < units.length; i++) {                        
+                            founds.push(tens+units[i]);
+                        }
+                        found=true;
+                        
+                    } else {
+                        tens=prepare_spanish(num-num%10)[0];                
+                        units=prepare_spanish(num%10);
+                        for (i = 0; i < units.length; i++) {                        
+                            founds.push(tens+' y '+units[i]);
+                        }
+                        found=true;
+                    };
+                } else if (num<1000) {
+                    cents=prepare_spanish(num-num%100)[0];
+                    if (num<199) cents="ciento";
+                    remainder = prepare_spanish(num%100);
+                    for (i = 0; i < remainder.length; i++) {                        
+                        founds.push(cents+' '+remainder[i]);
+                    }
+                    found=true; 
+                    
+                } else if (num<1000000) {
+                    var milles;
+                    milles = prepare_spanish(Math.floor(num/(1000)));
+                    
+                    var lower;
+                    if (num%1000!=0) {
+                        lower = prepare_spanish(num%1000); 
+                    } else {
+                        lower = [''];
+                    }
+                    var j;
+                    
+                    for (i = 0; i < milles.length; i++) { 
+                        if (milles[i].slice(-3)=="uno") milles[i]=milles[i].slice(0,-1);
+                        for (j = 0; j < lower.length; j++) {                        
+                            founds.push(milles[i]+' mil '+lower[j]);
+                        };
+                    };
+    
+                    found=true; 
+                } else if (num<1000000000) {
+                    var milliones;
+                    milliones = prepare_spanish(Math.floor(num/(1000000)));
+                    
+                    var lower;
+                    if (num%1000000!=0) {
+                        lower = prepare_spanish(num%1000000); 
+                    } else {
+                        lower = [''];
+                    }
+                    var j;
+                    for (i = 0; i < milliones.length; i++) {
+                        if (milliones[i].slice(-3)=="uno") milliones[i]=milliones[i].slice(0,-1);
+                        var milliones_str=" millones ";
+                        if (milliones[i]=="un") milliones_str=" millón ";
+                        for (j = 0; j < lower.length; j++) {                        
+                            founds.push(milliones[i]+milliones_str+lower[j]);
+                        };
+                    };
+                    found=true; 
+                } else {
+                    var billiones;
+                    billiones = prepare_spanish(Math.floor(num/(1000000000)));
+                    
+                    var lower;
+                    if (num%1000000000!=0) {
+                        lower = prepare_spanish(num%1000000000); 
+                    } else {
+                        lower = [''];
+                    }
+                    var j;
+                    for (i = 0; i < billiones.length; i++) {  
+                        if (billiones[i].slice(-3)=="uno") billiones[i]=billiones[i].slice(0,-1);
+                        var billiones_str=" billones ";
+                        if (billiones[i]=="un") billiones_str=" billón ";
+                        for (j = 0; j < lower.length; j++) {                        
+                            founds.push(billiones[i]+billiones_str+lower[j]);
+                        };
+                    };
+                    found=true;                     
+                };
+            };
+            if (!(found)) {
+                return([(num).toString()]);
+            } else {
+                return([...new Set(founds)]);
+            };
+        };
+    
+        prepare_basque = function(num) {
+            var i;
+            var found=false;
+            var founds=[];
+            var num_ordins = ordins.length;
+            if (num==0) {
+                founds.push(indets[14].eus);
+                founds.push(indets[15].eus);
+                found=true;
+            };
+            if (!(found)) {
+                for (i = 0; i < num_ordins; i++) {
+                    if (parseInt(ordins[i].intval)==num) {
+                        found=true;
+                        founds.push(ordins[i].eus);
+                    };
+                };
+            };
+            if (!(found)) {
+                if (num<100){
+                    tens=prepare_basque(num-num%20);                
+                    units=prepare_basque(num%20);
+                    for (i = 0; i < tens.length; i++) {                        
+                        for (var j = 0; j < units.length; j++) {                        
+                            founds.push(tens[i]+"ta "+units[j]);
+                        }
+                        found=true;
+                    };
+                } else if (num<1000) {
+                    cents=prepare_basque(num-num%100);
+                    remainder = prepare_basque(num%100);
+                    for (i = 0; i < remainder.length; i++) {
+                        for (var j = 0; j < cents.length; j++) {
+                            founds.push(cents[j]+' eta '+remainder[i]);
+                        }
+                    }
+                    found=true; 
+                    
+                } else if (num<1000000) {
+                    var milles;
+                    milles = prepare_basque(Math.floor(num/(1000)));
+                    
+                    var lower;
+                    if (num%1000!=0) {
+                        lower = prepare_basque(num%1000); 
+                    } else {
+                        lower = [''];
+                    }
+                    var j;
+                    
+                    for (i = 0; i < milles.length; i++) { 
+                        var eta=" eta ";
+                        if (num%1000>100) eta="";
+                        if (milles[i]=="bat") {
+                            for (j = 0; j < lower.length; j++) {                        
+                                founds.push('mila '+eta+lower[j]);
+                                // founds.push('mila bat eta '+lower[j]);
+                            };
+                        } else {
+                            for (j = 0; j < lower.length; j++) {                        
+                                founds.push(milles[i]+' mila '+eta+lower[j]);
+                            };
+                        }
+                        
+                    };
+    
+                    found=true; 
+                } else if (num<1000000000) {
+                    var milliones;
+                    milliones = prepare_basque(Math.floor(num/(1000000)));
+                    
+                    var lower;
+                    if (num%1000000!=0) {
+                        lower = prepare_basque(num%1000000); 
+                    } else {
+                        lower = [''];
+                    }
+                    var j;
+                    for (i = 0; i < milliones.length; i++) {
+                        if (milliones[i]=="bat") {
+                            for (j = 0; j < lower.length; j++) {                        
+                                founds.push('milioi bat eta '+lower[j]);
+                                // founds.push('mila bat eta '+lower[j]);
+                            };
+                        } else {
+                            for (j = 0; j < lower.length; j++) {                        
+                                founds.push(milliones[i]+' milioi eta '+lower[j]);
+                            };
+                        
+                        };
+                    };
+                    found=true; 
+                } else {
+                    var billiones;
+                    billiones = prepare_basque(Math.floor(num/(1000000000)));
+                    
+                    var lower;
+                    if (num%1000000000!=0) {
+                        lower = prepare_basque(num%1000000000); 
+                    } else {
+                        lower = [''];
+                    }
+                    var j;
+                    for (i = 0; i < billiones.length; i++) {  
+                        if (billiones[i]=="bat") {
+                            for (j = 0; j < lower.length; j++) {                        
+                                founds.push('miliar bat eta '+lower[j]);
+                                // founds.push('mila bat eta '+lower[j]);
+                            };
+                        } else {
+                            for (j = 0; j < lower.length; j++) {                        
+                                founds.push(billiones[i]+' miliarak eta '+lower[j]);
+                            };
+                        
+                        };
+                    };
+                    found=true;                     
+                };
+            };
+            if (!(found)) {
+                return([(num).toString()]);
+            } else {
+                return([...new Set(founds)]);
+            };
+        };
+    
+          // <button ng-click="newHint()">Aide Vocabulaire </button>
+          // <button ng-click="correctionFR()">Correction Français</button>
+          // <button ng-click="correctionES()">Correction Espagnol</button>
+          // <button ng-click="correctionEUS()">Correction Euskara</button>
+          // <button ng-click="solutions()">Toutes les solutions</button>
+    
+            // "fr_input"
+            // validateFR
+            // validateES
+            // validateEUS
+            // nombre
+            // numero
+            // zenbaki
+    
+        
+        $scope.reduceHints = function(){
+            var reducedHints=[];
+            reducedHints.push($scope.hints[0].fr.trim() + '; ' + $scope.hints[0].es+ ' => ' + $scope.hints[0].eus);
+            if ($scope.hints.length>1) {
+                var j=1;
+                var i=1;
+                var k=0;
+                var l=[0];
+                var broken=false;
+                for (i ; i < $scope.hints.length; i++) { 
+                    broken=false;
+                    for (k=0 ; k < i; k++) { 
+                        if ($scope.hints[i].fr==$scope.hints[k].fr){
+                            reducedHints[l[k]]+=", ";
+                            reducedHints[l[k]]+=$scope.hints[i].eus;
+                            l.push(l[k]);
+                            broken=true;
+                            break;
+                        };
+                    };
+                    if (!(broken)){
+                        reducedHints.push($scope.hints[i].fr.trim() + '; ' + $scope.hints[i].es+ ' => ' + $scope.hints[i].eus);
+                        l.push(j);
+                        j++;
+                    };
+                };
+            };
+            $scope.hints=reducedHints;
+    
+        };
+    
+        $scope.newHint = function(){
+            if ($scope.num_hints>0) {
+                $scope.num_hints-=1
+                $scope.shownHints.push($scope.hints.pop());
+            }
+        };
+    
+        $scope.correctionFR = function(){
+            // $scope.message = $scope.targets[0]; 
+            $scope.nombre="";
+            for (var i = 0; i < $scope.fr_nombres.length; i++) {
+                $scope.nombre+=$scope.fr_nombres[i];
+                if (i!=$scope.fr_nombres.length - 1) $scope.nombre+=', ';
+            };        
+        };
+    
+        $scope.correctionES = function(){
+            // $scope.message = $scope.targets[0];  
+            $scope.numero="";
+            for (var i = 0; i < $scope.es_numeros.length; i++) {
+                $scope.numero+=$scope.es_numeros[i];
+                if (i!=$scope.es_numeros.length - 1) $scope.numero+=', ';
+            };        
+        };
+        
+        $scope.correctionEUS = function(){
+            // $scope.message = $scope.targets[0];  
+            $scope.zenbaki="";
+            for (var i = 0; i < $scope.eus_zenbakiak.length; i++) {
+                $scope.zenbaki+=$scope.eus_zenbakiak[i];
+                if (i!=$scope.eus_zenbakiak.length - 1) $scope.zenbaki+=', ';
+            };        
+        };
+        $scope.solutions = function(){
+            $scope.correctionFR();      
+            $scope.correctionES();      
+            $scope.correctionEUS();      
+        };  
+    
+        
+    });
+    
+    
+    app.filter('capitalize', function() {
+        return function(input) {
+          return (angular.isString(input) && input.length > 0) ? input.charAt(0).toUpperCase() + input.substr(1) : input;
+          // return (angular.isString(input) && input.length > 0) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : input;
+        }
+    });
+    
+  </script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style type="text/css">
+    .bg-success-light{
+      background: #dff0d8;
+    }
+    .bg-danger-light{
+      background: #f2dede;
+    }
+    
+    .bigText{
+      height: 46px;
+      padding: 10px 16px;
+      width: 460px;
+      # font-size: 38px;
+      # line-height: 1.33;
+      border-radius: 20px;
+    }
+    
+    body {
+      padding-top: 70px;
+      padding-bottom: 30px;
+    }
+    
+    .theme-dropdown .dropdown-menu {
+      position: static;
+      display: block;
+      margin-bottom: 20px;
+    }
+    
+    .theme-showcase > p > .btn {
+      margin: 5px 0;
+    }
+    
+    .theme-showcase .navbar .container {
+      width: auto;
+    }
+    
+    table, th , td {
+      border: 1px solid grey;
+      border-collapse: collapse;
+      padding: 5px;
+    }
+    
+    table tr:nth-child(odd) {
+      background-color: #f1f1f1;
+    }
+    
+    table tr:nth-child(even) {
+      background-color: #ffffff;
+    }
+  </style>
+</head>
+<body role="document">
+  <div class="container theme-showcase" role="main">
+    <div ng-controller="myCtrl" ng-init="newNb()">
+      <!-- <h1>Test : {{deter1 + adj1 + name1 + verb  +" "+ deter2+ adj2 + name2 + "." | capitalize}}</h1> -->
+      <h1>Nombre : <input  ng-class="check_target()==1?'bg-success-light':'bg-danger-light'" type="text" class="bigText" ng-model="target_input"   ng-keydown="validate($event)" ></h1>
+      &nbsp;{{message | capitalize}}
+      </br>
+  	
+      <button ng-click="newNb()">Nouveau</button>
+      <button ng-click="newHint()">Aide Vocabulaire </button>
+      <button ng-click="correctionFR()">Correction Français</button>
+      <button ng-click="correctionES()">Correction Espagnol</button>
+      <button ng-click="correctionEUS()">Correction Euskara</button>
+      <button ng-click="solutions()">Toutes les solutions</button>
+
+    	<p>
+        FR: &nbsp;<input  ng-class="check_french()==1?'bg-success-light':'bg-danger-light'" type="text" class="bigText" ng-model="fr_input"   ng-keydown="validateFR($event)" >
+        </br>
+      	&nbsp;{{nombre | capitalize}}
+      </p>
+      <p>
+        ES: &nbsp;<input  ng-class="check_spanish()==1?'bg-success-light':'bg-danger-light'" type="text" class="bigText" ng-model="es_input"   ng-keydown="validateES($event)" >
+        </br>
+        &nbsp;{{numero | capitalize}}
+      </p>
+      <p>
+        EUS: <input  ng-class="check_basque()==1?'bg-success-light':'bg-danger-light'" type="text" class="bigText" ng-model="eus_input"   ng-keydown="validateEUS($event)" >
+        </br>
+        &nbsp;{{zenbaki | capitalize}}
+      </p>
+
+
+
+      <div>
+        <label>Encore {{num_hints}} aides voca possibles...</label>
+
+        <ul>
+          <li ng-repeat="x in shownHints">
+            {{ x }}
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <p>
+          Zenbakiak version {{ version_Zenbakiak }}
+        </p>
+      </div>
+    </div>
+</div>
+</body>
+</html>
