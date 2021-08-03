@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-US" ng-app="myApp" >
+<head>
+  <meta charset="utf-8" />
+	<title>Sudoku</title>
+  <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"/> -->
+  <!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script src="sudoku_grids.js"></script>
+  <script src="sudoku.js"></script>
+  <script src="file.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body role="document">
+  <div class="container theme-showcase" role="main">
+    <div ng-controller="myCtrl" id="bob" ng-init="newGrid()">
+      <h1>Sudoku #{{sudoku_id}}</h1>
+  	
+      <button> <label> <a class="button" ng-click="save_str()" ng-href="{{ url }}" download="sudoku_{{ date | date:'yyyy-MM-dd-hh-mm-s'}}_#{{sudoku_id}}.txt">Sauvegarder</a></label></button>
+
+      <button ng-click="show_sol_tab()"><label>Solution</label></button>
+      <button ng-click="newGrid()"><label>Nouveau</label></button>
+      </br>
+      <button ng-click="set_specific('0')"><label>Vide</label></button>
+      <!-- <button><label>Spécifique<input type="file" style="display: none" file-handler></label></button> -->
+      <button><label>Importer<input type="file" style="display: none" file-handler></label></button>
+      <!-- <input type="text" ng-model="input_id"  class="sep_input"> -->
+
+      <select name="singleSelect" id="singleSelect" ng-model="singleSelect">
+        <option value="">#<={{grids.length}}</option> <!-- not selected / blank option -->
+        <option ng-repeat="grid in grids track by $index" value="{{$index}}">#{{grid.s_id}}</option>
+      </select>
+      <button ng-click="setGrid()"><label>Sélectionner</label></button>
+      
+      <br>
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" ng-model="final_check" ng-init="final_check=false">
+        <label class="form-check-label" for="inlineCheckbox1">Vérif % solution</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" checked ng-model="local_check"  ng-init="local_check=true">
+        <label class="form-check-label" for="inlineCheckbox2">Vérif locale</label>
+      </div>
+      <br>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" ng-model="cell_helper"  ng-init="cell_helper=false">
+        <label class="form-check-label" for="inlineCheckbox3">Aide par case</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4" ng-model="digit_helper"  ng-init="digit_helper=false">
+        <label class="form-check-label" for="inlineCheckbox4">Aide par chiffre</label>
+      </div>
+      <br>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5" ng-model="hypothesis"  ng-init="hypothesis=false">
+        <label class="form-check-label" for="inlineCheckbox5">Faire une hypothèse</label>
+      </div>
+      <button ng-click="clean_hyp()"><label>Éffacer</label></button>
+      <button ng-click="keep_hyp()"><label>Garder</label></button>
+
+
+    <div>
+
+      <table>
+        <tr ng-repeat = "row in dic_grid">
+          <td 
+            ng-repeat="cell in row" title="{{get_complem_vals(cell.rid,cell.cid)}}"
+            ng-class= "bolden_digit(cell.val)==1?'fw-bold':'fw-normal'"
+            ng-click="update_digit_help(cell.rid,cell.cid)"
+          >
+
+            <div ng-if="cell.val>0">
+              <div style="height: 20px; width:  20px; text-align: center; vertical-align: middle; overflow:hidden;">
+                {{ cell.val }}
+              </div>
+            </div>
+            <div ng-if="cell.val == 0">              
+              <div style="height: 20px; width:  20px; text-align: center; vertical-align: middle; overflow:hidden;">
+                <input  
+                  ng-class= "check_cell(cell.rid,cell.cid)" 
+                  type="text"
+                  ng-model="cell.value"
+                 >
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table> 
+      <div ng-show="wun">
+      Gagné !
+      </div>
+    </div>
+
+  </br>
+    <div>
+      <table ng-show="shown_sol_tab">
+        <tr ng-repeat = "row in matrix_grid_sol track by $index">
+          <td ng-repeat="cell in row track by $index">
+            <div style="height: 20px; width:  20px; text-align: center; vertical-align: middle; overflow:hidden;">
+                {{ cell }}
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+
+    <div>
+      Sudoku_Gui version {{version_Sudoku_Gui}}
+    </div>
+  </div>
+</div>
+</body>
+</html>
