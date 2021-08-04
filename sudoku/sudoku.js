@@ -5,6 +5,37 @@ app.config(['$compileProvider',
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob):/);
 }]);
 
+// https://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript
+// Warn if overriding existing method
+if(Array.prototype.equals)
+    console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+// attach the .equals method to Array's prototype to call it on any array
+Array.prototype.equals = function (array) {
+    // if the other array is a falsy value, return
+    if (!array)
+        return false;
+
+    // compare lengths - can save a lot of time 
+    if (this.length != array.length)
+        return false;
+
+    for (var i = 0, l=this.length; i < l; i++) {
+        // Check if we have nested arrays
+        if (this[i] instanceof Array && array[i] instanceof Array) {
+            // recurse into the nested arrays
+            if (!this[i].equals(array[i]))
+                return false;       
+        }           
+        else if (this[i] != array[i]) { 
+            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+            return false;   
+        }           
+    }       
+    return true;
+}
+// Hide method from for-in loops
+Object.defineProperty(Array.prototype, "equals", {enumerable: false});
+
 app.controller('myCtrl', function($scope) {
 	// angular.element(document.getElementById('bob')).scope().grids_to_string();
 
@@ -12,7 +43,7 @@ app.controller('myCtrl', function($scope) {
 	const alphabet="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_";
 	var intRegex = '^[123456789].*'; 
 
-	$scope.version_Sudoku_Gui = "1.0";
+	$scope.version_Sudoku_Gui = "1.1";
 
 	$scope.sudoku_id=0;
 	$scope.grids = grids;
@@ -26,6 +57,7 @@ app.controller('myCtrl', function($scope) {
 
 	// user variables inits
 	$scope.cell_helper = false;
+	$scope.super_cell_helper = false;
 	$scope.digit_helper = true;
 	$scope.bold_digit = 0;
 	$scope.final_check = false;
@@ -98,7 +130,9 @@ app.controller('myCtrl', function($scope) {
 						"val":$scope.matrix_grid_start[i][j], 
 						"hyp":false,
 						"id": "input"+i.toString()+j.toString(), 
-						"rid":i, "cid":j});
+						"rid":i, "cid":j,
+						"possibles":[1,2,3,4,5,6,7,8,9]
+					});
 				// $scope["input"+i+j]="";
 			}
 		};
@@ -153,9 +187,12 @@ app.controller('myCtrl', function($scope) {
 					$scope.dic_grid[i][j]["hyp"]=false;
 					$scope.dic_grid[i][j].value="";
 					$scope.matrix_grid_current[i][j]=0;
+					// $scope.dic_grid[i][j]["possibles"]=$scope.get_complem_vals(i,j);
+					// $scope.dic_grid[i][j]["possibles"]=[1,2,3,4,5,6,7,8,9];
 				};
 			};
 		};
+		$scope.refresh_possibles();
 	};
 
 	// fix hyp. cells into current grid
@@ -240,10 +277,43 @@ app.controller('myCtrl', function($scope) {
 			}
 		};
 		$scope.matrix_grid_current[$rind][$ind] = 0;
+		$scope.refresh_possibles();
 		res_class+="bg-danger-light";
 		// console.log(res_class);		
 		return res_class;
 	};
+
+	// update possibles
+	$scope.refresh_possibles = function() {
+		if ($scope.cell_helper|$scope.super_cell_helper) {		
+			for (var i = 0; i < 9; i++) {
+				for (var j = 0; j <9; j++) {
+					// $scope.dic_grid[i][j]["possibles"]=$scope.get_complem_vals(i,j);
+					$scope.dic_grid[i][j]["possibles"]=[1,2,3,4,5,6,7,8,9];
+				};
+			};
+			var changing=true;
+			var broken=false;
+			var poss;
+			while (changing){
+				broken=false;
+				for (var i = 0; i < 9; i++) {
+					for (var j = 0; j <9; j++) {
+						poss=$scope.calculate_complem_vals(i,j);
+
+						poss.sort();
+						if(!(($scope.dic_grid[i][j]["possibles"].sort()).equals(poss))){
+							$scope.dic_grid[i][j]["possibles"]=poss;
+							broken=true;
+							// break;
+						};
+					};
+					// if (broken) break;
+				};
+				if (!broken) break;
+			};
+		};
+	};	
 
 	// assert cell's value is ok in its row, column, block  
 	$scope.check_locally = function($rind,$cind) {
@@ -299,26 +369,55 @@ app.controller('myCtrl', function($scope) {
 
 	// indicate possible values wrt current row, column, block
 	$scope.get_complem_vals = function($rind,$cind) {
-		if (($scope.cell_helper)&($scope.matrix_grid_current[$rind][$cind]==0)) {
+		if (($scope.cell_helper|$scope.super_cell_helper)&($scope.matrix_grid_current[$rind][$cind]==0)) {
+		// if ($scope.dic_grid[$rind][$cind]["possibles"].length>0){
+			return $scope.dic_grid[$rind][$cind]["possibles"];
+		} else {
+			return "";
+		};
+	};	
 
-			var res =[];
+	
+	// calculate possible values wrt current row, column, block
+	$scope.calculate_complem_vals = function($rind,$cind) {
+		var res =[];
+		if (($scope.cell_helper|$scope.super_cell_helper)&($scope.matrix_grid_current[$rind][$cind]==0)) {
+
 			var romis=$rind%3;
 			var comis=$cind%3;
 
 			var neighs=new Set();
 
+			// row
 			for (var i=0;i<9;i++){
-				if (i != $cind) neighs.add($scope.matrix_grid_current[$rind][i]);
+				if (i != $cind) {
+					// blacklist neigh values
+					neighs.add($scope.matrix_grid_current[$rind][i]);
+					// blacklist uniquely possible values
+					if (($scope.matrix_grid_current[$rind][i]==0) & ($scope.dic_grid[$rind][i]["possibles"].length==1)) {
+						neighs.add($scope.dic_grid[$rind][i]["possibles"][0]);
+					}
+				}
 			}
 
 			for (var i=0;i<9;i++){
-				if (i != $rind) neighs.add($scope.matrix_grid_current[i][$cind]);
+				if (i != $rind) {
+					neighs.add($scope.matrix_grid_current[i][$cind]);
+					if (($scope.matrix_grid_current[i][$cind]==0) & ($scope.dic_grid[i][$cind]["possibles"].length==1)) {
+						neighs.add($scope.dic_grid[i][$cind]["possibles"][0]);
+					}
+				} 
 			}
 
 			for (var i=$rind-romis;i<$rind-romis+3;i++){
 				for (var j=$cind-comis;j<$cind-comis+3;j++){
 					// console.log(""+i+j+" "+$scope.matrix_grid_current[i][j])
-					if ((i != $rind)|(j !=$cind)) neighs.add($scope.matrix_grid_current[i][j]);
+					if ((i != $rind)|(j !=$cind)) {
+						neighs.add($scope.matrix_grid_current[i][j]);
+						if (($scope.matrix_grid_current[i][j]==0) & ($scope.dic_grid[i][j]["possibles"].length==1)) {
+							neighs.add($scope.dic_grid[i][j]["possibles"][0]);
+						}
+					}
 				}
 			}
 
@@ -326,11 +425,55 @@ app.controller('myCtrl', function($scope) {
 				if (!(neighs.has(i+1))) res.push(i+1);
 			};
 
-			return res;
-		} else {
-			return "";
-		}
+			// check if any value is only possible here
+			if ($scope.super_cell_helper) {
+				var res2=[];
+				var broken_row,broken_col,broken_block;
+				for (var r=0;r<res.length;r++){
+					broken_row=false;
+					for (var i=0;i<9;i++){
+						if (i != $cind) {
+							if (($scope.matrix_grid_current[$rind][i]==0) & ($scope.dic_grid[$rind][i]["possibles"].includes(res[r]))) {
+								broken_row=true;
+								break;
+							};
+						}
+					};
 
+					broken_col=false;
+					for (var i=0;i<9;i++){
+						if (i != $rind) {
+							if (($scope.matrix_grid_current[i][$cind]==0) & ($scope.dic_grid[i][$cind]["possibles"].includes(res[r]))) {
+								broken_col=true;
+								break;
+							};
+						}
+					};
+
+					broken_block=false;
+					for (var i=$rind-romis;i<$rind-romis+3;i++){
+						for (var j=$cind-comis;j<$cind-comis+3;j++){
+							if ((i != $rind)|(j !=$cind)) {
+								if (($scope.matrix_grid_current[i][j]==0) & ($scope.dic_grid[i][j]["possibles"].includes(res[r]))) {
+									broken_block=true;
+									break;
+								};
+							}
+						};
+						if (broken_block) break;
+					};
+
+					if (broken_row&broken_col&broken_block) { // is possible elsewhere
+						res2.push(res[r]);
+					} else {
+						res2=[res[r]];
+						break;
+					};
+				};
+				res=res2;
+			};
+		};
+		return res;
 	};
 
 
