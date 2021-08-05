@@ -43,7 +43,7 @@ app.controller('myCtrl', function($scope) {
 	const alphabet="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_";
 	var intRegex = '^[123456789].*'; 
 
-	$scope.version_Sudoku_Gui = "1.2";
+	$scope.version_Sudoku_Gui = "1.3";
 
 	$scope.sudoku_id=0;
 	$scope.grids = grids;
@@ -131,7 +131,9 @@ app.controller('myCtrl', function($scope) {
 		// var angularEl = angular.element(myEl);
 		myEl.focus();
 		// angularEl.focus();
-	};
+		$scope.cur_row_ck=-1;
+        $scope.cur_col_ck=-1;
+    };
 
 	// indicate possible values wrt current row, column, block
 	$scope.get_complem_vals_current = function() {
@@ -230,6 +232,7 @@ app.controller('myCtrl', function($scope) {
 			};
 		};
 		$scope.refresh_possibles();
+		$scope.keep_keyboard_still();
 	};
 
 	// fix hyp. cells into current grid
@@ -242,6 +245,7 @@ app.controller('myCtrl', function($scope) {
 				};
 			};
 		};
+        $scope.keep_keyboard_still();
 	};
 
 	// check if value should be emphasized

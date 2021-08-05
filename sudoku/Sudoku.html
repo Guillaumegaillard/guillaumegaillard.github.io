@@ -71,7 +71,16 @@
 
 
     <div>
-      <div ng-show="detectMob()"> <input type="tel" id="tofocus" value="Aide: {{get_complem_vals_current()}}" maxlength="0"> </div>
+      <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option7" ng-model="mobileView"  ng-init="mobileView=detectMob()" ng-click="keep_keyboard_still()">
+          <label class="form-check-label" for="inlineCheckbox7">Vue mobile &nbsp;</label>
+<!--          <label class="form-check-label" for="inlineCheckbox7"> Aide :</label>-->
+        <div ng-show="mobileView">
+          <input style="height: 20px; width:  20px; background: #dff0d8;" type="tel" id="tofocus" maxlength="0">
+          {{get_complem_vals_current()}}
+        </div>
+<!--        <div ng-show="detectMob()"> <input type="tel" id="tofocus" value="Aide : {{get_complem_vals_current()}}" maxlength="0"> </div>-->
+      </div>
 
       <table>
         <tr ng-repeat = "row in dic_grid">
@@ -122,6 +131,9 @@
 
     <div>
       Sudoku_Gui version {{version_Sudoku_Gui}}
+      <span ng-show="mobileView">
+        (vue mobile)
+      </span>
     </div>
   </div>
 </div>
