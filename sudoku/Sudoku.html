@@ -22,7 +22,7 @@
     <div ng-controller="myCtrl" id="bob" ng-init="newGrid()">
       <h1>Sudoku #{{sudoku_id}}</h1>
   	
-      <button> <label> <a class="button" ng-click="save_str()" ng-href="{{ url }}" download="sudoku_{{ date | date:'yyyy-MM-dd-hh-mm-s'}}_#{{sudoku_id}}.txt">Sauvegarder</a></label></button>
+      <button> <label> <a class="button" ng-click="save_str()" ng-href="{{ url }}" download="sudoku_{{ date | date:'yyyy-MM-dd-HH-mm-ss'}}_#{{sudoku_id}}.txt">Sauvegarder</a></label></button>
 
       <button ng-click="show_sol_tab()"><label>Solution</label></button>
       <button ng-click="newGrid()"><label>Nouveau</label></button>
