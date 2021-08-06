@@ -50,11 +50,11 @@
       </div>
       <br>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" ng-model="cell_helper"  ng-init="cell_helper=false">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" ng-model="cell_helper"  ng-init="cell_helper=false" ng-change="refresh_possibles()" >
         <label class="form-check-label" for="inlineCheckbox3">Aide par case</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option6" ng-model="super_cell_helper"  ng-init="super_cell_helper=false">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option6" ng-model="super_cell_helper"  ng-init="super_cell_helper=false" ng-change="refresh_possibles()">
         <label class="form-check-label" for="inlineCheckbox6">voisinage</label>
       </div>
       <div class="form-check form-check-inline">

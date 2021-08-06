@@ -43,7 +43,7 @@ app.controller('myCtrl', function($scope) {
 	const alphabet="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_";
 	var intRegex = '^[123456789].*'; 
 
-	$scope.version_Sudoku_Gui = "1.3";
+	$scope.version_Sudoku_Gui = "1.4";
 
 	$scope.sudoku_id=0;
 	$scope.grids = grids;
@@ -111,7 +111,6 @@ app.controller('myCtrl', function($scope) {
 		];
 
 
-
 	// detect if browser is a mobile browser
 	// $scope.detectMob =  function () {
 	// 	return ( ( window.innerWidth <= 800 ) && ( window.innerHeight <= 600 ) );
@@ -149,6 +148,7 @@ app.controller('myCtrl', function($scope) {
 	// refresh viewed grid
 	$scope.refill_grid = function() {
 		$scope.wun=false;
+		$scope.set_clicked(-1,-1);
 		$scope.dic_grid = [
 			[],
 			[],
@@ -170,11 +170,13 @@ app.controller('myCtrl', function($scope) {
 						"hyp":false,
 						"id": "input"+i.toString()+j.toString(), 
 						"rid":i, "cid":j,
-						"possibles":[1,2,3,4,5,6,7,8,9]
+						"possibles":[1,2,3,4,5,6,7,8,9],
+						"pos_init":[1,2,3,4,5,6,7,8,9]
 					});
 				// $scope["input"+i+j]="";
 			}
 		};
+		$scope.refresh_possibles_init();
 	};
 
 	// randomly select an existing grid
@@ -187,6 +189,7 @@ app.controller('myCtrl', function($scope) {
 		$scope.sudoku_id=grids[iRandom_grid]["s_id"];
 
 		$scope.refill_grid();
+		// $scope.keep_keyboard_still();
 	};
 
 	// let user select an existing grid
@@ -262,75 +265,127 @@ app.controller('myCtrl', function($scope) {
 	// validate and highlight cell input
 	$scope.check_cell = function($rind,$ind) {
 
+
     	// --------- > console.log("rind ind val: " + $rind +"; "+$ind +": " + $scope.dic_grid[$rind][$ind].value);
 		var res_class = "";
+		var did_change= false;
+		var locally_valid= true;
 
 		// length is 1, its a digit
 		if ($scope.dic_grid[$rind][$ind].value.length>1) {
 			$scope.dic_grid[$rind][$ind].value=$scope.dic_grid[$rind][$ind].value[0];
 		};
 		if ($scope.dic_grid[$rind][$ind].value.length>0) {
-			if ($scope.dic_grid[$rind][$ind].value.match(intRegex)){
-				var locally_valid= true;
-
-                // [check(cell.rid,cell.cid)==1?'bg-success-light':'bg-danger-light',
-				if ($scope.local_check == true) {
-					locally_valid= $scope.check_locally($rind,$ind);
-				}; 
-
-				if (locally_valid) {
-					res_class+="bg-success-light";
-					if ($scope.hypothesis == true){
-						if ($scope.matrix_grid_current[$rind][$ind] == 0){
-							$scope.dic_grid[$rind][$ind]["hyp"]=true;
-						};
-					};
-
-	                // check_finally(cell.rid,cell.cid)? 'fc-ok' : 'fc-wrong',
-	                if (!($scope.check_finally($rind,$ind))){
-						res_class+=" fc-wrong";
-                  	// is_hyp(cell.rid,cell.cid)? 'fc-hyp' : 'fc-ok'
-	                } else if ($scope.is_hyp($rind,$ind)){
-						res_class+=" fc-hyp";
-	                } else {
-						res_class+=" fc-ok";
-	                };
-
-	              	// bolden_digit(cell.value)==1?'fw-bold':'fw-normal',
-					if ($scope.bolden_digit($scope.dic_grid[$rind][$ind].value) == 1){
-						res_class+=" fw-bold";					
+			if (!($scope.matrix_grid_current[$rind][$ind].toString()==$scope.dic_grid[$rind][$ind].value)) {
+				//did change
+				did_change=true;
+				if ($scope.dic_grid[$rind][$ind].value.match(intRegex)){
+	                // [check(cell.rid,cell.cid)==1?'bg-success-light':'bg-danger-light',
+					if ($scope.local_check == true) {
+						locally_valid= $scope.check_locally($rind,$ind);
 					} else {
-						res_class+=" fw-normal";
-	                };
+						locally_valid=true;
+					}; 
 
-	                // update current grid
+				} else {
+					//need to empty crap
+					$scope.dic_grid[$rind][$ind].value="";
+				};
+			};
+			if (locally_valid) {
+				res_class+="bg-success-light";
+				if ($scope.hypothesis == true){
+					if ($scope.matrix_grid_current[$rind][$ind] == 0){
+						$scope.dic_grid[$rind][$ind]["hyp"]=true;
+					};
+				};
+
+                // check_finally(cell.rid,cell.cid)? 'fc-ok' : 'fc-wrong',
+                if (!($scope.check_finally($rind,$ind))){
+					res_class+=" fc-wrong";
+              	// is_hyp(cell.rid,cell.cid)? 'fc-hyp' : 'fc-ok'
+                } else if ($scope.is_hyp($rind,$ind)){
+					res_class+=" fc-hyp";
+                } else {
+					res_class+=" fc-ok";
+                };
+
+              	// bolden_digit(cell.value)==1?'fw-bold':'fw-normal',
+				if ($scope.bolden_digit($scope.dic_grid[$rind][$ind].value) == 1){
+					res_class+=" fw-bold";					
+				} else {
+					res_class+=" fw-normal";
+                };
+
+                // update current grid
+                if (did_change){
 					$scope.matrix_grid_current[$rind][$ind] = parseInt($scope.dic_grid[$rind][$ind].value,10);
-
 					$scope.check_wun();
-					
-					// console.log(res_class);
-					return res_class;
-				}
-
-			}
-			else {
-				$scope.dic_grid[$rind][$ind].value="";
-			}
+					$scope.refresh_possibles();
+                };				
+				// console.log(res_class);
+				return res_class;
+			};
+		} else {
+			locally_valid=false;
+			//length 0 value==""
+			if ($scope.matrix_grid_current[$rind][$ind] != 0){
+				did_change=true;
+				$scope.matrix_grid_current[$rind][$ind] = 0;
+				// $scope.dic_grid[$rind][$ind].value="";
+			};
 		};
-		$scope.matrix_grid_current[$rind][$ind] = 0;
-		$scope.refresh_possibles();
+		if (did_change) $scope.refresh_possibles();
 		res_class+="bg-danger-light";
 		// console.log(res_class);		
 		return res_class;
 	};
 
+
+	// update initial possibles
+	$scope.refresh_possibles_init = function() {
+		// console.log("refreshing init possibles");
+		var local_cell_helper=$scope.cell_helper;
+		var local_super_cell_helper=$scope.super_cell_helper;
+
+		$scope.cell_helper = true;
+		$scope.super_cell_helper = false;
+
+
+		var changing=true;
+		var broken=false;
+		var poss;
+		while (changing){
+			broken=false;
+			for (var i = 0; i < 9; i++) {
+				for (var j = 0; j <9; j++) {
+					poss=$scope.calculate_complem_vals(i,j);
+
+					poss.sort();
+					if(!(($scope.dic_grid[i][j]["pos_init"].sort()).equals(poss))){
+						$scope.dic_grid[i][j]["pos_init"]=poss;
+						broken=true;
+						// break;
+					};
+				};
+				// if (broken) break;
+			};
+			if (!broken) break;
+		};
+
+		$scope.cell_helper = local_cell_helper;
+		$scope.super_cell_helper = local_super_cell_helper;
+	};	
+
 	// update possibles
 	$scope.refresh_possibles = function() {
+		// console.log("refreshing possibles");
 		if ($scope.cell_helper|$scope.super_cell_helper) {		
 			for (var i = 0; i < 9; i++) {
 				for (var j = 0; j <9; j++) {
 					// $scope.dic_grid[i][j]["possibles"]=$scope.get_complem_vals(i,j);
-					$scope.dic_grid[i][j]["possibles"]=[1,2,3,4,5,6,7,8,9];
+					// $scope.dic_grid[i][j]["possibles"]=[1,2,3,4,5,6,7,8,9];
+					$scope.dic_grid[i][j]["possibles"]=$scope.dic_grid[i][j]["pos_init"];
 				};
 			};
 			var changing=true;
