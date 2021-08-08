@@ -177,6 +177,7 @@ app.controller('myCtrl', function($scope) {
 			}
 		};
 		$scope.refresh_possibles_init();
+		$scope.refresh_possibles();
 	};
 
 	// randomly select an existing grid
