@@ -193,6 +193,24 @@ app.controller('myCtrl', function($scope) {
 		// $scope.keep_keyboard_still();
 	};
 
+	// select next existing grid
+	$scope.nextGrid = function() {
+		// $scope.date = new Date();
+		$scope.shown_sol_tab = false;
+
+		var next_grid = parseInt($scope.sudoku_id,10);
+
+		if (next_grid==$scope.grids.length) {
+			$scope.newGrid();
+		} else {
+			$scope.set_specific(grids[next_grid]["scode"]);
+			$scope.sudoku_id=grids[next_grid]["s_id"];
+		};
+
+		$scope.refill_grid();
+		// $scope.keep_keyboard_still();
+	};
+
 	// let user select an existing grid
 	$scope.setGrid = function() {
 
