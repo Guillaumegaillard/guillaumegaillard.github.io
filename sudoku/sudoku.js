@@ -354,6 +354,7 @@ app.controller('myCtrl', function($scope) {
 
 
 		var changing=true;
+		var loops_refresh=0;
 		var broken=false;
 		var poss;
 		while (changing){
@@ -365,13 +366,15 @@ app.controller('myCtrl', function($scope) {
 					poss.sort();
 					if(!(($scope.dic_grid[i][j]["pos_init"].sort()).equals(poss))){
 						$scope.dic_grid[i][j]["pos_init"]=poss;
+						// $scope.dic_grid[i][j]["possibles"]=poss;
 						broken=true;
 						// break;
 					};
 				};
 				// if (broken) break;
 			};
-			if (!broken) break;
+			if ((!broken)|(loops_refresh>0)) break;
+			loops_refresh++;
 		};
 
 		$scope.cell_helper = local_cell_helper;
@@ -390,6 +393,7 @@ app.controller('myCtrl', function($scope) {
 				};
 			};
 			var changing=true;
+			var loops_refresh=0;
 			var broken=false;
 			var poss;
 			while (changing){
@@ -407,7 +411,9 @@ app.controller('myCtrl', function($scope) {
 					};
 					// if (broken) break;
 				};
-				if (!broken) break;
+				// if (!broken) break;
+				if ((!broken)|((!$scope.super_cell_helper)&(loops_refresh>0))) break;
+				loops_refresh++;
 			};
 		};
 	};	
@@ -524,52 +530,51 @@ app.controller('myCtrl', function($scope) {
 			};
 
 			// check if any value is only possible here
-			if ($scope.super_cell_helper) {
-				var res2=[];
-				var broken_row,broken_col,broken_block;
-				for (var r=0;r<res.length;r++){
-					broken_row=false;
-					for (var i=0;i<9;i++){
-						if (i != $cind) {
-							if (($scope.matrix_grid_current[$rind][i]==0) & ($scope.dic_grid[$rind][i]["possibles"].includes(res[r]))) {
-								broken_row=true;
-								break;
-							};
-						}
-					};
-
-					broken_col=false;
-					for (var i=0;i<9;i++){
-						if (i != $rind) {
-							if (($scope.matrix_grid_current[i][$cind]==0) & ($scope.dic_grid[i][$cind]["possibles"].includes(res[r]))) {
-								broken_col=true;
-								break;
-							};
-						}
-					};
-
-					broken_block=false;
-					for (var i=$rind-romis;i<$rind-romis+3;i++){
-						for (var j=$cind-comis;j<$cind-comis+3;j++){
-							if ((i != $rind)|(j !=$cind)) {
-								if (($scope.matrix_grid_current[i][j]==0) & ($scope.dic_grid[i][j]["possibles"].includes(res[r]))) {
-									broken_block=true;
-									break;
-								};
-							}
+			// if ($scope.super_cell_helper) {
+			var res2=[];
+			var broken_row,broken_col,broken_block;
+			for (var r=0;r<res.length;r++){
+				broken_row=false;
+				for (var i=0;i<9;i++){
+					if (i != $cind) {
+						if (($scope.matrix_grid_current[$rind][i]==0) & ($scope.dic_grid[$rind][i]["possibles"].includes(res[r]))) {
+							broken_row=true;
+							break;
 						};
-						if (broken_block) break;
-					};
-
-					if (broken_row&broken_col&broken_block) { // is possible elsewhere
-						res2.push(res[r]);
-					} else {
-						res2=[res[r]];
-						break;
-					};
+					}
 				};
-				res=res2;
+
+				broken_col=false;
+				for (var i=0;i<9;i++){
+					if (i != $rind) {
+						if (($scope.matrix_grid_current[i][$cind]==0) & ($scope.dic_grid[i][$cind]["possibles"].includes(res[r]))) {
+							broken_col=true;
+							break;
+						};
+					}
+				};
+
+				broken_block=false;
+				for (var i=$rind-romis;i<$rind-romis+3;i++){
+					for (var j=$cind-comis;j<$cind-comis+3;j++){
+						if ((i != $rind)|(j !=$cind)) {
+							if (($scope.matrix_grid_current[i][j]==0) & ($scope.dic_grid[i][j]["possibles"].includes(res[r]))) {
+								broken_block=true;
+								break;
+							};
+						}
+					};
+					if (broken_block) break;
+				};
+
+				if (broken_row&broken_col&broken_block) { // is possible elsewhere
+					res2.push(res[r]);
+				} else {
+					res2=[res[r]];
+					break;
+				};
 			};
+			res=res2;
 		};
 		return res;
 	};
