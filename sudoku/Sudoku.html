@@ -6,12 +6,15 @@
   <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"/> -->
   <!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/> -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <!-- <script src="js/angular.min.js"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- <script src="js/jquery.min.js"></script> -->
 
   <script src="sudoku_grids.js"></script>
   <script src="sudoku.js"></script>
   <script src="file.js"></script>
 
+  <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <link rel="stylesheet" type="text/css" href="style.css">
@@ -67,8 +70,14 @@
         <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5" ng-model="hypothesis"  ng-init="hypothesis=false" ng-click="keep_keyboard_still()">
         <label class="form-check-label" for="inlineCheckbox5">Faire une hypothèse</label>
       </div>
-      <button ng-click="clean_hyp()"><label>Effacer</label></button>
+      <button ng-click="clean_hyp(true)"><label>Effacer</label></button>
       <button ng-click="keep_hyp()"><label>Garder</label></button>
+      <br>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="option8" ng-model="autofill"  ng-init="autofill=false" ng-click="hypothesis=false" ng-change="toggle_autofill()">
+        <label class="form-check-label" for="inlineCheckbox8">Auto-remplissage selon aide</label>
+      </div>
+      <br>
 
 
     <div>

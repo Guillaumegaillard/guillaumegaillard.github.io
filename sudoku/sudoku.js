@@ -43,7 +43,7 @@ app.controller('myCtrl', function($scope) {
 	const alphabet="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_";
 	var intRegex = '^[123456789].*'; 
 
-	$scope.version_Sudoku_Gui = "1.4";
+	$scope.version_Sudoku_Gui = "1.5";
 
 	$scope.sudoku_id=0;
 	$scope.grids = grids;
@@ -64,6 +64,7 @@ app.controller('myCtrl', function($scope) {
 	$scope.local_check = true;
 	$scope.shown_sol_tab = false;
 	$scope.hypothesis = false;
+	$scope.autofill = false;
 
 	// currently clicked indices
 	$scope.cur_row_ck=-1;
@@ -240,7 +241,7 @@ app.controller('myCtrl', function($scope) {
 	};
 
 	// remove hypothetic cells
-	$scope.clean_hyp = function() {
+	$scope.clean_hyp = function($refresh) {
 		$scope.hypothesis = false;
 		for (var i = 0; i < 9; i++) {
 			for (var j = 0; j <9; j++) {
@@ -253,7 +254,7 @@ app.controller('myCtrl', function($scope) {
 				};
 			};
 		};
-		$scope.refresh_possibles();
+		if ($refresh) $scope.refresh_possibles();
 		$scope.keep_keyboard_still();
 	};
 
@@ -267,6 +268,7 @@ app.controller('myCtrl', function($scope) {
 				};
 			};
 		};
+		$scope.check_wun();
         $scope.keep_keyboard_still();
 	};
 
@@ -399,9 +401,19 @@ app.controller('myCtrl', function($scope) {
 		$scope.super_cell_helper = local_super_cell_helper;
 	};	
 
+	// toggle autofill
+	$scope.toggle_autofill = function() {
+		if (!$scope.autofill) $scope.clean_hyp(false);
+		$scope.refresh_possibles();
+
+	};
+
 	// update possibles
 	$scope.refresh_possibles = function() {
 		// console.log("refreshing possibles");
+		
+		if ($scope.autofill) $scope.clean_hyp(false);
+
 		if ($scope.cell_helper|$scope.super_cell_helper) {		
 			for (var i = 0; i < 9; i++) {
 				for (var j = 0; j <9; j++) {
@@ -432,6 +444,17 @@ app.controller('myCtrl', function($scope) {
 				// if (!broken) break;
 				if ((!broken)|((!$scope.super_cell_helper)&(loops_refresh>0))) break;
 				loops_refresh++;
+			};
+		};
+		if ($scope.autofill) {		
+			for (var i = 0; i < 9; i++) {
+				for (var j = 0; j <9; j++) {
+					if (($scope.matrix_grid_current[i][j] == 0)&($scope.dic_grid[i][j]["possibles"].length==1)){
+						$scope.dic_grid[i][j].value=$scope.dic_grid[i][j]["possibles"][0].toString();
+						$scope.matrix_grid_current[i][j] = $scope.dic_grid[i][j]["possibles"][0];
+						$scope.dic_grid[i][j]["hyp"]=true;
+					};
+				};
 			};
 		};
 	};	
@@ -608,7 +631,7 @@ app.controller('myCtrl', function($scope) {
 
 	// save current (without hypothesis) as an encoded string in a file
 	$scope.save_str = function() {
-		$scope.clean_hyp();
+		$scope.clean_hyp(false);
 
 		$scope.date = new Date();
 
