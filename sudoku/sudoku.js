@@ -43,7 +43,7 @@ app.controller('myCtrl', function($scope) {
 	const alphabet="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_";
 	var intRegex = '^[123456789].*'; 
 
-	$scope.version_Sudoku_Gui = "1.4";
+	$scope.version_Sudoku_Gui = "1.5";
 
 	$scope.sudoku_id=0;
 	$scope.grids = grids;
@@ -64,6 +64,7 @@ app.controller('myCtrl', function($scope) {
 	$scope.local_check = true;
 	$scope.shown_sol_tab = false;
 	$scope.hypothesis = false;
+	$scope.autofill = false;
 
 	// currently clicked indices
 	$scope.cur_row_ck=-1;
@@ -177,6 +178,7 @@ app.controller('myCtrl', function($scope) {
 			}
 		};
 		$scope.refresh_possibles_init();
+		$scope.refresh_possibles();
 	};
 
 	// randomly select an existing grid
@@ -187,6 +189,24 @@ app.controller('myCtrl', function($scope) {
 		var iRandom_grid = (Math.floor((Math.random() * ($scope.grids.length))));
 		$scope.set_specific(grids[iRandom_grid]["scode"]);
 		$scope.sudoku_id=grids[iRandom_grid]["s_id"];
+
+		$scope.refill_grid();
+		// $scope.keep_keyboard_still();
+	};
+
+	// select next existing grid
+	$scope.nextGrid = function() {
+		// $scope.date = new Date();
+		$scope.shown_sol_tab = false;
+
+		var next_grid = parseInt($scope.sudoku_id,10);
+
+		if (next_grid==$scope.grids.length) {
+			$scope.newGrid();
+		} else {
+			$scope.set_specific(grids[next_grid]["scode"]);
+			$scope.sudoku_id=grids[next_grid]["s_id"];
+		};
 
 		$scope.refill_grid();
 		// $scope.keep_keyboard_still();
@@ -221,7 +241,7 @@ app.controller('myCtrl', function($scope) {
 	};
 
 	// remove hypothetic cells
-	$scope.clean_hyp = function() {
+	$scope.clean_hyp = function($refresh) {
 		$scope.hypothesis = false;
 		for (var i = 0; i < 9; i++) {
 			for (var j = 0; j <9; j++) {
@@ -234,7 +254,7 @@ app.controller('myCtrl', function($scope) {
 				};
 			};
 		};
-		$scope.refresh_possibles();
+		if ($refresh) $scope.refresh_possibles();
 		$scope.keep_keyboard_still();
 	};
 
@@ -248,6 +268,7 @@ app.controller('myCtrl', function($scope) {
 				};
 			};
 		};
+		$scope.check_wun();
         $scope.keep_keyboard_still();
 	};
 
@@ -336,7 +357,13 @@ app.controller('myCtrl', function($scope) {
 			};
 		};
 		if (did_change) $scope.refresh_possibles();
-		res_class+="bg-danger-light";
+		if (($scope.cell_helper|$scope.super_cell_helper)&
+			($scope.dic_grid[$rind][$ind]["possibles"].length==0)) {
+			res_class+="bg-wrong";// Todo: stays red if helper removed meanwhile
+		}
+		else {
+			res_class+="bg-danger-light";
+		}
 		// console.log(res_class);		
 		return res_class;
 	};
@@ -353,6 +380,7 @@ app.controller('myCtrl', function($scope) {
 
 
 		var changing=true;
+		var loops_refresh=0;
 		var broken=false;
 		var poss;
 		while (changing){
@@ -364,22 +392,33 @@ app.controller('myCtrl', function($scope) {
 					poss.sort();
 					if(!(($scope.dic_grid[i][j]["pos_init"].sort()).equals(poss))){
 						$scope.dic_grid[i][j]["pos_init"]=poss;
+						// $scope.dic_grid[i][j]["possibles"]=poss;
 						broken=true;
 						// break;
 					};
 				};
 				// if (broken) break;
 			};
-			if (!broken) break;
+			if ((!broken)|(loops_refresh>0)) break;
+			loops_refresh++;
 		};
 
 		$scope.cell_helper = local_cell_helper;
 		$scope.super_cell_helper = local_super_cell_helper;
 	};	
 
+	// toggle autofill
+	$scope.toggle_autofill = function() {
+		if (!$scope.autofill) $scope.clean_hyp(false);
+		$scope.refresh_possibles();
+	};
+
 	// update possibles
 	$scope.refresh_possibles = function() {
 		// console.log("refreshing possibles");
+		
+		if ($scope.autofill) $scope.clean_hyp(false);
+
 		if ($scope.cell_helper|$scope.super_cell_helper) {		
 			for (var i = 0; i < 9; i++) {
 				for (var j = 0; j <9; j++) {
@@ -389,6 +428,7 @@ app.controller('myCtrl', function($scope) {
 				};
 			};
 			var changing=true;
+			var loops_refresh=0;
 			var broken=false;
 			var poss;
 			while (changing){
@@ -406,7 +446,20 @@ app.controller('myCtrl', function($scope) {
 					};
 					// if (broken) break;
 				};
-				if (!broken) break;
+				// if (!broken) break;
+				if ((!broken)|((!$scope.super_cell_helper)&(loops_refresh>0))) break;
+				loops_refresh++;
+			};
+		};
+		if ($scope.autofill) {		
+			for (var i = 0; i < 9; i++) {
+				for (var j = 0; j <9; j++) {
+					if (($scope.matrix_grid_current[i][j] == 0)&($scope.dic_grid[i][j]["possibles"].length==1)){
+						$scope.dic_grid[i][j].value=$scope.dic_grid[i][j]["possibles"][0].toString();
+						$scope.matrix_grid_current[i][j] = $scope.dic_grid[i][j]["possibles"][0];
+						$scope.dic_grid[i][j]["hyp"]=true;
+					};
+				};
 			};
 		};
 	};	
@@ -523,52 +576,51 @@ app.controller('myCtrl', function($scope) {
 			};
 
 			// check if any value is only possible here
-			if ($scope.super_cell_helper) {
-				var res2=[];
-				var broken_row,broken_col,broken_block;
-				for (var r=0;r<res.length;r++){
-					broken_row=false;
-					for (var i=0;i<9;i++){
-						if (i != $cind) {
-							if (($scope.matrix_grid_current[$rind][i]==0) & ($scope.dic_grid[$rind][i]["possibles"].includes(res[r]))) {
-								broken_row=true;
-								break;
-							};
-						}
-					};
-
-					broken_col=false;
-					for (var i=0;i<9;i++){
-						if (i != $rind) {
-							if (($scope.matrix_grid_current[i][$cind]==0) & ($scope.dic_grid[i][$cind]["possibles"].includes(res[r]))) {
-								broken_col=true;
-								break;
-							};
-						}
-					};
-
-					broken_block=false;
-					for (var i=$rind-romis;i<$rind-romis+3;i++){
-						for (var j=$cind-comis;j<$cind-comis+3;j++){
-							if ((i != $rind)|(j !=$cind)) {
-								if (($scope.matrix_grid_current[i][j]==0) & ($scope.dic_grid[i][j]["possibles"].includes(res[r]))) {
-									broken_block=true;
-									break;
-								};
-							}
+			// if ($scope.super_cell_helper) {
+			var res2=[];
+			var broken_row,broken_col,broken_block;
+			for (var r=0;r<res.length;r++){
+				broken_row=false;
+				for (var i=0;i<9;i++){
+					if (i != $cind) {
+						if (($scope.matrix_grid_current[$rind][i]==0) & ($scope.dic_grid[$rind][i]["possibles"].includes(res[r]))) {
+							broken_row=true;
+							break;
 						};
-						if (broken_block) break;
-					};
-
-					if (broken_row&broken_col&broken_block) { // is possible elsewhere
-						res2.push(res[r]);
-					} else {
-						res2=[res[r]];
-						break;
-					};
+					}
 				};
-				res=res2;
+
+				broken_col=false;
+				for (var i=0;i<9;i++){
+					if (i != $rind) {
+						if (($scope.matrix_grid_current[i][$cind]==0) & ($scope.dic_grid[i][$cind]["possibles"].includes(res[r]))) {
+							broken_col=true;
+							break;
+						};
+					}
+				};
+
+				broken_block=false;
+				for (var i=$rind-romis;i<$rind-romis+3;i++){
+					for (var j=$cind-comis;j<$cind-comis+3;j++){
+						if ((i != $rind)|(j !=$cind)) {
+							if (($scope.matrix_grid_current[i][j]==0) & ($scope.dic_grid[i][j]["possibles"].includes(res[r]))) {
+								broken_block=true;
+								break;
+							};
+						}
+					};
+					if (broken_block) break;
+				};
+
+				if (broken_row&broken_col&broken_block) { // is possible elsewhere
+					res2.push(res[r]);
+				} else {
+					res2=[res[r]];
+					break;
+				};
 			};
+			res=res2;
 		};
 		return res;
 	};
@@ -584,7 +636,7 @@ app.controller('myCtrl', function($scope) {
 
 	// save current (without hypothesis) as an encoded string in a file
 	$scope.save_str = function() {
-		$scope.clean_hyp();
+		$scope.clean_hyp(false);
 
 		$scope.date = new Date();
 
@@ -713,6 +765,26 @@ app.controller('myCtrl', function($scope) {
 			}
 		}
 		$scope.shown_sol_tab = false;
+
+        // refresh cell possibilities after import
+		for (var i = 0; i < 9; i++) {
+			for (var j = 0; j <9; j++) {
+				$scope.dic_grid[i][j]["pos_init"]=[1,2,3,4,5,6,7,8,9];
+				if ($scope.matrix_grid_current[i][j]==0){
+					$scope.dic_grid[i][j]["possibles"]=[1,2,3,4,5,6,7,8,9];
+				} else {
+					$scope.dic_grid[i][j]["possibles"]=[];
+				};
+				// $scope["input"+i+j]="";
+			}
+		};
+
+        $scope.refresh_possibles_init();
+        $scope.refresh_possibles();
+
+		// console.log($scope.dic_grid[0][3]["possibles"]);
+		// console.log($scope.dic_grid[0][3]["pos_init"]);
+
 	};
 
 	// set a given sudoku from a string

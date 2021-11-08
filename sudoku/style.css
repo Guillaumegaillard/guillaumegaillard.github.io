@@ -5,6 +5,10 @@
   background: #f2dede;
 }
 
+.bg-wrong{
+  background: red;
+}
+
 .fc-wrong{
   color: red;
 }
