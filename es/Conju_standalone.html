@@ -1875,8 +1875,8 @@
     		var num_sols = $scope.targets.length;
     		for (sol_id; sol_id < num_sols ; sol_id ++) {
     
-    			var form_input=$scope.client_input.toLowerCase().replace(" .","").replace(".","").replace(/  /g," ").split(" ").sort();
-    			var form_target=$scope.targets[sol_id].toLowerCase().replace(".","").split(" ").sort();
+    			var form_input=$scope.client_input.toLowerCase().replace(/,/g,"").replace(" .","").replace(".","").replace(/  /g," ").split(" ").sort();
+    			var form_target=$scope.targets[sol_id].toLowerCase().replace(/,/g,"").replace(".","").split(" ").sort();
     
     			var is_same=true;
     			var i = form_target.length;
