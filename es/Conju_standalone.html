@@ -1675,6 +1675,39 @@
     
                 },  
         },
+        24:{
+            "es":"cambiar",
+            "es_nor_pron":true,
+            "es_nori_pron":true,
+            "eus":["aldatu", "alda", "aldatzen"],
+            "eus_ctypes":["nor","nor-nori","nor-nork","nor-nori-nork"],
+            "es_c":
+                {
+                    "indicative":
+                        {
+                            "present":["cambio","cambias","cambia","cambiamos","cambiáis","cambian"],
+                            "preterito":["cambié","cambiaste","cambió","cambiamos","cambiasteis","cambiaron"],
+                            "imperfecto":["cambiaba","cambiabas","cambiaba","cambiábamos","cambiabais","cambiaban"],
+                            "future":["cambiaré","cambiarás","cambiará","cambiaremos","cambiaréis","cambiarán"],
+                        },
+                    "imperative":
+                        {
+                            "present":["","cambia","","","cambiad",""],
+                        },
+                    "subjonctive":
+                        {
+                            "present":["cambie","cambies","cambie","cambiemos","cambiéis","cambien"],
+                        },  
+                    "participe":
+                        {
+                            "present":"cambiando",
+                            "past":"cambiado",
+                        },  
+    
+                },  
+        },
+    
+        
     
     };
      
@@ -1737,8 +1770,8 @@
     
     
     
-    var version_Conju = '1.2';
-    var version_Conju_Step = '1.1->1.2 : pronombres N en N-I-K';
+    var version_Conju = '1.3';
+    var version_Conju_Step = ['1.2->1.3: pronombres y negación en infinitivas','1.1->1.2 : pronombres N en N-I-K'];
     var version_Ukan_Izan = '1.26';
     var version_Zenbakiak = '1.3';
     var version_Hau_Hori_Hura = '1.1';
@@ -1930,7 +1963,8 @@
     			if ($scope.conjs[j] in $scope.auxiliaries[i].eus_c) {
     				if (l==4){
     					// if (p==2 && k==0 && [0,1].includes(m)) return($scope.check_viable(i,j,k,0,m,n,o,p));
-    					if ([2,3].includes(p) && k==0 && m==1) return($scope.check_viable(i,j,k,0,m,n,o,0));
+    					if ([2].includes(p) && k==0 && m==1) return($scope.check_viable(i,j,k,0,m,n,o,0));
+    					if ([3].includes(p) && k==0 && m==1) return($scope.check_viable(1,3,k,0,m,n,o,0));
     					return(false);
     				}
     				if (p==4 && l==0 && k==0 && m<2) return($scope.check_viable(i,j,k,0,m,n,o,0));
@@ -2710,14 +2744,13 @@
     					} else {
     						$scope.es_phrase+=$scope.pronoms[pronom_one].es[0];
     					}
-    					$scope.targets[0]+=" "+$scope.pronoms[pronom_two].eus[1];
     					if (!(chosen_poss[7]==3)) {
+    						$scope.targets[0]+=" "+$scope.pronoms[pronom_two].eus[1];
     						if (gender_two==1 && ([2,4,6,7].includes(pronom_two))) {
     							$scope.es_phrase+=" "+$scope.pronoms[pronom_two].es_f_form[4];
     						} else {
     							$scope.es_phrase+=" "+$scope.pronoms[pronom_two].es[4];
     						}
-    
     						$scope.targets[0]+=" "+$scope.pronoms[(chosen_COD+1)*2].eus[0];
     						if (gender_COD==1) {
     							$scope.es_phrase+=" "+$scope.pronoms[(chosen_COD+1)*2].es_f_form[3];
@@ -2725,7 +2758,74 @@
     							$scope.es_phrase+=" "+$scope.pronoms[(chosen_COD+1)*2].es[3];
     						}
     					} else {
-    						$scope.es_phrase+=" "+$scope.pronoms[pronom_two].es[2];
+    
+    						$scope.targets[0]+=" "+$scope.pronoms[pronom_two].eus[1];
+    						if (gender_two==1 && ([2,4,6,7].includes(pronom_two))) {
+    							$scope.es_phrase+=" "+$scope.pronoms[pronom_two].es_f_form[2];
+    						} else {
+    							$scope.es_phrase+=" "+$scope.pronoms[pronom_two].es[2];
+    						}
+    
+    
+    						$scope.further_pron_es = ""
+    						$scope.further_pron_eus = ""
+    						
+    						switch (chosen_poss[1]) {
+    							case 0: //me pedis que (me) caiga //dont repeat
+    								if ($scope.verbs[chosen_verb].es_nor_pron) {
+    									$scope.further_pron_es+=$scope.pronoms[pronom_two].es[5];
+    								}
+    						    	break;
+    							case 1: //me pides q ellos me gusten
+    								//ellos
+    								if (gender_COD==1) {
+    									$scope.further_pron_es+=" "+$scope.pronoms[(chosen_COD+1)*2].es_f_form[0];
+    								} else {
+    									$scope.further_pron_es+=" "+$scope.pronoms[(chosen_COD+1)*2].es[0];
+    								}
+    								$scope.further_pron_eus+=" "+$scope.pronoms[(chosen_COD+1)*2].eus[0];
+    
+    								// (se)*
+    								if ($scope.verbs[chosen_verb].es_nori_pron) {
+    									$scope.further_pron_es+=" " + $scope.pronoms[(chosen_COD+1)*2].es[5];
+    								}
+    
+    								// (me)
+    								// $scope.further_pron_eus+=" "+$scope.pronoms[pronom_two].eus[1];								
+    								if (gender_two==1 && ([2,4,6,7].includes(pronom_two))) {
+    									$scope.further_pron_es+=" "+$scope.pronoms[pronom_two].es_f_form[2];
+    								} else {
+    									$scope.further_pron_es+=" "+$scope.pronoms[pronom_two].es[2];
+    								}
+    						    	break;
+    
+    							case 2: // me pides que los coma
+    								if (gender_COD==1) {
+    									$scope.further_pron_es+=" "+$scope.pronoms[(chosen_COD+1)*2].es_f_form[3];
+    								} else {
+    									$scope.further_pron_es+=" "+$scope.pronoms[(chosen_COD+1)*2].es[3];
+    								}
+    								$scope.further_pron_eus+=" "+$scope.pronoms[(chosen_COD+1)*2].eus[0];
+    								break;
+    							case 3: //me pedis que os los diga
+    
+    								// os
+    								$scope.further_pron_eus+=$scope.pronoms[pronom_one].eus[1];
+    								if (gender_one==1 && ([2,4,6,7].includes(pronom_one))) {
+    									$scope.further_pron_es+=$scope.pronoms[pronom_one].es_f_form[4];
+    								} else {
+    									$scope.further_pron_es+=$scope.pronoms[pronom_one].es[4];
+    								}
+    
+    								//los 
+    								$scope.further_pron_eus+=" "+$scope.pronoms[(chosen_COD+1)*2].eus[0];
+    								if (gender_COD==1) {
+    									$scope.further_pron_es+=" "+$scope.pronoms[(chosen_COD+1)*2].es_f_form[3];
+    								} else {
+    									$scope.further_pron_es+=" "+$scope.pronoms[(chosen_COD+1)*2].es[3];
+    								}
+    						    	break;
+    						}
     					}
     			    	break;
     			}
@@ -2958,7 +3058,8 @@
     						aux_eus = $scope.verbs[20].eus[2];
     					}
     					if (chosen_poss[4]==2) {
-    						aux_eus = $scope.verbs[20].eus[0]+"go";
+    						aux_eus = $scope.verbs[20].eus[2]+"ko";
+    						// aux_eus = $scope.verbs[20].eus[0]+"go";
     					}
     
     				} else {
@@ -2973,7 +3074,8 @@
     						end_behar_eus += $scope.verbs[20].eus[2];
     					}
     					if (chosen_poss[4]==2) {
-    						end_behar_eus += $scope.verbs[20].eus[0]+"go";
+    						end_behar_eus += $scope.verbs[20].eus[2]+"ko";
+    						// end_behar_eus += $scope.verbs[20].eus[0]+"go";
     					}
     				}
     
@@ -2993,13 +3095,14 @@
     						
     
     			} else if (chosen_poss[3]==4) { //infinitivo
-    				
+    				var ezez = "";
+    				if (negativa) ezez = "ez ";
     				for (var cv of chosen_verbs) {
     					if ($scope.verbs[cv].eus[2][$scope.verbs[cv].eus[2].length-1] !== "n"){
     						// verb_eus.push($scope.verbs[cv].eus[0]+ " izate");
-    						verb_eus.push($scope.verbs[cv].eus[2]+ " izate");
+    						verb_eus.push(ezez+$scope.verbs[cv].eus[2]+ " izate");
     					} else {
-    						verb_eus.push($scope.verbs[cv].eus[2].slice(0,$scope.verbs[cv].eus[2].length-1));
+    						verb_eus.push(ezez+$scope.verbs[cv].eus[2].slice(0,$scope.verbs[cv].eus[2].length-1));
     						//+ "a");
     					}
     				}
@@ -3011,8 +3114,8 @@
     			var temp_target = [];
     			var ve;
     			for (ve of verb_eus){
-    				if (negativa==0){
-    					if (chosen_poss[7] == 1){
+    				if (chosen_poss[7] == 1){
+    					if (negativa==0){
     						var final_letters;
     						if (aux_eus.length==0) {
     							if (["gara","da","dira","zara"].includes(ve)) {
@@ -3107,7 +3210,12 @@
     							}							
     						}
     
-    					} else if (chosen_poss[7] == 2) {// nominor
+    					} else {
+    
+    					}
+    
+    				} else if (chosen_poss[7] == 2) {// nominor
+    					if (negativa==0){
     						// negasubor? 
     						var aux_local = $scope.auxiliaries[0].eus_c[$scope.conjs[1]][$scope.modes[0]][$scope.tiempos[0]][chosen_creyente][2];
     						var verbo_local = "gustatzen";
@@ -3128,15 +3236,38 @@
     							temp_target.push(subor_start_eus +"ez "+aux_local+" "+ve+"a "+verbo_local);
     							temp_target.push("ez "+aux_local+ " "+ ve+"a "+verbo_local);
     						}
+    					} else {// nominor neg
+    						// negasubor? 
+    						var aux_local = $scope.auxiliaries[0].eus_c[$scope.conjs[1]][$scope.modes[0]][$scope.tiempos[0]][chosen_creyente][2];
+    						var verbo_local = "gustatzen";
+    						if (negativa_subor==0){
+    							temp_target.push(subor_start_eus +ve+"a "+verbo_local +" "+aux_local);
+    							temp_target.push(ve+"a "+verbo_local +" "+aux_local);
+    						} else {
+    							temp_target.push(subor_start_eus +"ez "+aux_local+" "+ve+"a "+verbo_local);
+    							temp_target.push("ez "+aux_local+ " "+ ve+"a "+verbo_local);
+    						}
     
-    					} else if (chosen_poss[7] == 3) {// zehar agintera
+    					}
+    
+    				} else if (chosen_poss[7] == 3) {// zehar agintera
+    					if (negativa==0){
     						var aux_local = $scope.auxiliaries[1].eus_c[$scope.conjs[3]][$scope.modes[0]][$scope.tiempos[0]][0][chosen_poss[5]][chosen_poss[6]];
     						var verbo_local = "eskatzen";
     
-    						temp_target.push($scope.targets[0]+" "+ve+"ko "+verbo_local +" "+aux_local);
+    						temp_target.push($scope.targets[0]+" "+$scope.further_pron_eus+" "+ve+"ko "+verbo_local +" "+aux_local);
+    						temp_target.push(ve+"ko "+verbo_local +" "+aux_local);
+    					} else {// zehar agintera neg
+    						var aux_local = $scope.auxiliaries[1].eus_c[$scope.conjs[3]][$scope.modes[0]][$scope.tiempos[0]][0][chosen_poss[5]][chosen_poss[6]];
+    						var verbo_local = "eskatzen";
+    
+    						temp_target.push($scope.targets[0]+" "+$scope.further_pron_eus+" "+ve+"ko "+verbo_local +" "+aux_local);
     						temp_target.push(ve+"ko "+verbo_local +" "+aux_local);
     
-    					} else if (chosen_poss[7] == 4) {// (baldin ba)
+    					}
+    
+    				} else if (chosen_poss[7] == 4) {// (baldin ba)
+    					if (negativa==0){
     						var grupo_verbal_local = "ondo lo egingo dut";
     
     						if (aux_eus=="") {
@@ -3150,7 +3281,25 @@
     							temp_target.push($scope.targets[0]+" "+ve+" baldin ba"+aux_eus+ ", nik "+grupo_verbal_local);
     							temp_target.push(ve+" baldin ba"+aux_eus+", "+grupo_verbal_local);							
     						}
-    					} else if (chosen_poss[7] == 5) {// kausazkoak
+    					} else {// (baldin ba) neg
+    						var grupo_verbal_local = "ondo lo egingo dut";
+    
+    						if (aux_eus=="") {
+    							temp_target.push($scope.targets[0]+" ez ba"+ve+ ", nik "+grupo_verbal_local);
+    							temp_target.push("ez ba"+ve+", "+grupo_verbal_local);
+    							temp_target.push($scope.targets[0]+" ez baldin ba"+ve+ ", nik "+grupo_verbal_local);
+    							temp_target.push("ez baldin ba"+ve+", "+grupo_verbal_local);
+    						} else {
+    							temp_target.push($scope.targets[0]+" ez ba"+aux_eus+" "+ve+ ", nik "+grupo_verbal_local);
+    							temp_target.push("ez ba"+aux_eus+" "+ve+", "+grupo_verbal_local);							
+    							temp_target.push($scope.targets[0]+" ez baldin ba"+aux_eus+" "+ve+ ", nik "+grupo_verbal_local);
+    							temp_target.push("ez baldin ba"+aux_eus+" "+ve+", "+grupo_verbal_local);							
+    						}
+    
+    
+    					}
+    				} else if (chosen_poss[7] == 5) {// kausazkoak
+    					if (negativa==0){
     						var grupo_verbal_local = "ondo lo egingo dut, ";
     
     						if (aux_eus=="") {
@@ -3179,82 +3328,7 @@
     							temp_target.push("nik "+grupo_verbal_local+$scope.targets[0]+ " " + ve + " "+ aux_eus + " eta");
     							temp_target.push(grupo_verbal_local+ ve + " "+ aux_eus + " eta");						
     						}
-    					} else if (chosen_poss[7] == 6) {// zehar galdera
-    						if (negativa_subor==0) {
-    							var grupo_verbal_local = " dakizu";
-    
-    							if (aux_eus=="") {
-    								// zuk interr prons ve+n dakizu
-    								temp_target.push("zuk "+$scope.interrogatives[inter_indir_id].eus + " "+ $scope.targets[0]+ " "+$scope.atziz(ve,"n")+grupo_verbal_local);
-    								temp_target.push($scope.interrogatives[inter_indir_id].eus + " "+$scope.atziz(ve,"n")+grupo_verbal_local);
-    							} else {
-    								// zuk interr prons ve aux+n dakizu
-    								temp_target.push("zuk "+$scope.interrogatives[inter_indir_id].eus + " "+ $scope.targets[0]+ " "+ve+ " "+$scope.atziz(aux_eus,"n")+grupo_verbal_local);
-    								temp_target.push($scope.interrogatives[inter_indir_id].eus + " "+ve+ " "+$scope.atziz(aux_eus,"n")+grupo_verbal_local);
-    							}
-    						} else {
-    							var grupo_verbal_local = "ez dakizu ";
-    
-    							if (aux_eus=="") {
-    								// zuk ez dakizu interr prons ve+n 
-    								temp_target.push("zuk "+grupo_verbal_local+$scope.interrogatives[inter_indir_id].eus + " "+ $scope.targets[0]+ " "+$scope.atziz(ve,"n"));
-    								temp_target.push(grupo_verbal_local+ $scope.interrogatives[inter_indir_id].eus + " "+$scope.atziz(ve,"n"));
-    							} else {
-    								// zuk ez dakizu interr prons ve aux+n
-    								temp_target.push("zuk "+grupo_verbal_local+$scope.interrogatives[inter_indir_id].eus + " "+ $scope.targets[0]+ " "+ve+ " "+$scope.atziz(aux_eus,"n"));
-    								temp_target.push(grupo_verbal_local+ $scope.interrogatives[inter_indir_id].eus + " "+ve+ " "+$scope.atziz(aux_eus,"n"));
-    							}	
-    						}
-    
-    					} else {
-    						if (aux_eus=="") {
-    							temp_target.push($scope.targets[0]+" "+ve);
-    							temp_target.push(ve);
-    						} else {
-    							temp_target.push($scope.targets[0]+" "+ve+" "+aux_eus);
-    							temp_target.push(ve+" "+aux_eus);
-    						}
-    					}
-    				} else {
-    					if (chosen_poss[3]==3) {
-    						temp_target.push($scope.targets[0]+" "+aux_eus+" "+ve+ " " + end_behar_eus);
-    						temp_target.push(aux_eus+" "+ve+ " " + end_behar_eus);
-    					} else if (chosen_poss[7] == 2) {// nominor
-    						// negasubor? 
-    						var aux_local = $scope.auxiliaries[0].eus_c[$scope.conjs[1]][$scope.modes[0]][$scope.tiempos[0]][chosen_creyente][2];
-    						var verbo_local = "gustatzen";
-    						if (negativa_subor==0){
-    							temp_target.push(subor_start_eus +"ez "+ve+"a "+verbo_local +" "+aux_local);
-    							temp_target.push("ez "+ve+"a "+verbo_local +" "+aux_local);
-    						} else {
-    							temp_target.push(subor_start_eus +"ez "+aux_local+" ez "+ve+"a "+verbo_local);
-    							temp_target.push("ez "+aux_local+ " ez "+ ve+"a "+verbo_local);
-    						}
-    
-    					} else if (chosen_poss[7] == 3) {// zehar agintera
-    						var aux_local = $scope.auxiliaries[1].eus_c[$scope.conjs[3]][$scope.modes[0]][$scope.tiempos[0]][0][chosen_poss[5]][chosen_poss[6]];
-    						var verbo_local = "eskatzen";
-    
-    						temp_target.push($scope.targets[0]+" "+ve+"ko "+verbo_local +" "+aux_local);
-    						temp_target.push(ve+"ko "+verbo_local +" "+aux_local);
-    
-    					} else if (chosen_poss[7] == 4) {// (baldin ba)
-    						var grupo_verbal_local = "ondo lo egingo dut";
-    
-    						if (aux_eus=="") {
-    							temp_target.push($scope.targets[0]+" ez ba"+ve+ ", nik "+grupo_verbal_local);
-    							temp_target.push("ez ba"+ve+", "+grupo_verbal_local);
-    							temp_target.push($scope.targets[0]+" ez baldin ba"+ve+ ", nik "+grupo_verbal_local);
-    							temp_target.push("ez baldin ba"+ve+", "+grupo_verbal_local);
-    						} else {
-    							temp_target.push($scope.targets[0]+" ez ba"+aux_eus+" "+ve+ ", nik "+grupo_verbal_local);
-    							temp_target.push("ez ba"+aux_eus+" "+ve+", "+grupo_verbal_local);							
-    							temp_target.push($scope.targets[0]+" ez baldin ba"+aux_eus+" "+ve+ ", nik "+grupo_verbal_local);
-    							temp_target.push("ez baldin ba"+aux_eus+" "+ve+", "+grupo_verbal_local);							
-    						}
-    
-    
-    					} else if (chosen_poss[7] == 5) {// kau neg
+    					} else {// kau neg
     						var grupo_verbal_local = "ondo lo egingo dut, ";
     
     						if (aux_eus=="") {
@@ -3283,9 +3357,35 @@
     							temp_target.push(grupo_verbal_local+ "ez "+ aux_eus +" "+ve + " eta");	
     						
     						}
+    					}
+    				} else if (chosen_poss[7] == 6) {// zehar galdera
+    					if (negativa==0){
+    						if (negativa_subor==0) {
+    							var grupo_verbal_local = " dakizu";
     
+    							if (aux_eus=="") {
+    								// zuk interr prons ve+n dakizu
+    								temp_target.push("zuk "+$scope.interrogatives[inter_indir_id].eus + " "+ $scope.targets[0]+ " "+$scope.atziz(ve,"n")+grupo_verbal_local);
+    								temp_target.push($scope.interrogatives[inter_indir_id].eus + " "+$scope.atziz(ve,"n")+grupo_verbal_local);
+    							} else {
+    								// zuk interr prons ve aux+n dakizu
+    								temp_target.push("zuk "+$scope.interrogatives[inter_indir_id].eus + " "+ $scope.targets[0]+ " "+ve+ " "+$scope.atziz(aux_eus,"n")+grupo_verbal_local);
+    								temp_target.push($scope.interrogatives[inter_indir_id].eus + " "+ve+ " "+$scope.atziz(aux_eus,"n")+grupo_verbal_local);
+    							}
+    						} else {
+    							var grupo_verbal_local = "ez dakizu ";
     
-    					} else if (chosen_poss[7] == 6) {// zehar galdera
+    							if (aux_eus=="") {
+    								// zuk ez dakizu interr prons ve+n 
+    								temp_target.push("zuk "+grupo_verbal_local+$scope.interrogatives[inter_indir_id].eus + " "+ $scope.targets[0]+ " "+$scope.atziz(ve,"n"));
+    								temp_target.push(grupo_verbal_local+ $scope.interrogatives[inter_indir_id].eus + " "+$scope.atziz(ve,"n"));
+    							} else {
+    								// zuk ez dakizu interr prons ve aux+n
+    								temp_target.push("zuk "+grupo_verbal_local+$scope.interrogatives[inter_indir_id].eus + " "+ $scope.targets[0]+ " "+ve+ " "+$scope.atziz(aux_eus,"n"));
+    								temp_target.push(grupo_verbal_local+ $scope.interrogatives[inter_indir_id].eus + " "+ve+ " "+$scope.atziz(aux_eus,"n"));
+    							}	
+    						}
+    					} else {// zehar galdera
     						if (negativa_subor==0) {
     							var grupo_verbal_local = " dakizu";
     
@@ -3313,11 +3413,29 @@
     								temp_target.push(grupo_verbal_local+ $scope.interrogatives[inter_indir_id].eus + " "+ve+ " ez "+$scope.atziz(aux_eus,"n"));
     							}	
     						}
-    					} else {
-    						temp_target.push($scope.targets[0]+" "+aux_eus+" "+ve);
-    						temp_target.push(aux_eus+" "+ve);
     					}
-    				}
+    
+    				} else { // 0: principales
+    					if (negativa==0){
+    						if (aux_eus=="") {
+    							temp_target.push($scope.targets[0]+" "+ve);
+    							temp_target.push(ve);
+    						} else {
+    							temp_target.push($scope.targets[0]+" "+ve+" "+aux_eus);
+    							temp_target.push(ve+" "+aux_eus);
+    						}
+    					} else {
+    					
+    						if (chosen_poss[3]==3) { //behar
+    							temp_target.push($scope.targets[0]+" "+aux_eus+" "+ve+ " " + end_behar_eus);
+    							temp_target.push(aux_eus+" "+ve+ " " + end_behar_eus);
+    						 
+    						} else {
+    							temp_target.push($scope.targets[0]+" "+aux_eus+" "+ve);
+    							temp_target.push(aux_eus+" "+ve);
+    						}
+    					}
+    				} 
     			}
     			$scope.targets=temp_target;
     
@@ -3429,7 +3547,11 @@
     					// console.log(chosen_sujeto);
     					// console.log($scope.verbs[chosen_verb]);
     				} else {//3 : zehar agintera
-    					verb_es = $scope.verbs[chosen_verb].es_c.subjonctive.present[chosen_poss[6]];//salga
+    					if (chosen_poss[1] == 1) {
+    						verb_es = $scope.verbs[chosen_verb].es_c.subjonctive.present[(chosen_COD*3)+2];//salga
+    					} else {
+    						verb_es = $scope.verbs[chosen_verb].es_c.subjonctive.present[chosen_poss[6]];//salga
+    					}
     
     				}
     
@@ -3531,14 +3653,28 @@
     						$scope.es_phrase = "no "+subor_start_es + "gusta";
     					}
     
+    					$scope.es_phrase+=" "+verbal_group_es;
     				}
     				if (chosen_poss[7] == 3) {
+    					if (negativa==1){
+    						var further_pron_es_chunks = $scope.further_pron_es.split(" ");
+    						if (chosen_poss[1]==1) {
+    							$scope.further_pron_es = further_pron_es_chunks[0] +" "+further_pron_es_chunks[1] +" no "
+    							for (var c=2;c<further_pron_es_chunks.length;c++) {
+    								$scope.further_pron_es += further_pron_es_chunks[c]+" " ;
+    							}
+    						} else {
+    							$scope.further_pron_es = " no "+$scope.further_pron_es;	
+    						}
+    
+    					}
+    
     					var local_v = $scope.verbs[23].es_c.indicative.present[chosen_poss[5]];
-    					$scope.es_phrase += " " + local_v + " que";
+    					$scope.es_phrase += " " + local_v + " que " + $scope.further_pron_es;
     					
+    					$scope.es_phrase+=" "+verbal_group_es;
     				}
     
-    				$scope.es_phrase+=" "+verbal_group_es;
     
     			} else if (negativa==1){
     				var es_phrase_chunks = $scope.es_phrase.split(" ");
@@ -4219,9 +4355,11 @@
     </div>
     <div>
       Conju versión {{version_Conju}}
-          <div>
-            <p>&emsp;{{version_Conju_Step}}</p>
-          </div>
+        <ul>
+          <li ng-repeat="x in version_Conju_Step ">
+            {{ x | capitalize }}
+          </li>
+        </ul>
     </div>
   </div>
 </div>
