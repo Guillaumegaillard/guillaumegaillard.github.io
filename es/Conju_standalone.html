@@ -1770,8 +1770,8 @@
     
     
     
-    var version_Conju = '1.5';
-    var version_Conju_Step = ['1.4->1.5: fix bug empty aux ahalera nk interpers','1.3->1.4: fix bug subor izan','1.2->1.3: pronombres y negación en infinitivas','1.1->1.2 : pronombres N en N-I-K'];
+    var version_Conju = '1.6';
+    var version_Conju_Step = ['1.5->1.6: fix tildes enclíticos es','1.4->1.5: fix bug empty aux ahalera nk interpers','1.3->1.4: fix bug subor izan','1.2->1.3: pronombres y negación en infinitivas','1.1->1.2 : pronombres N en N-I-K'];
     var version_Ukan_Izan = '1.26';
     var version_Zenbakiak = '1.3';
     var version_Hau_Hori_Hura = '1.1';
@@ -2095,6 +2095,195 @@
     		}
     
     
+    	};
+    
+    	$scope.acentuar = function(verb_ori,nb_encliticos) {
+    		var verb_ac = verb_ori;
+    
+            // var vowelRegex = '^[aieouAIEOUéèêÊÉÈËëÜü].*'; 
+            const vocales_abiertas = 'aeoAEOáéóÁÉÓäëöÄËÖ'; 
+            const vocales_abiertas_re = RegExp('['+vocales_abiertas+']', 'g'); 
+            var vocales_cerradas = 'iuIUíúÍÚïüÏÜ'; 
+            var vocales_acentuadas = 'áéóíúÁÉÓÍÚ'; 
+            const vocales_acentuadas_re = RegExp('['+vocales_acentuadas+']', 'g'); 
+    
+            const vocales_re = RegExp('['+vocales_abiertas+vocales_cerradas+']', 'g'); 
+            var nsvo = 'ns'+vocales_abiertas+vocales_cerradas;
+    
+    		// find groups of vocales:
+    			// index des vocales 
+            var vocal_mal = verb_ac.matchAll(vocales_re);
+            var sils_start = [];
+            var sils_last = [];
+            var strongly_voc_sils = [];
+            var acc_voc_sils = [];
+    			// 	groupes avec 0 ou 1 vocal abierta o accentuada
+    			// 	for vocal
+    
+            for (const vocal of vocal_mal) {
+            	if (sils_last.length==0) {
+            		sils_start.push(vocal.index);
+            		sils_last.push(vocal.index);
+            		strongly_voc_sils.push(vocales_abiertas.includes(vocal));
+            		acc_voc_sils.push(vocales_acentuadas.includes(vocal));
+            	} else {
+            		if ((sils_last[sils_last.length-1]==vocal.index - 1)||((sils_last[sils_last.length-1]==vocal.index - 2)&&(verb_ac[vocal.index - 1]=='h'))) { //or -2 y -1== h, pero solo a veces des.ahu.cio // ve.hí.cu.lo
+            			// if (acc_voc_sils_last[sils_last.length-1]) {//prev voc accent
+            			if (strongly_voc_sils[sils_last.length-1]) {//prev sil strong
+            				if (vocales_abiertas.includes(vocal)) { //strong after strong = new
+    	        				sils_last.push(vocal.index);
+    	        				sils_start.push(vocal.index);
+    			        		strongly_voc_sils.push(true);
+    			        		acc_voc_sils.push(vocales_acentuadas.includes(vocal));
+    	        			} else {
+    	        				if (vocales_acentuadas.includes(vocal)) { //vehículo
+    				        		sils_last.push(vocal.index);
+    				        		sils_start.push(vocal.index);
+    				        		strongly_voc_sils.push(false);
+    				        		acc_voc_sils.push(true);	        					
+    	        				} else {
+    	        					sils_last[sils_last.length-1]=vocal.index;
+    	        				}
+    	        			}
+            			} else { //prev is not strong yet
+            				sils_last[sils_last.length-1]=vocal.index;
+            				strongly_voc_sils[sils_last.length-1]=vocales_abiertas.includes(vocal);
+    		        		acc_voc_sils[sils_last.length-1]=vocales_acentuadas.includes(vocal);
+            				// baúl, peón, vivió, venía
+            				// else 
+            			}
+            		} else {
+    	        		sils_last.push(vocal.index);
+    	        		sils_start.push(vocal.index);
+    	        		strongly_voc_sils.push(vocales_abiertas.includes(vocal));
+    	        		acc_voc_sils.push(vocales_acentuadas.includes(vocal));
+            		}
+    
+            	}
+    		}
+    		// if -1 acc => agu
+    		// else if -2 acc => llana
+    		// else if acc antes => jula
+    		// else if ns_voc 
+    		// 	llana
+    		// else agu
+    		var tontype = 0;
+    		if (acc_voc_sils[sils_last.length-1]) {
+    			// console.log("agu");
+    			tontype = 1;
+    		} else if ((sils_last.length>1)&&(acc_voc_sils[sils_last.length-2])) {
+    			tontype = 2;
+    			// console.log("llana");
+    		} else if ((sils_last.length>2)&&(acc_voc_sils.some(item=>item))) {
+    			tontype = 3;
+    			// console.log("jula");
+    		} else { //no tilde
+    			if ((sils_last.length>1)&&(nsvo.includes(verb_ac[verb_ac.length-1]))){
+    				tontype = 2;
+    				// console.log("llana2");
+    			} else {
+    				tontype = 1;
+    				// console.log("agu2");
+    			}
+    
+    		}
+    
+    		var lensils = sils_last.length;
+          // 1pron
+          //       agu : no tilde
+          //       llana tilde penu
+          //       esdru o mas no cam
+          // 2 pron
+          //       agu tilde ulti
+          //       llana tilde penu
+          //       esdru o mas no cam
+    
+    		if (nb_encliticos == 1) {
+    			if (tontype==1){
+    				var vocales_sil_ac = verb_ac.slice(sils_start[lensils-1],sils_last[lensils-1]+1);
+    				// console.log(vocales_sil_ac);
+    
+    				// virer accents
+    				vocales_sil_ac = vocales_sil_ac.replace("á","a").replace("é","e").replace("í","i").replace("ó","o").replace("ú","u");
+    
+    				verb_ac = verb_ac.slice(0,sils_start[lensils-1])+vocales_sil_ac+verb_ac.slice(sils_last[lensils-1]+1,verb_ac.length);
+    
+    			} else if (tontype==2){
+    				var vocales_sil_ac = verb_ac.slice(sils_start[lensils-2],sils_last[lensils-2]+1);
+    				// rajouter accent
+    				// si accent maintenir
+    				if (!(vocales_acentuadas_re.test(vocales_sil_ac))) {
+    					// sinon si voc ab => accent
+    					var idx_ab = vocales_sil_ac.search(vocales_abiertas_re) ;
+    					if (idx_ab>-1) {
+    						vocales_sil_ac = vocales_sil_ac.slice(0,idx_ab)+vocales_sil_ac[idx_ab].replace("a","á").replace("e","é").replace("o","ó")+vocales_sil_ac.slice(idx_ab+1,vocales_sil_ac.length);
+    					// sinon si 2 => la deuxieme (h)
+    					} else if (vocales_sil_ac.length>1) {
+    						vocales_sil_ac = vocales_sil_ac.slice(0,vocales_sil_ac.length-1)+vocales_sil_ac[-1].replace("i","í").replace("u","ú");
+    
+    					// sinon (1) => la seule
+    					} else {
+    						vocales_sil_ac = vocales_sil_ac.replace("i","í").replace("u","ú");
+    					}
+    
+    					verb_ac = verb_ac.slice(0,sils_start[lensils-2])+vocales_sil_ac+verb_ac.slice(sils_last[lensils-2]+1,verb_ac.length);
+    				}
+    
+    			}
+    
+    
+    
+    		} else {//2, 3?...
+    			if (tontype==1){//agu tilde ulti
+    				var vocales_sil_ac = verb_ac.slice(sils_start[lensils-1],sils_last[lensils-1]+1);
+    
+    				// rajouter accent
+    				// si accent maintenir
+    				if (!(vocales_acentuadas_re.test(vocales_sil_ac))) {
+    					// sinon si voc ab => accent
+    					var idx_ab = vocales_sil_ac.search(vocales_abiertas_re) ;
+    					if (idx_ab>-1) {
+    						vocales_sil_ac = vocales_sil_ac.slice(0,idx_ab)+vocales_sil_ac[idx_ab].replace("a","á").replace("e","é").replace("o","ó")+vocales_sil_ac.slice(idx_ab+1,vocales_sil_ac.length);
+    					// sinon si 2 => la deuxieme (h)
+    					} else if (vocales_sil_ac.length>1) {
+    						vocales_sil_ac = vocales_sil_ac.slice(0,vocales_sil_ac.length-1)+vocales_sil_ac[-1].replace("i","í").replace("u","ú");
+    
+    					// sinon (1) => la seule
+    					} else {
+    						vocales_sil_ac = vocales_sil_ac.replace("i","í").replace("u","ú");
+    					}
+    
+    					verb_ac = verb_ac.slice(0,sils_start[lensils-1])+vocales_sil_ac+verb_ac.slice(sils_last[lensils-1]+1,verb_ac.length);
+    				}
+    			} else if (tontype==2){//llana tilde penu
+    				var vocales_sil_ac = verb_ac.slice(sils_start[lensils-2],sils_last[lensils-2]+1);
+    
+    				// rajouter accent
+    				// si accent maintenir
+    				if (!(vocales_acentuadas_re.test(vocales_sil_ac))) {
+    					// sinon si voc ab => accent
+    					var idx_ab = vocales_sil_ac.search(vocales_abiertas_re) ;
+    					if (idx_ab>-1) {
+    						vocales_sil_ac = vocales_sil_ac.slice(0,idx_ab)+vocales_sil_ac[idx_ab].replace("a","á").replace("e","é").replace("o","ó")+vocales_sil_ac.slice(idx_ab+1,vocales_sil_ac.length);
+    					// sinon si 2 => la deuxieme (h)
+    					} else if (vocales_sil_ac.length>1) {
+    						vocales_sil_ac = vocales_sil_ac.slice(0,vocales_sil_ac.length-1)+vocales_sil_ac[-1].replace("i","í").replace("u","ú");
+    
+    					// sinon (1) => la seule
+    					} else {
+    						vocales_sil_ac = vocales_sil_ac.replace("i","í").replace("u","ú");
+    					}
+    
+    					verb_ac = verb_ac.slice(0,sils_start[lensils-2])+vocales_sil_ac+verb_ac.slice(sils_last[lensils-2]+1,verb_ac.length);
+    				}
+    
+    
+    
+    			}
+    
+    		}
+    		
+    		return(verb_ac);
     	};
     
     
@@ -2829,6 +3018,17 @@
     					}
     			    	break;
     			}
+    			if (chosen_poss[7]==2){
+    				if (chosen_creyente==chosen_sujeto) {
+    					var tzero_chunks = $scope.targets[0].split(" ");
+    					$scope.targets[0] = "";
+    					for (var c=1;c<tzero_chunks.length;c++) {
+    						$scope.targets[0] += tzero_chunks[c]+" ";
+    					}
+    
+    
+    				}
+    			}
     
     			// cod in case n-i-k eus
     			// var cod_es="";
@@ -3229,27 +3429,27 @@
     							// 	temp_target.push(ve+"a "+verbo_local +" "+aux_local);
     							// }
     							// temp_target.push(subor_start_eus +" " +$scope.targets[0]+" "+ve+"a "+verbo_local +" "+aux_local);
-    							temp_target.push(subor_start_eus +ve+"a "+verbo_local +" "+aux_local);
-    							temp_target.push(ve+"a "+verbo_local +" "+aux_local);
+    							temp_target.push(subor_start_eus +$scope.targets[0]+" "+ve+"a "+verbo_local +" "+aux_local);
+    							temp_target.push($scope.targets[0]+" "+ve+"a "+verbo_local +" "+aux_local);
     						} else {
     							// //if creyente != sujeto -> no pron imposs
     							// if (chosen_creyente==chosen_sujeto) {
     							// 	temp_target.push("ez "+aux_local+ " "+ ve+"a "+verbo_local);
     							// }
     							// temp_target.push(subor_start_eus +"ez "+aux_local+" " +$scope.targets[0]+" "+ve+"a "+verbo_local);
-    							temp_target.push(subor_start_eus +"ez "+aux_local+" "+ve+"a "+verbo_local);
-    							temp_target.push("ez "+aux_local+ " "+ ve+"a "+verbo_local);
+    							temp_target.push(subor_start_eus +"ez "+aux_local+" "+$scope.targets[0]+" "+ve+"a "+verbo_local);
+    							temp_target.push("ez "+aux_local+ " "+$scope.targets[0]+" "+ ve+"a "+verbo_local);
     						}
     					} else {// nominor neg
     						// negasubor? 
     						var aux_local = $scope.auxiliaries[0].eus_c[$scope.conjs[1]][$scope.modes[0]][$scope.tiempos[0]][chosen_creyente][2];
     						var verbo_local = "gustatzen";
     						if (negativa_subor==0){
-    							temp_target.push(subor_start_eus +ve+"a "+verbo_local +" "+aux_local);
-    							temp_target.push(ve+"a "+verbo_local +" "+aux_local);
+    							temp_target.push(subor_start_eus +$scope.targets[0]+" "+ve+"a "+verbo_local +" "+aux_local);
+    							temp_target.push($scope.targets[0]+" "+ve+"a "+verbo_local +" "+aux_local);
     						} else {
-    							temp_target.push(subor_start_eus +"ez "+aux_local+" "+ve+"a "+verbo_local);
-    							temp_target.push("ez "+aux_local+ " "+ ve+"a "+verbo_local);
+    							temp_target.push(subor_start_eus +"ez "+aux_local+" "+$scope.targets[0]+" "+ve+"a "+verbo_local);
+    							temp_target.push("ez "+aux_local+ " "+$scope.targets[0]+" "+ ve+"a "+verbo_local);
     						}
     
     					}
@@ -3538,14 +3738,22 @@
     				// console.log($scope.verbs[chosen_verb]);
     
     			
-    			} else if (chosen_poss[3]==4){ //infinitif
+    			} else if (chosen_poss[3]==4){ //infinitif basque
     				if (chosen_poss[7]==2) {
+    				// if (chosen_poss[7]==2) {
     					//((no) (me) gusta) (no) hacer//((no) (me) gusta) (no) llevaroslas//
     					// (que) (os las) lleven // que caigas // que se te pierdan // que os coma //
     					// ou juste llevar
+    							// if (chosen_creyente==chosen_sujeto) {
+    					if (chosen_creyente!=chosen_sujeto) {
+    						// if (negativa) verb_es = "no "+verb_es; 
+    						verb_es = $scope.verbs[chosen_verb].es_c.subjonctive.present[chosen_sujeto];//salga
+    					} else {
+    						verb_es = $scope.verbs[chosen_verb].es;
+    					}
     
-    					verb_es = $scope.verbs[chosen_verb].es;
-    					if (negativa) verb_es = "no "+verb_es; 
+    
+    
     					// verb_es = $scope.verbs[chosen_verb].es_c.imperative.present[chosen_sujeto];//sal
     					// verb_es = "egitea: ";//sal
     					// console.log(verb_es);
@@ -3640,12 +3848,30 @@
     
     			if (chosen_poss[3]==1){ //imper
     				var es_phrase_chunks = $scope.es_phrase.split(" ");
+    
+    				var nb_encliticos = 0;
+    				// if (verbal_group_es[verbal_group_es.length-1]!='r') nb_encliticos+=1;
+    				if ((chosen_poss[1]==0)&&($scope.verbs[chosen_verb].es_nor_pron)) nb_encliticos+=1;
+    				if (chosen_poss[1]==2) nb_encliticos+=1;
+    				if (chosen_poss[1]==3) nb_encliticos+=2;
+    
+    
+    				verbal_group_es = $scope.acentuar(verbal_group_es,nb_encliticos);
+    
+    				if (es_phrase_chunks.length>1) {
+    					if (es_phrase_chunks[1]=="os" && verbal_group_es.length>2) {
+    						verbal_group_es = verbal_group_es.slice(0,-1);
+    						if (verbal_group_es[-1]=="i") verbal_group_es = verbal_group_es.slice(0,-1)+"í";
+    					}
+    				}
+    
     				$scope.es_phrase = es_phrase_chunks[0] +" "+ verbal_group_es;
+    
     
     				for (var c=1;c<es_phrase_chunks.length;c++) {
     					$scope.es_phrase += es_phrase_chunks[c].replace("(a","(a-");
-    
     				}
+    
     				 // + es_phrase_chunks.slice(1);
     			} else if (chosen_poss[3]==4) { //egitea,...
     				// TODO: todo los casos (nik, todos los 7 inf ...
@@ -3653,12 +3879,74 @@
     
     				if (chosen_poss[7] == 2) {
     					if (negativa_subor == 0) {
-    						$scope.es_phrase = subor_start_es + " " + "gusta";
+    						subor_start_es += " " + "gusta ";
     					} else {
-    						$scope.es_phrase = "no "+subor_start_es + "gusta";
+    						subor_start_es = "no "+subor_start_es + "gusta ";
     					}
     
-    					$scope.es_phrase+=" "+verbal_group_es;
+    
+    					if (chosen_creyente!=chosen_sujeto) { //todo acentuacion comprarselas
+    						// Si una forma verbal monosilábica o polisilábica aguda se agrupa con dos enclíticos, se acentúa la tónica, aunque no lo requiera la forma verbal sin enclíticos: dímelo, decídselo, dáselo. 
+    						// Si una forma verbal llana o esdrújula se agrupa con uno o más enclíticos, se acentúa la tónica, aunque no lo requiera la misma forma verbal sin enclíticos: permita, permítaseme, coge, cógelo. Entonces, siempre se acentúan las formas verbales esdrújulas y sobreesdrújulas: antójesele, búscalo, diciéndome, míralo, ríase.
+    						
+    						subor_start_es += "que "
+    						if (!(negativa)) {
+    							$scope.es_phrase = subor_start_es + " " +$scope.es_phrase+" "+verbal_group_es;
+    						} else {
+    							// tu se (a ellas) las => que tu no se (a ellas) las des
+    							var es_phrase_chunks = $scope.es_phrase.split(" ");
+    							$scope.es_phrase = subor_start_es + " "+es_phrase_chunks[0] +" "+"no ";
+    
+    							for (var c=1;c<es_phrase_chunks.length;c++) {
+    								$scope.es_phrase += es_phrase_chunks[c]+" " ;
+    							}
+    
+    							$scope.es_phrase += verbal_group_es;
+    						}
+    					} else { //inf es
+    						// tu se (a ellas) los => darse(a ellas)los
+    						var es_phrase_chunks = $scope.es_phrase.split(" ");
+    						
+    						var nb_encliticos = 0;
+    						// if (verbal_group_es[verbal_group_es.length-1]!='r') nb_encliticos+=1;
+    						if ((chosen_poss[1]==0)&&($scope.verbs[chosen_verb].es_nor_pron)) nb_encliticos+=1;
+    						if (chosen_poss[1]==2) nb_encliticos+=1;
+    						if (chosen_poss[1]==3) nb_encliticos+=2;
+    
+    
+    						verbal_group_es = $scope.acentuar(verbal_group_es,nb_encliticos);
+    
+    						
+    						$scope.es_phrase = subor_start_es;
+    						
+    						if (!(negativa)) {
+    							$scope.es_phrase +=" "+verbal_group_es;
+    						} else {
+    							$scope.es_phrase +=" no "+verbal_group_es;
+    						}
+    
+    						for (var c=1;c<es_phrase_chunks.length;c++) {
+    							$scope.es_phrase += es_phrase_chunks[c].replace("(a","(a-");
+    						}
+    					}
+    
+    
+    
+    					// if (!(negativa)) {
+    					// 	$scope.es_phrase = "no "+subor_start_es + "gusta (que) " +$scope.es_phrase;
+    					// }
+    
+    					// $scope.es_phrase+=" "+verbal_group_es;
+    
+    					//Os gusta (que) nosotras os no cambiar
+    					//Le gusta (que) él te no traer
+    					//Os gusta (que) vosotras se (a ella) los no dar
+    					//Os gusta (que) vosotros nos no sacar
+    					//No nos gusta (que) nosotras te la no pedir
+    					//No te gusta (que) tú te perder
+    					//No te gusta (que) tú te les no salir
+    					//Nos gusta (que) nosotros te venir
+    					// sauf nor nori pronom, si sujet == nori gust => dont repeat // same in basque
     				}
     				if (chosen_poss[7] == 3) {
     					if (negativa==1){
@@ -4359,12 +4647,16 @@
       </table>
     </div>
     <div>
-      Conju versión {{version_Conju}}
-        <ul>
-          <li ng-repeat="x in version_Conju_Step ">
-            {{ x | capitalize }}
-          </li>
-        </ul>
+      Conju versión {{version_Conju}} &nbsp;&nbsp;&nbsp;
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="show_versions_list" value="option222" ng-model="shown_versions"  ng-init="shown_versions=false">
+        <label class="form-check-label" for="show_versions_list">history &nbsp;</label>
+      </div>
+      <ul ng-show="shown_versions">
+        <li ng-repeat="x in version_Conju_Step ">
+          {{ x | capitalize }}
+        </li>
+      </ul>
     </div>
   </div>
 </div>
