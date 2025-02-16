@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>colores cocina</title>
+</head>
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.5.2/jscolor.min.js"></script> 
+
+
+<div style="display:none;">
+<img id="Suelo" width="1500" height="1125" src="https://cdn.gerflor.com/media/1642426083/1/19577.jpg">
+
+<img id="Encimera" width="2200" height="1007" src="https://assetstools.cosentino.com/api/v1/bynder/color/EKC/tablahd/EKC-fullslab.jpg">
+
+</div>
+
+Paredes: <input type="text" name="Paredes" id="Paredes" oninput="change_colors('Paredes')" value="" required data-jscolor="{}">
+</br>
+Zócalos oscuros: <input type="text" name="Zócalos_o" id="Zócalos_o" oninput="change_colors('Zócalos_o')" value="" required data-jscolor="{}">
+Zócalos vestibulo: <input type="text" name="Zócalos_v" id="Zócalos_v" oninput="change_colors('Zócalos_v')" value="" required data-jscolor="{}">
+Zócalos puertas: <input type="text" name="Zócalos_p" id="Zócalos_p" oninput="change_colors('Zócalos_p')" value="" required data-jscolor="{}">
+</br>
+Muebles bajos: <input type="text" name="Muebles_bajos" id="Muebles_bajos" oninput="change_colors('Muebles_bajos')" value="" required data-jscolor="{}">
+</br>
+Muebles altos: <input type="text" name="Muebles_altos" id="Muebles_altos" oninput="change_colors('Muebles_altos')" value="" required data-jscolor="{}">
+</br>
+Armazones: <input type="text" name="Armazones" id="Armazones" oninput="change_colors('Armazones')" value="" required data-jscolor="{}">
+</br>
+Columnas: <input type="text" name="Columnas" id="Columnas" oninput="change_colors('Columnas')" value="" required data-jscolor="{}">
+</br>
+Electrodomesticos: <input type="text" name="Electrodomesticos" id="Electrodomesticos" oninput="change_colors('Electrodomesticos')" value="" required data-jscolor="{}">
+</br>
+Puertas: <input type="text" name="Puertas" id="Puertas" oninput="change_colors('Puertas')" value="" required data-jscolor="{}">
+</br>
+
+ <a id=linktome href="#">guardar/compartir enlace a esta selección de colores</a> 
+</br>
+
+
+<canvas id="myCanvas" width="800" height="800" style="border:1px solid grey"></canvas>
+
+<script>
+const c = document.getElementById("myCanvas");
+const ctx = c.getContext("2d");
+
+const image_encimera = document.getElementById("Encimera");
+const image_suelo = document.getElementById("Suelo");
+
+const urlParams = new URLSearchParams(window.location.search);
+var urlcolors = "";
+
+
+if (urlParams.has("colors")) {
+  urlcolors = urlParams.get("colors");
+
+  document.getElementById("Columnas").value = "#"+urlcolors.substring(0,6);
+  document.getElementById("Armazones").value = "#"+urlcolors.substring(6,12);
+  document.getElementById("Zócalos_o").value = "#"+urlcolors.substring(12,18);
+  document.getElementById("Zócalos_v").value = "#"+urlcolors.substring(18,24);
+  document.getElementById("Zócalos_p").value = "#"+urlcolors.substring(24,30);
+  document.getElementById("Muebles_bajos").value = "#"+urlcolors.substring(30,36);
+  document.getElementById("Muebles_altos").value = "#"+urlcolors.substring(36,42);
+  document.getElementById("Electrodomesticos").value = "#"+urlcolors.substring(42,48);
+  document.getElementById("Puertas").value = "#"+urlcolors.substring(48,54);
+  document.getElementById("Paredes").value = "#"+urlcolors.substring(54,60);
+
+
+}
+
+
+
+
+image_encimera.addEventListener("load", (e) => {
+  ctx.drawImage(image_encimera, 280, 280, 410, 20);
+  ctx.drawImage(image_encimera, 280, 300, 220, 20);
+  ctx.drawImage(image_encimera, 380, 220, 310, 60);
+});
+
+image_suelo.addEventListener("load", (e) => {
+  ctx.drawImage(image_suelo, 0, 500, 800, 800);
+  ctx.drawImage(image_suelo, 340, 100, 100, 12);
+  ctx.drawImage(image_suelo, 340, 150, 100, 12);
+  ctx.drawImage(image_suelo, 340, 200, 100, 12);
+  ctx.drawImage(image_suelo, 500, 300, 300, 20);
+  ctx.drawImage(image_suelo, 320, 476, 210, 24);
+  ctx.drawImage(image_suelo, 335, 436, 180, 40);
+});
+
+
+// columna
+if (document.getElementById("Columnas").value == "") {
+  document.getElementById("Columnas").value = "#a8aaad";
+}
+
+//armazon
+if (document.getElementById("Armazones").value == "") {
+  document.getElementById("Armazones").value = "#000000";
+}
+
+//zocalos oscuros
+if (document.getElementById("Zócalos_o").value == "") {
+  document.getElementById("Zócalos_o").value = "#262559";
+}
+
+// //zocalos vestibulo
+if (document.getElementById("Zócalos_v").value == "") {
+  document.getElementById("Zócalos_v").value = "#effbfc";
+}
+
+// //zocalos puerta
+if (document.getElementById("Zócalos_p").value == "") {
+  document.getElementById("Zócalos_p").value = "#f7f7f9";
+}
+
+//muebles bajos
+if (document.getElementById("Muebles_bajos").value == "") {
+  document.getElementById("Muebles_bajos").value = "#262559";
+}
+
+//muebles altos
+if (document.getElementById("Muebles_altos").value == "") {
+  document.getElementById("Muebles_altos").value = "#f7f7f9";
+}
+
+//electrodom
+if (document.getElementById("Electrodomesticos").value == "") {
+  document.getElementById("Electrodomesticos").value = "#acb2b4";
+}
+
+// puerta
+if (document.getElementById("Puertas").value == "") {
+  document.getElementById("Puertas").value = "#effbfc";
+}
+
+//paredes
+if (document.getElementById("Paredes").value == "") {
+  document.getElementById("Paredes").value = "#fbfbfc";
+}
+
+
+change_colors("Paredes");
+change_colors("Zócalos_o");
+change_colors("Zócalos_v");
+change_colors("Zócalos_p");
+change_colors("Muebles_bajos");
+change_colors("Muebles_altos");
+change_colors("Armazones");
+change_colors("Columnas");
+change_colors("Electrodomesticos");
+change_colors("Puertas");
+
+
+function change_colors(elem) {
+  var value = document.getElementById(elem).value;
+
+  if (elem == 'Paredes') {
+    document.body.style.background = value;
+  } else {
+    ctx.fillStyle = value;
+    switch (elem) {
+      case "Zócalos_o":
+        ctx.fillRect(335, 420, 180, 16);
+        ctx.fillRect(280, 476, 40, 24);
+        break;
+      case "Zócalos_v":
+        ctx.fillRect(530, 476, 520, 24);
+        break;
+      case "Zócalos_p":
+        ctx.fillRect(0, 476, 40, 24);
+        ctx.fillRect(180, 476, 40, 24);
+        break;
+      case "Muebles_bajos":
+        ctx.fillRect(280, 320, 55, 156);
+        ctx.fillRect(335, 320, 180, 100);
+        break;
+      case "Muebles_altos":
+        ctx.fillRect(440, 25, 250, 195);
+        ctx.fillRect(690, 25, 250, 50);
+        ctx.fillRect(515, 320, 550, 156);
+        break;
+      case "Armazones":
+        ctx.fillRect(280, 0, 10, 280);
+        break;
+      case "Columnas":
+        ctx.fillRect(220, 0, 60, 500);
+        break;
+      case "Electrodomesticos":
+        ctx.fillRect(690, 75, 250, 225);
+        break;
+      case "Puertas":
+        ctx.fillRect(40, 200, 140, 300);
+        break;
+
+      default:
+        console.log(`Sorry, we are out of ${elem}.`);
+    }
+
+  }
+
+  urlcolors = 
+  document.getElementById("Columnas").value.substring(1)+
+  document.getElementById("Armazones").value.substring(1)+
+  document.getElementById("Zócalos_o").value.substring(1)+
+  document.getElementById("Zócalos_v").value.substring(1)+
+  document.getElementById("Zócalos_p").value.substring(1)+
+  document.getElementById("Muebles_bajos").value.substring(1)+
+  document.getElementById("Muebles_altos").value.substring(1)+
+  document.getElementById("Electrodomesticos").value.substring(1)+
+  document.getElementById("Puertas").value.substring(1)+
+  document.getElementById("Paredes").value.substring(1);
+
+  urlParams.set('colors', urlcolors);
+  document.getElementById('linktome').setAttribute('href', window.location.pathname.split( '?' )[0]+'?'+urlParams);
+  
+}
+
+</script> 
+
+</body>
+</html>
