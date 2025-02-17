@@ -17,21 +17,23 @@
 
 Paredes: <input type="text" name="Paredes" id="Paredes" oninput="change_colors('Paredes')" value="" required data-jscolor="{}">
 </br>
-Zócalos oscuros: <input type="text" name="Zócalos_o" id="Zócalos_o" oninput="change_colors('Zócalos_o')" value="" required data-jscolor="{}">
+Muebles vestibulo: <input type="text" name="Muebles_v" id="Muebles_v" oninput="change_colors('Muebles_v')" value="" required data-jscolor="{}">
 Zócalos vestibulo: <input type="text" name="Zócalos_v" id="Zócalos_v" oninput="change_colors('Zócalos_v')" value="" required data-jscolor="{}">
-Zócalos puertas: <input type="text" name="Zócalos_p" id="Zócalos_p" oninput="change_colors('Zócalos_p')" value="" required data-jscolor="{}">
 </br>
 Muebles bajos: <input type="text" name="Muebles_bajos" id="Muebles_bajos" oninput="change_colors('Muebles_bajos')" value="" required data-jscolor="{}">
+Zócalos oscuros: <input type="text" name="Zócalos_o" id="Zócalos_o" oninput="change_colors('Zócalos_o')" value="" required data-jscolor="{}">
 </br>
 Muebles altos: <input type="text" name="Muebles_altos" id="Muebles_altos" oninput="change_colors('Muebles_altos')" value="" required data-jscolor="{}">
-</br>
 Armazones: <input type="text" name="Armazones" id="Armazones" oninput="change_colors('Armazones')" value="" required data-jscolor="{}">
 </br>
 Columnas: <input type="text" name="Columnas" id="Columnas" oninput="change_colors('Columnas')" value="" required data-jscolor="{}">
-</br>
 Electrodomesticos: <input type="text" name="Electrodomesticos" id="Electrodomesticos" oninput="change_colors('Electrodomesticos')" value="" required data-jscolor="{}">
 </br>
 Puertas: <input type="text" name="Puertas" id="Puertas" oninput="change_colors('Puertas')" value="" required data-jscolor="{}">
+Zócalos puertas: <input type="text" name="Zócalos_p" id="Zócalos_p" oninput="change_colors('Zócalos_p')" value="" required data-jscolor="{}">
+</br>
+</br>
+</br>
 </br>
 
  <a id=linktome href="#">guardar/compartir enlace a esta selección de colores</a> 
@@ -64,10 +66,35 @@ if (urlParams.has("colors")) {
   document.getElementById("Electrodomesticos").value = "#"+urlcolors.substring(42,48);
   document.getElementById("Puertas").value = "#"+urlcolors.substring(48,54);
   document.getElementById("Paredes").value = "#"+urlcolors.substring(54,60);
+  document.getElementById("Muebles_v").value = "#"+urlcolors.substring(60,66);
 
 
 }
 
+ctx.strokeStyle = "#000000";
+
+ctx.beginPath();
+ctx.rect(40, 200, 140, 300);
+// ctx.stroke();
+
+// ctx.beginPath();
+ctx.moveTo(0, 476);
+ctx.lineTo(40, 476);
+
+ctx.moveTo(180, 476);
+ctx.lineTo(220, 476);
+
+// ctx.moveTo(335, 320);
+// ctx.lineTo(335, 476);
+ctx.rect(334, 320, 1, 156);
+
+
+ctx.rect(440, 25, 500, 195);
+
+
+
+
+ctx.stroke();
 
 
 
@@ -106,6 +133,11 @@ if (document.getElementById("Zócalos_o").value == "") {
 // //zocalos vestibulo
 if (document.getElementById("Zócalos_v").value == "") {
   document.getElementById("Zócalos_v").value = "#effbfc";
+}
+
+// Muebles vestibulo
+if (document.getElementById("Muebles_v").value == "") {
+  document.getElementById("Muebles_v").value = "#effbfc";
 }
 
 // //zocalos puerta
@@ -149,6 +181,7 @@ change_colors("Armazones");
 change_colors("Columnas");
 change_colors("Electrodomesticos");
 change_colors("Puertas");
+change_colors("Muebles_v");
 
 
 function change_colors(elem) {
@@ -167,21 +200,23 @@ function change_colors(elem) {
         ctx.fillRect(530, 476, 520, 24);
         break;
       case "Zócalos_p":
-        ctx.fillRect(0, 476, 40, 24);
-        ctx.fillRect(180, 476, 40, 24);
+        ctx.fillRect(0, 477, 40, 23);
+        ctx.fillRect(180, 477, 40, 23);
         break;
       case "Muebles_bajos":
-        ctx.fillRect(280, 320, 55, 156);
+        ctx.fillRect(280, 320, 54, 156);
         ctx.fillRect(335, 320, 180, 100);
         break;
       case "Muebles_altos":
-        ctx.fillRect(440, 25, 250, 195);
-        ctx.fillRect(690, 25, 250, 50);
+        ctx.fillRect(441, 26, 249, 193);
+        ctx.fillRect(690, 26, 250, 49);
+        break;
+      case "Muebles_v":
         ctx.fillRect(515, 320, 550, 156);
         break;
       case "Armazones":
         ctx.fillRect(280, 0, 10, 280);
-        break;
+        break;        
       case "Columnas":
         ctx.fillRect(220, 0, 60, 500);
         break;
@@ -189,7 +224,7 @@ function change_colors(elem) {
         ctx.fillRect(690, 75, 250, 225);
         break;
       case "Puertas":
-        ctx.fillRect(40, 200, 140, 300);
+        ctx.fillRect(41, 201, 138, 298);
         break;
 
       default:
@@ -208,7 +243,8 @@ function change_colors(elem) {
   document.getElementById("Muebles_altos").value.substring(1)+
   document.getElementById("Electrodomesticos").value.substring(1)+
   document.getElementById("Puertas").value.substring(1)+
-  document.getElementById("Paredes").value.substring(1);
+  document.getElementById("Paredes").value.substring(1)+
+  document.getElementById("Muebles_v").value.substring(1);
 
   urlParams.set('colors', urlcolors);
   document.getElementById('linktome').setAttribute('href', window.location.pathname.split( '?' )[0]+'?'+urlParams);
