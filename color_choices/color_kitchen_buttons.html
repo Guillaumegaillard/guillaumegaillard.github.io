@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>colores cocina</title>
+</head>
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.5.2/jscolor.min.js"></script> 
+
+
+<div style="display:none;">
+<img id="Suelo" width="1500" height="1125" src="https://cdn.gerflor.com/media/1642426083/1/19577.jpg">
+
+<!-- <img id="Encimera" width="2200" height="1007" src="https://assetstools.cosentino.com/api/v1/bynder/color/EKC/tablahd/EKC-fullslab.jpg"> -->
+<img id="Encimera" width="2200" height="1007" src="https://arklam.com/wp-content/uploads/2021/07/Syrac-1600x3200x12.jpg">
+
+
+
+</div>
+
+Paredes: 
+<button id="minusR_Paredes">R−</button>
+<button id="minusG_Paredes">G−</button>
+<button id="minusB_Paredes">B−</button>
+<button id="minusW_Paredes">W−</button>
+<input type="text" name="Paredes" id="Paredes" oninput="change_colors('Paredes')" value="" required data-jscolor="{}">
+<button id="plusR_Paredes">R+</button>
+<button id="plusG_Paredes">G+</button>
+<button id="plusB_Paredes">B+</button>
+<button id="plusW_Paredes">W+</button>
+<input type="text" name="step_Paredes" id="step_Paredes" value="4" required>
+</br>
+Muebles vestibulo: 
+<button id="minusR_Muebles_v">R−</button>
+<button id="minusG_Muebles_v">G−</button>
+<button id="minusB_Muebles_v">B−</button>
+<button id="minusW_Muebles_v">W−</button>
+<input type="text" name="Muebles_v" id="Muebles_v" oninput="change_colors('Muebles_v')" value="" required data-jscolor="{}">
+<button id="plusR_Muebles_v">R+</button>
+<button id="plusG_Muebles_v">G+</button>
+<button id="plusB_Muebles_v">B+</button>
+<button id="plusW_Muebles_v">W+</button>
+<input type="text" name="step_Muebles_v" id="step_Muebles_v" value="4" required>
+</br>
+Zócalos vestibulo: 
+<button id="minusR_Zócalos_v">R−</button>
+<button id="minusG_Zócalos_v">G−</button>
+<button id="minusB_Zócalos_v">B−</button>
+<button id="minusW_Zócalos_v">W−</button>
+<input type="text" name="Zócalos_v" id="Zócalos_v" oninput="change_colors('Zócalos_v')" value="" required data-jscolor="{}">
+<button id="plusR_Zócalos_v">R+</button>
+<button id="plusG_Zócalos_v">G+</button>
+<button id="plusB_Zócalos_v">B+</button>
+<button id="plusW_Zócalos_v">W+</button>
+<input type="text" name="step_Zócalos_v" id="step_Zócalos_v" value="4" required>
+</br>
+Muebles bajos: 
+<button id="minusR_Muebles_bajos">R−</button>
+<button id="minusG_Muebles_bajos">G−</button>
+<button id="minusB_Muebles_bajos">B−</button>
+<button id="minusW_Muebles_bajos">W−</button>
+<input type="text" name="Muebles_bajos" id="Muebles_bajos" oninput="change_colors('Muebles_bajos')" value="" required data-jscolor="{}">
+<button id="plusR_Muebles_bajos">R+</button>
+<button id="plusG_Muebles_bajos">G+</button>
+<button id="plusB_Muebles_bajos">B+</button>
+<button id="plusW_Muebles_bajos">W+</button>
+<input type="text" name="step_Muebles_bajos" id="step_Muebles_bajos" value="4" required>
+</br>
+Zócalos oscuros: 
+<button id="minusR_Zócalos_o">R−</button>
+<button id="minusG_Zócalos_o">G−</button>
+<button id="minusB_Zócalos_o">B−</button>
+<button id="minusW_Zócalos_o">W−</button>
+<input type="text" name="Zócalos_o" id="Zócalos_o" oninput="change_colors('Zócalos_o')" value="" required data-jscolor="{}">
+<button id="plusR_Zócalos_o">R+</button>
+<button id="plusG_Zócalos_o">G+</button>
+<button id="plusB_Zócalos_o">B+</button>
+<button id="plusW_Zócalos_o">W+</button>
+<input type="text" name="step_Zócalos_o" id="step_Zócalos_o" value="4" required>
+</br>
+Muebles altos: 
+<button id="minusR_Muebles_altos">R−</button>
+<button id="minusG_Muebles_altos">G−</button>
+<button id="minusB_Muebles_altos">B−</button>
+<button id="minusW_Muebles_altos">W−</button>
+<input type="text" name="Muebles_altos" id="Muebles_altos" oninput="change_colors('Muebles_altos')" value="" required data-jscolor="{}">
+<button id="plusR_Muebles_altos">R+</button>
+<button id="plusG_Muebles_altos">G+</button>
+<button id="plusB_Muebles_altos">B+</button>
+<button id="plusW_Muebles_altos">W+</button>
+<input type="text" name="step_Muebles_altos" id="step_Muebles_altos" value="4" required>
+</br>
+Armazones: 
+<button id="minusR_Armazones">R−</button>
+<button id="minusG_Armazones">G−</button>
+<button id="minusB_Armazones">B−</button>
+<button id="minusW_Armazones">W−</button>
+<input type="text" name="Armazones" id="Armazones" oninput="change_colors('Armazones')" value="" required data-jscolor="{}">
+<button id="plusR_Armazones">R+</button>
+<button id="plusG_Armazones">G+</button>
+<button id="plusB_Armazones">B+</button>
+<button id="plusW_Armazones">W+</button>
+<input type="text" name="step_Armazones" id="step_Armazones" value="4" required>
+</br>
+Columnas: 
+<button id="minusR_Columnas">R−</button>
+<button id="minusG_Columnas">G−</button>
+<button id="minusB_Columnas">B−</button>
+<button id="minusW_Columnas">W−</button>
+<input type="text" name="Columnas" id="Columnas" oninput="change_colors('Columnas')" value="" required data-jscolor="{}">
+<button id="plusR_Columnas">R+</button>
+<button id="plusG_Columnas">G+</button>
+<button id="plusB_Columnas">B+</button>
+<button id="plusW_Columnas">W+</button>
+<input type="text" name="step_Columnas" id="step_Columnas" value="4" required>
+</br>
+Electrodomesticos: 
+<button id="minusR_Electrodomesticos">R−</button>
+<button id="minusG_Electrodomesticos">G−</button>
+<button id="minusB_Electrodomesticos">B−</button>
+<button id="minusW_Electrodomesticos">W−</button>
+<input type="text" name="Electrodomesticos" id="Electrodomesticos" oninput="change_colors('Electrodomesticos')" value="" required data-jscolor="{}">
+<button id="plusR_Electrodomesticos">R+</button>
+<button id="plusG_Electrodomesticos">G+</button>
+<button id="plusB_Electrodomesticos">B+</button>
+<button id="plusW_Electrodomesticos">W+</button>
+<input type="text" name="step_Electrodomesticos" id="step_Electrodomesticos" value="4" required>
+</br>
+Puertas: 
+<button id="minusR_Puertas">R−</button>
+<button id="minusG_Puertas">G−</button>
+<button id="minusB_Puertas">B−</button>
+<button id="minusW_Puertas">W−</button>
+<input type="text" name="Puertas" id="Puertas" oninput="change_colors('Puertas')" value="" required data-jscolor="{}">
+<button id="plusR_Puertas">R+</button>
+<button id="plusG_Puertas">G+</button>
+<button id="plusB_Puertas">B+</button>
+<button id="plusW_Puertas">W+</button>
+<input type="text" name="step_Puertas" id="step_Puertas" value="4" required>
+</br>
+Zócalos puertas: 
+<button id="minusR_Zócalos_p">R−</button>
+<button id="minusG_Zócalos_p">G−</button>
+<button id="minusB_Zócalos_p">B−</button>
+<button id="minusW_Zócalos_p">W−</button>
+<input type="text" name="Zócalos_p" id="Zócalos_p" oninput="change_colors('Zócalos_p')" value="" required data-jscolor="{}">
+<button id="plusR_Zócalos_p">R+</button>
+<button id="plusG_Zócalos_p">G+</button>
+<button id="plusB_Zócalos_p">B+</button>
+<button id="plusW_Zócalos_p">W+</button>
+<input type="text" name="step_Zócalos_p" id="step_Zócalos_p" value="4" required>
+</br>
+</br>
+
+ <a id=linktome href="#">guardar/compartir enlace a esta selección de colores</a> 
+</br>
+ <a id=buttons href="color_kitchen.html">without buttons</a> 
+</br>
+
+<canvas id="myCanvas" width="800" height="800" style="border:1px solid grey"></canvas>
+
+<script>
+const c = document.getElementById("myCanvas");
+const ctx = c.getContext("2d");
+
+const image_encimera = document.getElementById("Encimera");
+const image_suelo = document.getElementById("Suelo");
+
+const urlParams = new URLSearchParams(window.location.search);
+var urlcolors = "";
+
+
+if (urlParams.has("colors")) {
+  urlcolors = urlParams.get("colors");
+
+  document.getElementById("Columnas").value = "#"+urlcolors.substring(0,6);
+  document.getElementById("Armazones").value = "#"+urlcolors.substring(6,12);
+  document.getElementById("Zócalos_o").value = "#"+urlcolors.substring(12,18);
+  document.getElementById("Zócalos_v").value = "#"+urlcolors.substring(18,24);
+  document.getElementById("Zócalos_p").value = "#"+urlcolors.substring(24,30);
+  document.getElementById("Muebles_bajos").value = "#"+urlcolors.substring(30,36);
+  document.getElementById("Muebles_altos").value = "#"+urlcolors.substring(36,42);
+  document.getElementById("Electrodomesticos").value = "#"+urlcolors.substring(42,48);
+  document.getElementById("Puertas").value = "#"+urlcolors.substring(48,54);
+  document.getElementById("Paredes").value = "#"+urlcolors.substring(54,60);
+  document.getElementById("Muebles_v").value = "#"+urlcolors.substring(60,66);
+
+
+}
+
+
+
+ctx.strokeStyle = "#000000";
+
+ctx.beginPath();
+ctx.rect(40, 200, 140, 300);
+// ctx.stroke();
+
+// ctx.beginPath();
+ctx.moveTo(0, 476);
+ctx.lineTo(40, 476);
+
+ctx.moveTo(180, 476);
+ctx.lineTo(220, 476);
+
+// ctx.moveTo(335, 320);
+// ctx.lineTo(335, 476);
+ctx.rect(334, 320, 1, 156);
+
+
+ctx.rect(440, 25, 500, 195);
+
+
+
+
+ctx.stroke();
+
+
+
+image_encimera.addEventListener("load", (e) => {
+  ctx.drawImage(image_encimera, 280, 280, 410, 20);
+  ctx.drawImage(image_encimera, 280, 300, 220, 20);
+  ctx.drawImage(image_encimera, 380, 220, 310, 60);
+});
+
+image_suelo.addEventListener("load", (e) => {
+  ctx.drawImage(image_suelo, 0, 500, 800, 800);
+  ctx.drawImage(image_suelo, 340, 100, 100, 12);
+  ctx.drawImage(image_suelo, 340, 150, 100, 12);
+  ctx.drawImage(image_suelo, 340, 200, 100, 12);
+  ctx.drawImage(image_suelo, 500, 300, 300, 20);
+  ctx.drawImage(image_suelo, 320, 476, 210, 24);
+  ctx.drawImage(image_suelo, 335, 436, 180, 40);
+});
+
+
+// columna
+if (document.getElementById("Columnas").value == "") {
+  document.getElementById("Columnas").value = "#a8aaad";
+}
+
+//armazon
+if (document.getElementById("Armazones").value == "") {
+  document.getElementById("Armazones").value = "#000000";
+}
+
+//zocalos oscuros
+if (document.getElementById("Zócalos_o").value == "") {
+  document.getElementById("Zócalos_o").value = "#262559";
+}
+
+// //zocalos vestibulo
+if (document.getElementById("Zócalos_v").value == "") {
+  document.getElementById("Zócalos_v").value = "#effbfc";
+}
+
+// Muebles vestibulo
+if (document.getElementById("Muebles_v").value == "") {
+  document.getElementById("Muebles_v").value = "#effbfc";
+}
+
+// //zocalos puerta
+if (document.getElementById("Zócalos_p").value == "") {
+  document.getElementById("Zócalos_p").value = "#f7f7f9";
+}
+
+//muebles bajos
+if (document.getElementById("Muebles_bajos").value == "") {
+  document.getElementById("Muebles_bajos").value = "#262559";
+}
+
+//muebles altos
+if (document.getElementById("Muebles_altos").value == "") {
+  document.getElementById("Muebles_altos").value = "#f7f7f9";
+}
+
+//electrodom
+if (document.getElementById("Electrodomesticos").value == "") {
+  document.getElementById("Electrodomesticos").value = "#acb2b4";
+}
+
+// puerta
+if (document.getElementById("Puertas").value == "") {
+  document.getElementById("Puertas").value = "#effbfc";
+}
+
+//paredes
+if (document.getElementById("Paredes").value == "") {
+  document.getElementById("Paredes").value = "#fbfbfc";
+}
+
+
+change_colors("Paredes");
+change_colors("Zócalos_o");
+change_colors("Zócalos_v");
+change_colors("Zócalos_p");
+change_colors("Muebles_bajos");
+change_colors("Muebles_altos");
+change_colors("Armazones");
+change_colors("Columnas");
+change_colors("Electrodomesticos");
+change_colors("Puertas");
+change_colors("Muebles_v");
+
+
+
+function change_colors(elem) {
+  var value = document.getElementById(elem).value;
+
+  if (elem == 'Paredes') {
+    document.body.style.background = value;
+  } else {
+    ctx.fillStyle = value;
+    switch (elem) {
+      case "Zócalos_o":
+        ctx.fillRect(335, 420, 180, 16);
+        ctx.fillRect(280, 476, 40, 24);
+        break;
+      case "Zócalos_v":
+        ctx.fillRect(530, 476, 520, 24);
+        break;
+      case "Zócalos_p":
+        ctx.fillRect(0, 477, 40, 23);
+        ctx.fillRect(180, 477, 40, 23);
+        break;
+      case "Muebles_bajos":
+        ctx.fillRect(280, 320, 54, 156);
+        ctx.fillRect(335, 320, 180, 100);
+        break;
+      case "Muebles_altos":
+        ctx.fillRect(441, 26, 249, 193);
+        ctx.fillRect(690, 26, 250, 49);
+        break;
+      case "Muebles_v":
+        ctx.fillRect(515, 320, 550, 156);
+        break;
+      case "Armazones":
+        ctx.fillRect(280, 0, 10, 280);
+        break;        
+      case "Columnas":
+        ctx.fillRect(220, 0, 60, 500);
+        break;
+      case "Electrodomesticos":
+        ctx.fillRect(690, 75, 250, 225);
+        break;
+      case "Puertas":
+        ctx.fillRect(41, 201, 138, 298);
+        break;
+
+      default:
+        console.log(`Sorry, we are out of ${elem}.`);
+    }
+
+  }
+
+  update_url();
+}
+
+function update_url() {
+  urlcolors = 
+  document.getElementById("Columnas").value.substring(1)+
+  document.getElementById("Armazones").value.substring(1)+
+  document.getElementById("Zócalos_o").value.substring(1)+
+  document.getElementById("Zócalos_v").value.substring(1)+
+  document.getElementById("Zócalos_p").value.substring(1)+
+  document.getElementById("Muebles_bajos").value.substring(1)+
+  document.getElementById("Muebles_altos").value.substring(1)+
+  document.getElementById("Electrodomesticos").value.substring(1)+
+  document.getElementById("Puertas").value.substring(1)+
+  document.getElementById("Paredes").value.substring(1)+
+  document.getElementById("Muebles_v").value.substring(1);
+
+  urlParams.set('colors', urlcolors);
+  document.getElementById('linktome').setAttribute('href', window.location.pathname.split( '?' )[0]+'?'+urlParams);
+
+}
+
+
+for (const element of ["Columnas", "Armazones", "Zócalos_o", "Zócalos_v", "Zócalos_p", "Muebles_bajos", "Muebles_altos", "Electrodomesticos", "Puertas", "Paredes", "Muebles_v"]) {
+  // console.log(element);
+  //minusR
+  const minusRButton = document.getElementById('minusR_'+element);
+
+  minusRButton.addEventListener('click', event => {
+    event.preventDefault();
+    var currentValue = parseInt(document.getElementById(element).value.substring(1,3), 16);
+    var GBValue = document.getElementById(element).value.substring(3);
+    var step_value = parseInt(document.getElementById("step_"+element).value);
+    currentValue = Math.max(currentValue-step_value,0);
+    document.getElementById(element).value = '#'+('00000'+(currentValue).toString(16)).slice(-2)+GBValue;
+    change_colors(element);
+    // jscolor.install(element);
+    document.getElementById(element).jscolor.fromString(document.getElementById(element).value);
+    // update_url();
+  });
+
+  //minusG
+  const minusGButton = document.getElementById('minusG_'+element);
+
+  minusGButton.addEventListener('click', event => {
+    event.preventDefault();
+    var currentValue = parseInt(document.getElementById(element).value.substring(3,5), 16);
+    var RValue = document.getElementById(element).value.substring(1,3);
+    var BValue = document.getElementById(element).value.substring(5,7);
+    var step_value = parseInt(document.getElementById("step_"+element).value);
+    currentValue = Math.max(currentValue-step_value,0);
+    document.getElementById(element).value = '#'+RValue+('00000'+(currentValue).toString(16)).slice(-2)+BValue;
+    change_colors(element);
+    // jscolor.install(element);
+    document.getElementById(element).jscolor.fromString(document.getElementById(element).value);
+    // update_url();
+  });
+
+  //minusB
+  const minusBButton = document.getElementById('minusB_'+element);
+
+  minusBButton.addEventListener('click', event => {
+    event.preventDefault();
+    var currentValue = parseInt(document.getElementById(element).value.substring(5), 16);
+    var RGValue = document.getElementById(element).value.substring(1,5);
+    var step_value = parseInt(document.getElementById("step_"+element).value);
+    currentValue = Math.max(currentValue-step_value,0);
+    document.getElementById(element).value = '#'+RGValue+('00000'+(currentValue).toString(16)).slice(-2);
+    change_colors(element);
+    // jscolor.install(element);
+    document.getElementById(element).jscolor.fromString(document.getElementById(element).value);
+    // update_url();
+  });
+
+  //minusW
+  const minusWButton = document.getElementById('minusW_'+element);
+
+  minusWButton.addEventListener('click', event => {
+    event.preventDefault();
+    var RValue = parseInt(document.getElementById(element).value.substring(1,3), 16);
+    var GValue = parseInt(document.getElementById(element).value.substring(3,5), 16);
+    var BValue = parseInt(document.getElementById(element).value.substring(5), 16);
+    var step_value = parseInt(document.getElementById("step_"+element).value);
+
+    // var numer = Math.max(256-step_value,0);
+
+    // RValue = Math.round(RValue*numer/256);
+    // GValue = Math.round(GValue*numer/256);
+    // BValue = Math.round(BValue*numer/256);
+
+    var minva = 0;
+    if (RValue==0) {
+      if (GValue==0) {
+        minva = BValue;
+      } 
+      else {
+        if (BValue==0) {
+        } 
+        else {
+
+        }
+
+        minva = Math.min(BValue,GValue);
+      }
+
+    } else {}
+
+    Math.min(Math.min(RValue,GValue),BValue);
+
+    RValue = Math.round(RValue*numer/256);
+    GValue = Math.round(GValue*numer/256);
+    BValue = Math.round(BValue*numer/256);
+
+    document.getElementById(element).value = '#'+('00000'+(RValue).toString(16)).slice(-2)+('00000'+(GValue).toString(16)).slice(-2)+('00000'+(BValue).toString(16)).slice(-2);
+    change_colors(element);
+    // jscolor.install(element);
+    document.getElementById(element).jscolor.fromString(document.getElementById(element).value);
+    // update_url();
+  });
+
+  //plusR
+  const plusRButton = document.getElementById('plusR_'+element);
+
+  plusRButton.addEventListener('click', event => {
+    event.preventDefault();
+    var currentValue = parseInt(document.getElementById(element).value.substring(1,3), 16);
+    var GBValue = document.getElementById(element).value.substring(3);
+    var step_value = parseInt(document.getElementById("step_"+element).value);
+    currentValue = Math.min(currentValue+step_value,255);
+    document.getElementById(element).value = '#'+('00000'+(currentValue).toString(16)).slice(-2)+GBValue;
+    change_colors(element);
+    // jscolor.install(element);
+    document.getElementById(element).jscolor.fromString(document.getElementById(element).value);
+    // update_url();
+  });
+
+  //plusG
+  const plusGButton = document.getElementById('plusG_'+element);
+
+  plusGButton.addEventListener('click', event => {
+    event.preventDefault();
+    var currentValue = parseInt(document.getElementById(element).value.substring(3,5), 16);
+    var RValue = document.getElementById(element).value.substring(1,3);
+    var BValue = document.getElementById(element).value.substring(5,7);
+    var step_value = parseInt(document.getElementById("step_"+element).value);
+    currentValue = Math.min(currentValue+step_value,255);
+    document.getElementById(element).value = '#'+RValue+('00000'+(currentValue).toString(16)).slice(-2)+BValue;
+    change_colors(element);
+    // jscolor.install(element);
+    document.getElementById(element).jscolor.fromString(document.getElementById(element).value);
+    // update_url();
+  });
+
+  //plusB
+  const plusBButton = document.getElementById('plusB_'+element);
+
+  plusBButton.addEventListener('click', event => {
+    event.preventDefault();
+    var currentValue = parseInt(document.getElementById(element).value.substring(5), 16);
+    var RGValue = document.getElementById(element).value.substring(1,5);
+    var step_value = parseInt(document.getElementById("step_"+element).value);
+    currentValue = Math.min(currentValue+step_value,255);
+    document.getElementById(element).value = '#'+RGValue+('00000'+(currentValue).toString(16)).slice(-2);
+    change_colors(element);
+    // jscolor.install(element);
+    document.getElementById(element).jscolor.fromString(document.getElementById(element).value);
+    // update_url();
+  });
+
+  //plusW
+  const plusWButton = document.getElementById('plusW_'+element);
+
+  plusWButton.addEventListener('click', event => {
+    event.preventDefault();
+    var RValue = parseInt(document.getElementById(element).value.substring(1,3), 16);
+    var GValue = parseInt(document.getElementById(element).value.substring(3,5), 16);
+    var BValue = parseInt(document.getElementById(element).value.substring(5), 16);
+    var step_value = parseInt(document.getElementById("step_"+element).value);
+
+    var numer = Math.max(256-step_value,0);
+
+    // RValue = Math.min(255,Math.round(RValue*256/numer));
+    // GValue = Math.min(255,Math.round(GValue*256/numer));
+    // BValue = Math.min(255,Math.round(BValue*256/numer));
+    
+    RValue = Math.min(255,Math.round(256-(256-RValue)*numer/256));
+    GValue = Math.min(255,Math.round(256-(256-GValue)*numer/256));
+    BValue = Math.min(255,Math.round(256-(256-BValue)*numer/256));
+
+
+    document.getElementById(element).value = '#'+('00000'+(RValue).toString(16)).slice(-2)+('00000'+(GValue).toString(16)).slice(-2)+('00000'+(BValue).toString(16)).slice(-2);
+    change_colors(element);
+    // jscolor.install(element);
+    document.getElementById(element).jscolor.fromString(document.getElementById(element).value);
+    // update_url();
+  });
+
+
+
+
+
+}
+
+/*const minusButton = document.getElementById('minusR_Paredes');
+
+minusButton.addEventListener('click', event => {
+  event.preventDefault();
+  var currentValue = parseInt(document.getElementById("Paredes").value.substring(1,3), 16);
+  var GBValue = document.getElementById("Paredes").value.substring(3);
+  var step_value = parseInt(document.getElementById("step_Paredes").value);
+  console.log(currentValue);
+  // currentValue = Math.max(Math.round(currentValue*250/256-10),0);
+  currentValue = Math.max(currentValue-step_value,0);
+  // if (currentValue<0) {return;};
+  console.log(currentValue);
+  document.getElementById("Paredes").value = '#'+('00000'+(currentValue).toString(16)).slice(-2)+GBValue;
+  change_colors("Paredes");
+  // update_url();
+});
+*/
+</script> 
+
+</body>
+</html>
